@@ -1,0 +1,42 @@
+{
+	leak readline
+	Memcheck:Leak
+	...
+	fun:readline
+}
+{
+	leak add_history
+	Memcheck:Leak
+	...
+	fun:add_history
+}
+{
+	leak fork
+	Memcheck:Leak
+	...
+	fun:fork
+}
+{
+	leak xpc_atfork_child
+	Memcheck:Leak
+	...
+	fun:xpc_atfork_child
+}
+{
+	leak libSystem_atfork_child
+	Memcheck:Leak
+	...
+	fun:libSystem_atfork_child
+}
+{
+	leak start
+	Memcheck:Leak
+	...
+	fun:start
+}
+{
+	leak NXMapRemove
+	Memcheck:Leak
+	...
+	fun:NXMapRemove
+}
