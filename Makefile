@@ -25,7 +25,13 @@ WHITE	= \033[0;97m
 # Special variables
 DEFAULT_GOAL: all
 .DELETE_ON_ERROR: $(NAME)
-.PHONY: all ldirs bonus clean fclean clear fclear re run rerun leaks releaks brew cmake
+.PHONY: all ldirs \
+		deps bonus \
+		clean fclean \
+		clear fclear \
+		re run rerun \
+		leaks releaks \
+		brew cmake \
 
 #------------------------------------------------------------------------------#
 #                                    FLAGS                                     #
@@ -37,7 +43,8 @@ CFLAGS	=	-Wall -Werror -Wextra $(XFLAGS)
 HIDE	=	@
 
 # Extra flags
-# Use "export XFLAGS=..." to add extra compilation flags,
+# Use "export XFLAGS= {flags} " to add extra compilation flags
+# Potential flags to use :
 # -g					for debug mode
 # -fsanitize=thread		to see race conditions
 
@@ -48,7 +55,8 @@ HIDE	=	@
 # Compiler, flags and shortcuts
 CC		=	gcc
 RM		=	rm -rf
-MD		=	mkdir -p
+MKD		=	mkdir -p
+CPY		=	cp -f
 INCLUDE =	-I include
 
 # Executable name
@@ -58,24 +66,25 @@ NAME	=	cub3D
 SRCDIR	=	src/
 OBJDIR	=	bin/
 TSTDIR	=	tests/
-SUBMDS	=	glfw/ \
-			MLX42/ \
+SUBMDS	=	MLX42/ \
+			Libft42/ \
 
 # Source file names (prefix their subdir if needed)
 
 FILES	=	main \
 
-
 # Libraries (.a files) to include for compilation
-LIBFT	=
-LIBRL	=	MLX42/build/libmlx42.a -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+LIBX	=	-lglfw -L "/Users/$$USER/.brew/opt/glfw/lib/"
+LIBS	=	./Libft42/libft.a \
+			./MLX42/build/libmlx42.a \
 
-
+# Creates file paths
 SRCS	=	$(addprefix $(SRCDIR), $(addsuffix .c, $(FILES)))
 OBJS	=	$(addprefix $(OBJDIR), $(addsuffix .o, $(FILES)))
 
 # Default command to call when using make run or make leaks
 CMD		=	./cub3D ./maps/test_map_1.cub
+
 #------------------------------------------------------------------------------#
 #                                   TARGETS                                    #
 #------------------------------------------------------------------------------#
@@ -84,16 +93,20 @@ all: mkdirs $(NAME)
 
 # Creates the object directory (add subdirs manually?)
 mkdirs:
-	$(HIDE) $(MD) $(OBJDIR)
+	$(HIDE) $(MKD) $(OBJDIR)
 
 # Compiles files into executable
-$(NAME): $(OBJS) cmake glfw
+$(NAME): deps $(OBJS)
+	$(HIDE) $(CC) $(MODE) $(CFLAGS) $(INCLUDE) $(LIBS) $(LIBX)
+	@echo "$(GREEN)Files compiled with flags : $(CFLAGS)$(DEF_COLOR)"
+
+deps: cmake glfw
 	$(HIDE) git submodule init --quiet
 	$(HIDE) git submodule update --quiet
 	$(HIDE) cd MLX42 && cmake -B build && cmake --build build -j4
+	$(HIDE) cd Libft42 && make
 	@echo "$(BLUE)Submodules set up$(DEF_COLOR)"
-	$(HIDE) $(CC) $(MODE) $(CFLAGS) $(INCLUDE) $(LIBFT) -o $@ $^ $(LIBRL)
-	@echo "$(GREEN)Files compiled with flags : $(CFLAGS)$(DEF_COLOR)"
+
 
 $(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.c
 	@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
@@ -105,6 +118,7 @@ clear: clean
 clean:
 	$(HIDE) $(RM) $(OBJS)
 	$(HIDE) $(RM) $(NAME).dSYM
+	$(HIDE) cd Libft42 && make clean
 	@echo "$(MAGENTA)Object files cleaned$(DEF_COLOR)"
 
 # Removes object dir and executable
@@ -112,11 +126,14 @@ fclear: fclean
 fclean: clean
 	$(HIDE) $(RM) $(OBJDIR)
 	@echo "$(MAGENTA)Object directory cleaned$(DEF_COLOR)"
-	$(HIDE) git submodule deinit --quiet --all -f
-	$(HIDE) $(RM) $(SUBMDS)
-	@echo "$(RED)Submodules cleaned$(DEF_COLOR)"
 	$(HIDE) $(RM) $(NAME)
+	$(HIDE) cd Libft42 && make fclean
 	@echo "$(RED)Executable cleaned$(DEF_COLOR)"
+
+xclear: xclean
+xclean: fclean
+	$(HIDE) git submodule deinit --quiet --all -f
+	@echo "$(RED)Submodules cleaned$(DEF_COLOR)"
 
 # Removes object dir and executable and remakes everything
 re: fclean all
@@ -132,9 +149,6 @@ releaks: re leaks
 leaks: all
 	@echo "$(RED)Checking leaks...$(DEF_COLOR)"
 	$(HIDE) valgrind --show-leak-kinds=all --trace-children=yes --leak-check=full --track-fds=yes --suppressions=include/supp $(CMD)
-
-libft:
-	$(HIDE) cd libft && make
 
 # Installs/Updates homebrew (called manually cause slow af)
 brew:
