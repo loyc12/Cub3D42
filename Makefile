@@ -2,21 +2,30 @@
 #                                   COLOURS                                    #
 #------------------------------------------------------------------------------#
 
-DEF_COLOR = \033[0;39m
-NC		= \e[0;39m
-MAGENTA	= \033[0;95m
-LMAGENTA = \e[95m
-RED		= \033[0;91m
-LRED	= \e[91m
-YELLOW	= \033[0;93m
-LYELLOW	= \e[93
-GREEN	= \033[0;92m
-LGREEN	= \e[92m
-CYAN	= \033[0;96m
-LCYAN	= \e[96m
-BLUE	= \033[0;94m
-GRAY	= \033[0;90m
-WHITE	= \033[0;97m
+DEF_COLOR	=\033[0;39m
+NC			=\033[0;39m
+MAGENTA		=\033[1;95m
+LMAGENTA	=\033[1;95m
+RED			=\033[1;91m
+LRED		=\033[1;91m
+YELLOW		=\033[1;93m
+LYELLOW		=\033[1;93m
+GREEN		=\033[1;92m
+LGREEN		=\033[1;92m
+CYAN		=\033[1;96m
+LCYAN		=\033[1;96m
+BLUE		=\033[1;94m
+GRAY		=\033[1;90m
+WHITE		=\033[1;97m
+
+# RED		: Deletion done (major)
+# MAGENTA	: Deletion done (minor)
+
+# YELLOW	: Task started
+# GREEN		: Task done
+
+# CYAN		: Creation done
+# BLUE		: Installation done
 
 #------------------------------------------------------------------------------#
 #                                   GENERICS                                   #
@@ -27,8 +36,9 @@ DEFAULT_GOAL: all
 .DELETE_ON_ERROR: $(NAME)
 .PHONY: all ldirs \
 		deps bonus \
-		clean fclean \
-		clear fclear \
+		clean clear \
+		fclean fclear \
+		xclean xclear \
 		re run rerun \
 		leaks releaks \
 		brew cmake \
@@ -55,8 +65,8 @@ HIDE	=	@
 # Compiler, flags and shortcuts
 CC		=	gcc
 RM		=	rm -rf
-MKD		=	mkdir -p
 CPY		=	cp -f
+MKDR	=	mkdir -p
 INCLUDE =	-I include
 
 # Executable name
@@ -66,8 +76,8 @@ NAME	=	cub3D
 SRCDIR	=	src/
 OBJDIR	=	bin/
 TSTDIR	=	tests/
-SUBMDS	=	MLX42/ \
-			Libft42/ \
+
+SUBDIRS	=
 
 # Source file names (prefix their subdir if needed)
 
@@ -86,82 +96,132 @@ OBJS	=	$(addprefix $(OBJDIR), $(addsuffix .o, $(FILES)))
 CMD		=	./cub3D ./maps/test_map_1.cub
 
 #------------------------------------------------------------------------------#
-#                                   TARGETS                                    #
+#                                 BASE TARGETS                                 #
 #------------------------------------------------------------------------------#
 
-all: mkdirs $(NAME)
 
-# Creates the object directory (add subdirs manually?)
+all: mkdirs deps $(NAME)
+
+# Creates object directory
 mkdirs:
-	$(HIDE) $(MKD) $(OBJDIR)
+	$(HIDE) $(MKDR) $(OBJDIR)
 
-# Compiles files into executable
-$(NAME): deps $(OBJS)
-	$(HIDE) $(CC) $(MODE) $(CFLAGS) $(INCLUDE) $(LIBS) $(LIBX)
+# Compiles all files into an executable
+$(NAME): $(OBJS)
 	@echo "$(GREEN)Files compiled with flags : $(CFLAGS)$(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
+	$(HIDE) $(CC) $(MODE) $(CFLAGS) -o $@ $^ $(INCLUDE) $(LIBS) $(LIBX)
+	@echo "$(CYAN)Executable created! $(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
 
+# Compiles each source file into a .o file
+$(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.c
+	@echo "$(YELLOW)Compiling file : $< $(DEF_COLOR)"
+	$(HIDE) $(CC) $(MODE) $(CFLAGS) -c $< -o $@ $(INCLUDE)
+
+# Install dependencies via homebrew
 deps: cmake glfw
 	$(HIDE) git submodule init --quiet
 	$(HIDE) git submodule update --quiet
-	$(HIDE) cd MLX42 && cmake -B build && cmake --build build -j4
+	@echo "$(YELLOW)Initializing Libft42 module $(WHITE)"
 	$(HIDE) cd Libft42 && make
-	@echo "$(BLUE)Submodules set up$(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
+	@echo "$(YELLOW)Initializing MLX42 module $(WHITE)"
+	$(HIDE) cd MLX42 && cmake -B build && cmake --build build -j4
+	@echo "$(DEF_COLOR)"
+	@echo "$(GREEN)Submodules initiated $(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
 
-
-$(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.c
-	@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
-	$(HIDE) $(CC) $(MODE) $(CFLAGS) -c $< -o $@ $(INCLUDE)
-
+#------------------------------------------------------------------------------#
+#                               CLEANING TARGETS                               #
+#------------------------------------------------------------------------------#
 
 # Removes objects
 clear: clean
 clean:
 	$(HIDE) $(RM) $(OBJS)
 	$(HIDE) $(RM) $(NAME).dSYM
-	$(HIDE) cd Libft42 && make clean
-	@echo "$(MAGENTA)Object files cleaned$(DEF_COLOR)"
+	@echo "$(MAGENTA)Object files cleaned $(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
+	$(HIDE) cd Libft42 && make fclean
+	@echo "$(DEF_COLOR)"
 
 # Removes object dir and executable
 fclear: fclean
 fclean: clean
 	$(HIDE) $(RM) $(OBJDIR)
-	@echo "$(MAGENTA)Object directory cleaned$(DEF_COLOR)"
+	@echo "$(MAGENTA)Object directory cleaned $(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
 	$(HIDE) $(RM) $(NAME)
-	$(HIDE) cd Libft42 && make fclean
-	@echo "$(RED)Executable cleaned$(DEF_COLOR)"
+	@echo "$(RED)Executable cleaned $(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
 
 xclear: xclean
 xclean: fclean
 	$(HIDE) git submodule deinit --quiet --all -f
-	@echo "$(RED)Submodules cleaned$(DEF_COLOR)"
+	@echo "$(RED)Submodules emptied $(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
 
 # Removes object dir and executable and remakes everything
 re: fclean all
-	@echo "$(CYAN)Cleaned and rebuilt everything!$(DEF_COLOR)"
+	@echo "$(CYAN)Rebuilt everything! $(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
+
+#------------------------------------------------------------------------------#
+#                               SHORTCUT TARGETS                               #
+#------------------------------------------------------------------------------#
 
 # Runs the program
 rerun: re run
 run: all
+	@echo "$(YELLOW)Launching command : $(CMD) $(DEF_COLOR)"
+	@echo "$(WHITE)"
 	$(HIDE) $(CMD)
+	@echo "$(DEF_COLOR)"
+	@echo "$(GREEN)Exited normally! $(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
 
 # Runs the program with valgrind
 releaks: re leaks
 leaks: all
-	@echo "$(RED)Checking leaks...$(DEF_COLOR)"
+	@echo "$(YELLOW)Launching command with leaks check : $(CMD) $(DEF_COLOR)"
+	@echo "$(WHITE)"
 	$(HIDE) valgrind --show-leak-kinds=all --trace-children=yes --leak-check=full --track-fds=yes --suppressions=include/supp $(CMD)
+	@echo "$(DEF_COLOR)"
+	@echo "$(GREEN)Exited normally! $(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
+
+# Runs the norminette
+norm:
+	@echo "$(DEF_COLOR)"
+	@echo "$(YELLOW)Norminetting .c files $(RED)"
+	@norminette $(SRCS) | grep Error:
+	@echo "$(YELLOW)Norminetting .h files $(RED)"
+	@norminette include | grep Error:
+	@echo "$(DEF_COLOR)"
+
+#------------------------------------------------------------------------------#
+#                                 BREW TARGETS                                 #
+#------------------------------------------------------------------------------#
 
 # Installs/Updates homebrew (called manually cause slow af)
 brew:
 	$(HIDE) bash include/brew_install.sh
-	@echo "$(BLUE)Brew set up$(DEF_COLOR)"
+	@echo "$(BLUE)Brew installed $(DEF_COLOR)"
 	@echo "$(RED)CLOSE AND REOPEN TERMINAL IF IT DOESN'T WORK$(DEF_COLOR)"
+	@echo "$(GREEN)Exited normally! $(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
 
-# Installs/Updates cmake (called manually cause slow af)
+# Installs/Updates cmake
 cmake:
+	@echo "$(YELLOW)Installing Cmake $(DEF_COLOR)"
 	$(HIDE) brew install cmake
-	@echo "$(BLUE)Cmake set up$(DEF_COLOR)"
+	@echo "$(BLUE)Cmake Installed $(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
 
-# Installs/Updates cmake (called manually cause slow af)
+# Installs/Updates cmake
 glfw:
+	@echo "$(YELLOW)Installing GFLW $(DEF_COLOR)"
 	$(HIDE) brew install glfw
-	@echo "$(BLUE)GLFW set up$(DEF_COLOR)"
+	@echo "$(BLUE)GLFW Installed $(DEF_COLOR)"
+	@echo "$(DEF_COLOR)"
