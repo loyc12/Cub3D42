@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/03/27 15:39:14 by llord            ###   ########.fr       */
+/*   Updated: 2023/03/28 09:32:46 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ int	main(int ac, char **av)
 {
 	(void)ac;
 	(void)av;
+	printf("\n   Hello wooooorld!\n");
+	printf("   Program to work and not to feeeEEEeeel\n");
+	printf("   Don't even know if this is reeeEEEaaal\n");
+	printf("   Hello wooooorld...\n\n");
 /*
 	int		exit_status;
 	t_meta	*m;

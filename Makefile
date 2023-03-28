@@ -25,7 +25,7 @@ WHITE	= \033[0;97m
 # Special variables
 DEFAULT_GOAL: all
 .DELETE_ON_ERROR: $(NAME)
-.PHONY: all ldirs bonus clean fclean clear fclear re run rerun leaks releaks display
+.PHONY: all ldirs bonus clean fclean clear fclear re run rerun leaks releaks brew cmake
 
 #------------------------------------------------------------------------------#
 #                                    FLAGS                                     #
@@ -33,7 +33,7 @@ DEFAULT_GOAL: all
 
 CFLAGS	=	-Wall -Werror -Wextra $(XFLAGS)
 
-# Set to @ to disable enable echoing cmd calls:
+# Comment the line bellow to have verbose cmds:
 HIDE	=	@
 
 # Extra flags
@@ -45,24 +45,31 @@ HIDE	=	@
 #                                  VARIABLES                                   #
 #------------------------------------------------------------------------------#
 
-# Compiler and flags
+# Compiler, flags and shortcuts
 CC		=	gcc
 RM		=	rm -rf
 MD		=	mkdir -p
 INCLUDE =	-I include
 
-# Program and directory names
-NAME	=	philo
+# Executable name
+NAME	=	cub3D
+
+# Directory names
 SRCDIR	=	src/
 OBJDIR	=	bin/
 TSTDIR	=	tests/
+SUBMDS	=	glfw/ \
+			MLX42/ \
 
-# File names (including their subdirectory if needed)
+# Source file names (prefix their subdir if needed)
+
 FILES	=	main \
+
 
 # Libraries (.a files) to include for compilation
 LIBFT	=
-LIBRL	=
+LIBRL	=	MLX42/build/libmlx42.a -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+
 
 SRCS	=	$(addprefix $(SRCDIR), $(addsuffix .c, $(FILES)))
 OBJS	=	$(addprefix $(OBJDIR), $(addsuffix .o, $(FILES)))
@@ -73,21 +80,25 @@ CMD		=	./cub3D ./maps/test_map_1.cub
 #                                   TARGETS                                    #
 #------------------------------------------------------------------------------#
 
-all: ldirs $(NAME)
+all: mkdirs $(NAME)
 
-# Creates the object directories and subdirectories
-ldirs:
+# Creates the object directory (add subdirs manually?)
+mkdirs:
 	$(HIDE) $(MD) $(OBJDIR)
 
 # Compiles files into executable
-$(NAME): $(OBJS)
-	$(HIDE) $(START)
+$(NAME): $(OBJS) cmake glfw
+	$(HIDE) git submodule init --quiet
+	$(HIDE) git submodule update --quiet
+	$(HIDE) cd MLX42 && cmake -B build && cmake --build build -j4
+	@echo "$(BLUE)Submodules set up$(DEF_COLOR)"
 	$(HIDE) $(CC) $(MODE) $(CFLAGS) $(INCLUDE) $(LIBFT) -o $@ $^ $(LIBRL)
 	@echo "$(GREEN)Files compiled with flags : $(CFLAGS)$(DEF_COLOR)"
 
 $(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.c
 	@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
 	$(HIDE) $(CC) $(MODE) $(CFLAGS) -c $< -o $@ $(INCLUDE)
+
 
 # Removes objects
 clear: clean
@@ -101,6 +112,9 @@ fclear: fclean
 fclean: clean
 	$(HIDE) $(RM) $(OBJDIR)
 	@echo "$(MAGENTA)Object directory cleaned$(DEF_COLOR)"
+	$(HIDE) git submodule deinit --quiet --all -f
+	$(HIDE) $(RM) $(SUBMDS)
+	@echo "$(RED)Submodules cleaned$(DEF_COLOR)"
 	$(HIDE) $(RM) $(NAME)
 	@echo "$(RED)Executable cleaned$(DEF_COLOR)"
 
@@ -119,6 +133,21 @@ leaks: all
 	@echo "$(RED)Checking leaks...$(DEF_COLOR)"
 	$(HIDE) valgrind --show-leak-kinds=all --trace-children=yes --leak-check=full --track-fds=yes --suppressions=include/supp $(CMD)
 
-# Display start screen
-display:
-	$(HIDE) $(START)
+libft:
+	$(HIDE) cd libft && make
+
+# Installs/Updates homebrew (called manually cause slow af)
+brew:
+	$(HIDE) bash include/brew_install.sh
+	@echo "$(BLUE)Brew set up$(DEF_COLOR)"
+	@echo "$(RED)CLOSE AND REOPEN TERMINAL IF IT DOESN'T WORK$(DEF_COLOR)"
+
+# Installs/Updates cmake (called manually cause slow af)
+cmake:
+	$(HIDE) brew install cmake
+	@echo "$(BLUE)Cmake set up$(DEF_COLOR)"
+
+# Installs/Updates cmake (called manually cause slow af)
+glfw:
+	$(HIDE) brew install glfw
+	@echo "$(BLUE)GLFW set up$(DEF_COLOR)"
