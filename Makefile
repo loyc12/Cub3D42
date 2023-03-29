@@ -48,6 +48,7 @@ DEFAULT_GOAL: all
 		xclean xclear \
 		re run rerun \
 		leaks releaks \
+		norm libft \
 		brew cmake glfw \
 
 #------------------------------------------------------------------------------#
@@ -151,15 +152,15 @@ clean:
 	$(HIDE) $(RM) $(OBJS)
 	$(HIDE) $(RM) $(NAME).dSYM
 	@echo "$(MAGENTA)Object files cleaned $(DEFCOL)"
-	@echo "$(DEFCOL)"
 	$(HIDE) cd Libft42 && make clean
+	@echo "$(MAGENTA)Libft Object files cleaned $(DEFCOL)"
 	@echo "$(DEFCOL)"
 
 # Removes object dir and executable
 fclear: fclean
 fclean: clean
 	$(HIDE) $(RM) $(OBJDIR)
-	@echo "$(MAGENTA)Object directory cleaned $(DEFCOL)"
+	@echo "$(MAGENTA)Object directory deleted $(DEFCOL)"
 	@echo "$(DEFCOL)"
 	$(HIDE) $(RM) $(NAME)
 	@echo "$(RED)Executable cleaned $(DEFCOL)"
@@ -209,6 +210,12 @@ norm:
 	@echo "$(DEFCOL)"
 	@echo "$(YELLOW)Norminetting .h files $(RED)"
 	@norminette include | grep Error || true
+	@echo "$(DEFCOL)"
+
+libft:
+	@echo "$(YELLOW)Updating libft to latest commit $(WHITE)"
+	$(HIDE) cd Libft42 && git pull origin main
+	@echo "$(GREEN)Libft updated! $(DEFCOL)"
 	@echo "$(DEFCOL)"
 
 #------------------------------------------------------------------------------#
