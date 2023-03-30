@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/03/30 10:24:15 by llord            ###   ########.fr       */
+/*   Updated: 2023/03/30 11:41:59 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 
 // ======== LIBRARIES ======== //
 
-# include "../MLX42/include/MLX42/MLX42.h"
-# include "../Libft42/libft.h"
+# include "./MLX42/include/MLX42/MLX42.h"
+# include "./Libft42/libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
+//# include <stdio.h>	redundant
+//# include <stdlib.h>	redundant
 # include <unistd.h>
+# include <fcntl.h>
+# include <time.h>
 
 // ======== DEFINITIONS ======== //
 
@@ -198,6 +200,15 @@ typedef struct s_data
 // ======== FUNCTIONS ======== //
 
 //from main
+
+//from getters
+t_data	*get_data(void);
+int		get_lvl(char *path);
+
+
+
+
+
 
 //does_overlap_tile(entity, tile) //		checks for collision with walls
 //does_overlap_entity(entity, entity)		only if implementing enemies/objects(?)

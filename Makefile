@@ -41,7 +41,8 @@ WHITE		=\033[1;97m
 # Special variables
 DEFAULT_GOAL: all
 .DELETE_ON_ERROR: $(NAME)
-.PHONY: all quick \
+.PHONY: all
+		long quick \
 		ldirs deps \
 		clean clear \
 		fclean fclear \
@@ -90,11 +91,12 @@ TSTDIR	=	tests/
 # Source file names (prefix their subdir if needed)
 
 FILES	=	main \
+			getters \
 
 # Libraries (.a files) to include for compilation
 LIBX	=	-lglfw -L "/Users/$$USER/.brew/opt/glfw/lib/"
-LIBS	=	./Libft42/libft.a \
-			./MLX42/build/libmlx42.a \
+LIBS	=	./Libft42/libft.a\
+			./MLX42/build/libmlx42.a\
 
 # Creates file paths
 SRCS	=	$(addprefix $(SRCDIR), $(addsuffix .c, $(FILES)))
@@ -107,10 +109,14 @@ CMD		=	./cub3D ./maps/test_map_1.cub
 #                                 BASE TARGETS                                 #
 #------------------------------------------------------------------------------#
 
+# For full install (except brew)
+long: mkdirs cmake glfw deps $(NAME)
 
+# For standard compilation
 all: mkdirs deps $(NAME)
 
-quick: $(NAME)
+# To skip submodule compilation
+quick: mkdirs $(NAME)
 
 # Creates object directory
 mkdirs:
@@ -130,7 +136,7 @@ $(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.c
 	$(HIDE) $(CC) $(MODE) $(CFLAGS) -c $< -o $@ $(INCLUDE)
 
 # Install dependencies via homebrew
-deps: cmake glfw
+deps:
 	$(HIDE) git submodule init --quiet
 	$(HIDE) git submodule update --quiet
 	@echo "$(YELLOW)Initializing Libft42 module $(WHITE)"
