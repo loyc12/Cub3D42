@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/03/30 09:55:43 by llord            ###   ########.fr       */
+/*   Updated: 2023/03/30 10:23:58 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,24 @@ int	main(int ac, char **av)
 	if (ac != 2) //checks for a proper argcount
 		return (throw_error(ERR_ARG_CO));
 
-	d = init_data(); //			fills the t_data struct with default base values
+	d = get_data(); //			fills the t_data struct with default base values
+
 	d->lvl_fd = get_lvl(av); //	checks and opens the .cub file, returning its fd
+
 	init_lvl(); //				checks and gets the level info from the .cub file
+	//	init_asset(texture_path)
+	//	set_colour
+
 	init_map(); //				checks and gets the map info from the .cub file (move into init_lvl (?))
+	//	init_player(tc)
+
 	init_gfx(); //				initializes the mlx and its textures
+	//	init_window
+	//	load_assets
+
+	launch_game(); //			main game loop function
+	//	check_moves
+	//	re_display
 
 	return (free_data());
 }
