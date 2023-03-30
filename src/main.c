@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/03/30 10:23:58 by llord            ###   ########.fr       */
+/*   Updated: 2023/03/30 10:59:11 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	main(int ac, char **av)
 {
 	t_data	*d;
 
-	if (ac != 2) //checks for a proper argcount
-		return (throw_error(ERR_ARG_CO));
+	if (ac != 2) //				checks for a proper argcount
+		return (ft_puterr(ERR_ARG_CO));
 
 	d = get_data(); //			fills the t_data struct with default base values
 
