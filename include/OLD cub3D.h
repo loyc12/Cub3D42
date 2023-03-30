@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/03/30 10:15:45 by llord            ###   ########.fr       */
+/*   Updated: 2023/03/29 14:14:02 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,72 +62,60 @@ typedef enum e_tid
 	TID_DOOR	= 5
 }			t_tid;
 
-//entity type (how should we interact with this entity)
-typedef enum e_etype
-{
-	ETYPE_DEBUG		= 0,
-	ETYPE_PLAYER	= 1,
-	ETYPE_ENEMY		= 2,
-}			t_etype;
-
 //tile type (how should we interact/display this tile)
 typedef enum e_ttype
 {
 	TTYPE_ERROR	= -1,
 	TTYPE_VOID	= 0,
-	TTYPE_ROOM	= 1,
-	TTYPE_WALL	= 2,
+	TTYPE_ROOM1	= 1,
+	TTYPE_WALL1	= 21,
+	TTYPE_DOOR1	= 41
 }			t_ttype;
 
 // ======== CONSTANTS ======== //
 
-//rotation (1 rad ~= 57.3 deg)
-# define PI			(float)3.14159265359
-# define T_SPEED	(float)2.0 //	turning speed (in rad/sec)
+//rotations
+# define C_SCALE	1024 //	number of units in a circle's circumference
+# define T_SPEED	3 //	turning speed (in C_SCALE units)
 
-//translation (1 tile ~= 3m)
-# define W_SPEED	(float)0.4 //	walking speed (in tile/sec)
-# define E_SPEED	(float)0.7 //	enemy speed  (in tile/sec)			(?)
-# define R_SPEED	(float)1.0 //	running speed (in tile/sec)
+//translations
+# define T_SIZE		128 //	tile size (in unit) (tiles ~ 3m x 3m x 3m)
+# define W_SPEED	1 //	walking speed (in T_SIZE / T_RATE units)		1u/t ~= 0.75 m/s (with 128 and 32)
+# define R_SPEED	3 //	running speed (in T_SIZE / T_RATE units)
+# define E_SPEED	2 //	enemy speed  (in T_SIZE / T_RATE units)			(?)
 
-//size
-# define M_SIZE		256 //	maximum map size (in tiles)
-# define A_SIZE		64 //	asset size (in pixels)
-# define P_SIZE		4 //	size of virtual pixels (in real pixels)		(?)
+//times
+# define T_RATE		32 //	simulation speed (in T_RATE / sec)
+# define A_RATE		4 //	animation speed (in frame / T_RATE units)		(?)
+# define E_RATE		4 //	how often enemies re-think (every T_RATE units)	(?)
 
 //other
-# define NO_CLIP	0 //	whether or not to ignore colision checks
+# define M_SIZE		256 //	maximum map size (in tiles)
+# define A_SIZE		64 //	asset size (in pixels)
+# define P_SCALE	4 //	size of virtual pixels (in real pixels)			(?)
 
 // ======== STRUCTS ======== //
 
 typedef struct s_data	t_data;
 typedef struct s_tile	t_tile;
 
-//int coordinates for tiles and screen
+//coordinates for general purposes (bc = (uc + (tc * T_SIZE )), sc = screen coords)
 typedef struct s_coords
 {
 	int		x; //	north-south
 	int		y; //	east-west
-//	int		z; //	height												(?)
+//	int		z; //	height													(?)
+	int		d; //	direction (in)
 
 }			t_coords;
 
-//float coordinates for entities and such
-typedef struct s_vector
-{
-	float	x; //	north-south position
-	float	y; //	east-west position
-	float	d; //	orientation
-
-}			t_vector;
-
-//colour for floor and ceiling
+//coordinates for general purposes (tile_pos, unit_pos, screen_pos)
 typedef struct s_colour
 {
 	int		r; //	red
 	int		g; //	green
 	int		b; //	blue
-//	int		a; //	alpha												(?)
+	int		a; //	alpha									(?)
 
 }			t_colour;
 
@@ -139,6 +127,8 @@ typedef struct s_asset
 
 	//dynamic
 	mlx_image_t	*image; //	current texture
+//	mlx_image_t	*old;	//	next texture 									(?)
+//	int			rf; //		replacement flag (for animations) 				(?)
 
 }			t_asset;
 
@@ -158,37 +148,42 @@ typedef struct s_tile
 	//dynamic
 	int			fff; //		flood fill flag
 
+	//meta
+	int			state; //	if door is openned or smthg
+
 }				t_tile;
 
 //for mobile objects
 typedef struct s_entity
 {
 	//static
-	t_asset		*sprite; //	asset to display 							(?)
-	float		radius; //	colision radius (in tile size)
+	t_asset		*sprite; //	asset to display 								(?)
+	int			radius; //	colision radius (in T_SIZE units)
 
 	//dynamic
-	t_vector	*pv; //		unit coordinates (where inside the tile)
+	t_coords	*uc; //		unit coordinates (where inside the tile)
+	t_coords	*tc; //		tile coordinates
 
 }				t_entity;
 
 //the main global var for the program. holds generic data
 typedef struct s_data
 {
-	//init
-	int			lvl_fd;
-
 	//static
 	mlx_t		*window; //		where we draw stuff
 	t_tile		**tiles; //		the game board itself
 	t_colour	c_ceiling; //	ceiling colour
 	t_colour	c_cloor; //		floor colour
+	int			tick_len; //	1000000 / T_RATE (in u_sec)
 
 	//dynamic
 	t_entity	*player; //		player entity
 
 	//graphics
 	t_asset		**assets; //	array with all the assets
+
+	//cheats
+	bool		noclip; //		walk through walls
 
 	//meta
 	int			state; //		what the sim doin
@@ -199,12 +194,21 @@ typedef struct s_data
 
 //from main
 
+//get_lvl(file) //							extracts the level data (except the map)
+//check_lvl()
+
+//get_map(file) //							extracts the map data
+//check_map()
+
 //does_overlap_tile(entity, tile) //		checks for collision with walls
-//does_overlap_entity(entity, entity)		only if implementing enemies/objects(?)
+//does_overlap_entity(entity, entity)		(?)
 
 //move_entity(entity, direction) //			blocks at wall
 //normalize_coords(entity) //				updates tc and uc when uc is outside of tc
 
-#endif // CUB3D_H
+#endif
 
 // ======== NOTES AND IDEAS ======== //
+/*
+	use floats for entities and coords for the rest (?) (convert from float to unit for visuals???)
+*/

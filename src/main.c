@@ -6,35 +6,58 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/03/28 11:45:24 by llord            ###   ########.fr       */
+/*   Updated: 2023/03/30 09:55:43 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+//this function acts as a pseudo "global" t_data var
+t_data	*get_data(void)
+{
+	static t_data	*d;
+
+	if (!d)
+	{
+		d = ft_calloc(1, sizeof(t_data));
+	}
+
+	return (d);
+}
+
+//tries to free everything and returns t_data state
+int	free_data(void)
+{
+	t_data	*d;
+	int		state;
+
+	d = get_data();
+	state = d->state;
+
+	ft_free_array(ADRS2 d->tiles);
+	ft_free_array(ADRS2 d->assets);
+	ft_free_null(ADRS d->player);
+
+	//d->window; //					DESTROY ME
+
+	ft_free_null(ADRS d);
+
+	return (state);
+}
+
 //entrypoint function
 int	main(int ac, char **av)
 {
-	(void)ac;
-	(void)av;
-	printf("\n   Hello wooooorld!\n");
-	printf("   Program to work and not to feeeEEEeeel\n");
-	printf("   Don't even know if this is reeeEEEaaal\n");
-	printf("   Hello wooooorld...\n\n");
-/*
-	int		exit_status;
-	t_meta	*m;
+	t_data	*d;
 
 	if (ac != 2) //checks for a proper argcount
-		return (throw_error(ERR_A_CNT));
+		return (throw_error(ERR_ARG_CO));
 
-	m = calloc(1, sizeof(t_meta)); //CHAGNE TO FT_CALLOC !!!!!!
-	if (init_meta(m, av)) //initilizes t_meta and all its sub structs/things
-		return (free_null(ADRS m), throw_error(ERR_INIT));
+	d = init_data(); //			fills the t_data struct with default base values
+	d->lvl_fd = get_lvl(av); //	checks and opens the .cub file, returning its fd
+	init_lvl(); //				checks and gets the level info from the .cub file
+	init_map(); //				checks and gets the map info from the .cub file (move into init_lvl (?))
+	init_gfx(); //				initializes the mlx and its textures
 
-	exit_status = run_philo(m); //runs the main logic loop
-
-	free_all(m);
-	return (exit_status);
-*/
+	return (free_data());
 }
