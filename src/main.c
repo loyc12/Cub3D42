@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/03/30 11:43:05 by llord            ###   ########.fr       */
+/*   Updated: 2023/03/30 12:00:44 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int ac, char **av)
 	// Initial checks for argcount and opennability
 	if (ac != 2)
 		return (ft_puterr(ERR_ARG_CO));
-	if (!access(av[1], F_OK) && access(av[1], R_OK))
+	if (access(av[1], F_OK) || access(av[1], R_OK))
 		return (ft_puterr(ERR_LVL_OP));
 
 	d = get_data(); //			fills the t_data struct with default base values

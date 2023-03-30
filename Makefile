@@ -157,19 +157,18 @@ clear: clean
 clean:
 	$(HIDE) $(RM) $(OBJS)
 	$(HIDE) $(RM) $(NAME).dSYM
-	@echo "$(MAGENTA)Object files cleaned $(DEFCOL)"
+	@echo "$(MAGENTA)Deleted object files $(DEFCOL)"
 	$(HIDE) cd Libft42 && make clean
-	@echo "$(MAGENTA)Libft Object files cleaned $(DEFCOL)"
+	@echo "$(MAGENTA)Deleted Libft object files $(DEFCOL)"
 	@echo "$(DEFCOL)"
 
 # Removes object dir and executable
 fclear: fclean
 fclean: clean
 	$(HIDE) $(RM) $(OBJDIR)
-	@echo "$(MAGENTA)Object directory deleted $(DEFCOL)"
-	@echo "$(DEFCOL)"
+	@echo "$(RED)Deleted object directory $(DEFCOL)"
 	$(HIDE) $(RM) $(NAME)
-	@echo "$(RED)Executable cleaned $(DEFCOL)"
+	@echo "$(RED)Deleted executable $(DEFCOL)"
 	$(HIDE) cd Libft42 && make fclean
 	@echo "$(DEFCOL)"
 
@@ -190,9 +189,9 @@ re: fclean all
 
 # Runs the program
 rerun: re run
-run: all
+run: quick
 	@echo "$(YELLOW)Launching command : $(CMD) $(DEFCOL)"
-	@echo "$(WHITE)"
+	@echo "$(RED)"
 	$(HIDE) $(CMD)
 	@echo "$(DEFCOL)"
 	@echo "$(GREEN)Exited normally! $(DEFCOL)"

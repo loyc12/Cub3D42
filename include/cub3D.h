@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/03/30 11:41:59 by llord            ###   ########.fr       */
+/*   Updated: 2023/03/30 12:04:06 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 // ======== LIBRARIES ======== //
 
-# include "./MLX42/include/MLX42/MLX42.h"
-# include "./Libft42/libft.h"
+# include "../MLX42/include/MLX42/MLX42.h"
+# include "../Libft42/libft.h"
 
 //# include <stdio.h>	redundant
 //# include <stdlib.h>	redundant
@@ -30,12 +30,12 @@
 # define ERR_ACTION	"Process Error : Invalid value given" //			internal error
 # define ERR_ARG_CO	"Input Error : Invalid argument count"
 # define ERR_ARG_TY	"Input Error : Specified file is not a .cub"
-# define ERR_LVL_OP	"Level Error : File cannot be opened" //			inexistant or invalid perms
+# define ERR_ARG_OP	"Input Error : File cannot be opened" //			inexistant file or invalid perms
 # define ERR_LVL_SP	"Level Error : File is missing specifications" //	such as wall textures or ceiling/floor colours
-# define ERR_MAP_PL	"Map Error : Invalid number of player starting positions"
-# define ERR_MAP_SY	"Map Error : Map uses invalid symbols"
-# define ERR_MAP_SI	"Map Error : Map is too large"
-# define ERR_MAP_OP	"Map Error : Map is not enclosed"
+# define ERR_LVL_PL	"Level Error : Map has an invalid number or players"
+# define ERR_LVL_SY	"Level Error : Map uses invalid symbols"
+# define ERR_LVL_SI	"Level Error : Map is too large"
+# define ERR_LVL_OP	"Level Error : Map is not enclosed"
 
 # define ADRS	(void **)&
 # define ADRS2	(void ***)&
