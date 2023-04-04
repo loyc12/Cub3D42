@@ -92,6 +92,8 @@ TSTDIR	=	tests/
 
 FILES	=	main \
 			getters \
+			readers \
+			initializers \
 
 # Libraries (.a files) to include for compilation
 LIBX	=	-lglfw -L "/Users/$$USER/.brew/opt/glfw/lib/"

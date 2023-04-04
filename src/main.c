@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/03/30 12:00:44 by llord            ###   ########.fr       */
+/*   Updated: 2023/04/04 12:49:32 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,19 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (ft_puterr(ERR_ARG_CO));
 	if (access(av[1], F_OK) || access(av[1], R_OK))
-		return (ft_puterr(ERR_LVL_OP));
+		return (ft_puterr(ERR_ARG_OP));
 
 	d = get_data(); //			fills the t_data struct with default base values
+	get_lvl(av[1]); //			opens and copies the lvl file into d->lvl
 
-	d->lvl_fd = get_lvl(av[1]); //	opens the lvl file
+	printf(">%s<\n", d->lvl); //						DEBUG
 
-	//init_lvl(); //				checks and gets the level info from the .cub file
+
+	//init_level();
 	//	init_asset(texture_path)
 	//	set_colour
 
-	//init_map(); //				checks and gets the map info from the .cub file (move into init_lvl (?))
+	init_map(); //				checks and gets the map info from the .cub file (move into init_lvl (?))
 	//	init_player(tc)
 
 	//init_gfx(); //				initializes the mlx and its textures

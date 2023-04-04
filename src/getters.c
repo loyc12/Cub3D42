@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/03/30 11:31:41 by llord            ###   ########.fr       */
+/*   Updated: 2023/04/04 12:51:26 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_data	*get_data(void)
 	return (d);
 }
 
-//checks and opens the .cub file, returning its fd
-int	get_lvl(char *path)
+//opens and copies the .cub file's content into d->lvl
+void	get_lvl(char *path)
 {
 	int	fd;
 	int	i;
@@ -38,9 +38,13 @@ int	get_lvl(char *path)
 	{
 		ft_puterr(ERR_ARG_TY);
 		get_data()->state = MSTATE_ERROR;
-		return (0);
 	}
 	fd = open(path, O_RDONLY);
-
-	return (fd);
+	if (fd <= 0)
+	{
+		ft_puterr(ERR_FD_VAL);
+		get_data()->state = MSTATE_ERROR;
+	}
+	read_level(fd); //	reads the .cub file and stores it in d.level
+	close(fd);
 }

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/03/30 12:04:06 by llord            ###   ########.fr       */
+/*   Updated: 2023/04/04 12:51:57 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../Libft42/libft.h"
 
-//# include <stdio.h>	redundant
-//# include <stdlib.h>	redundant
+# include <stdio.h>
+# include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <time.h>
@@ -28,13 +28,16 @@
 
 # define ERR_INIT	"Process Error : Initialization failure" //			internal error
 # define ERR_ACTION	"Process Error : Invalid value given" //			internal error
+# define ERR_FD_VAL	"Process Error : Unable to generate file descriptor" //			internal error
+
 # define ERR_ARG_CO	"Input Error : Invalid argument count"
 # define ERR_ARG_TY	"Input Error : Specified file is not a .cub"
 # define ERR_ARG_OP	"Input Error : File cannot be opened" //			inexistant file or invalid perms
+
 # define ERR_LVL_SP	"Level Error : File is missing specifications" //	such as wall textures or ceiling/floor colours
+# define ERR_LVL_SI	"Level Error : File is too large"
 # define ERR_LVL_PL	"Level Error : Map has an invalid number or players"
 # define ERR_LVL_SY	"Level Error : Map uses invalid symbols"
-# define ERR_LVL_SI	"Level Error : Map is too large"
 # define ERR_LVL_OP	"Level Error : Map is not enclosed"
 
 # define ADRS	(void **)&
@@ -93,12 +96,13 @@ typedef enum e_ttype
 # define R_SPEED	(float)1.0 //	running speed (in tile/sec)
 
 //size
-# define M_SIZE		256 //	maximum map size (in tiles)
-# define A_SIZE		64 //	asset size (in pixels)
-# define P_SIZE		4 //	size of virtual pixels (in real pixels)		(?)
+# define M_CHARS	(int)16384 //	maximum level file size (in chars)
+# define M_SIZE		(int)256 //		maximum horizontal/vertical map size (in tiles)
+# define A_SIZE		(int)64 //		asset size (in pixels)
+# define P_SIZE		(int)4 //		size of virtual pixels (in real pixels)		(?)
 
 //other
-# define NO_CLIP	0 //	whether or not to ignore colision checks
+# define NO_CLIP	0 //			whether or not to ignore colision checks
 
 // ======== STRUCTS ======== //
 
@@ -178,7 +182,7 @@ typedef struct s_entity
 typedef struct s_data
 {
 	//init
-	int			lvl_fd;
+	char		*lvl; //		where to store the raw .cub info
 
 	//static
 	mlx_t		*window; //		where we draw stuff
@@ -203,11 +207,14 @@ typedef struct s_data
 
 //from getters
 t_data	*get_data(void);
-int		get_lvl(char *path);
+void	get_lvl(char *path);
 
+//from readers
+void	read_level(int fd);
 
-
-
+//from initializers
+void	init_lvl(void);
+void	init_map(void);
 
 
 //does_overlap_tile(entity, tile) //		checks for collision with walls
