@@ -96,6 +96,7 @@ TSTDIR	=	tests/
 # Source file names (prefix their subdir if needed)
 
 FILES	=	main \
+			tilers \
 			getters \
 			readers \
 			freeers \

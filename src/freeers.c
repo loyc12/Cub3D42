@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/04/06 13:02:48 by llord            ###   ########.fr       */
+/*   Updated: 2023/04/06 13:26:40 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,12 @@ void	check_state(void)
 {
 	if (get_data()->state <= MSTATE_ERROR)
 		exit(free_data());
+}
+
+//frees all and exits if the d->state is negative (error)
+void	exit_err(char *err)
+{
+	ft_puterr(err);
+	get_data()->state = MSTATE_ERROR;
+	exit (free_data());
 }
