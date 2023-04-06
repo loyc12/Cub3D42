@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/04/04 12:51:57 by llord            ###   ########.fr       */
+/*   Updated: 2023/04/06 13:10:01 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,16 +206,22 @@ typedef struct s_data
 //from main
 
 //from getters
-t_data	*get_data(void);
-void	get_lvl(char *path);
+t_data		*get_data(void);
+void		get_lvl(char *path);
 
 //from readers
-void	read_level(int fd);
+void		read_level(int fd);
+
+//from freeers
+int			free_data(void);
+void		check_state(void);
+
+//from coorders
+t_coords	*coords_copy(t_coords *_c);
 
 //from initializers
-void	init_lvl(void);
-void	init_map(void);
-
+void		init_lvl(void);
+void		init_map(void);
 
 //does_overlap_tile(entity, tile) //		checks for collision with walls
 //does_overlap_entity(entity, entity)		only if implementing enemies/objects(?)

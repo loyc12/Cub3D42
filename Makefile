@@ -49,14 +49,19 @@ DEFAULT_GOAL: all
 		xclean xclear \
 		re run rerun \
 		leaks releaks \
+		vleaks revleaks \
 		norm libft \
-		brew cmake glfw \
+		brew cmake \
+		glfw grind \
 
 #------------------------------------------------------------------------------#
 #                                    FLAGS                                     #
 #------------------------------------------------------------------------------#
 
+# Flags for gcc, valgrind and leaks
 CFLAGS	=	-Wall -Werror -Wextra $(XFLAGS)
+LFLAGS	=	-atExit
+VFLAGS	=	--leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes
 
 # Comment the line bellow to have verbose cmds:
 HIDE	=	@
@@ -93,6 +98,8 @@ TSTDIR	=	tests/
 FILES	=	main \
 			getters \
 			readers \
+			freeers \
+			coorders \
 			initializers \
 
 # Libraries (.a files) to include for compilation
@@ -194,17 +201,27 @@ rerun: re run
 run: quick
 	@echo "$(YELLOW)Launching command : $(CMD) $(DEFCOL)"
 	@echo "$(RED)"
-	$(HIDE) $(CMD)
+	$(HIDE) $(CMD) || true
+	@echo "$(DEFCOL)"
+	@echo "$(GREEN)Exited normally! $(DEFCOL)"
+	@echo "$(DEFCOL)"
+
+# Runs the program with leaks
+releaks: re leaks
+leaks: all
+	@echo "$(YELLOW)Launching command : leaks $(LFLAGS) -- $(CMD) $(DEFCOL)"
+	@echo "$(RED)"
+	$(HIDE) leaks $(LFLAGS) -- $(CMD) || true
 	@echo "$(DEFCOL)"
 	@echo "$(GREEN)Exited normally! $(DEFCOL)"
 	@echo "$(DEFCOL)"
 
 # Runs the program with valgrind
-releaks: re leaks
-leaks: all
-	@echo "$(YELLOW)Launching command with leaks check : $(CMD) $(DEFCOL)"
-	@echo "$(WHITE)"
-	$(HIDE) valgrind --show-leak-kinds=all --trace-children=yes --leak-check=full --track-fds=yes --suppressions=include/supp $(CMD)
+revleaks: re vleaks
+vleaks: all
+	@echo "$(YELLOW)Launching command : valgrind $(VFLAGS) $(CMD) $(DEFCOL)"
+	@echo "$(RED)"
+	$(HIDE) valgrind $(VFLAGS) --suppressions=include/supp $(CMD) || true
 	@echo "$(DEFCOL)"
 	@echo "$(GREEN)Exited normally! $(DEFCOL)"
 	@echo "$(DEFCOL)"
@@ -219,6 +236,7 @@ norm:
 	@norminette include | grep Error || true
 	@echo "$(DEFCOL)"
 
+# Updates the libft module (requires push after)
 libft:
 	@echo "$(YELLOW)Updating libft to latest commit $(WHITE)"
 	$(HIDE) cd Libft42 && git pull origin main
@@ -241,12 +259,19 @@ brew:
 cmake:
 	@echo "$(YELLOW)Installing Cmake $(DEFCOL)"
 	$(HIDE) brew install cmake
-	@echo "$(BLUE)Cmake Installed $(DEFCOL)"
+	@echo "$(BLUE)Cmake installed $(DEFCOL)"
 	@echo "$(DEFCOL)"
 
 # Installs/Updates cmake
 glfw:
 	@echo "$(YELLOW)Installing GFLW $(DEFCOL)"
 	$(HIDE) brew install glfw
-	@echo "$(BLUE)GLFW Installed $(DEFCOL)"
+	@echo "$(BLUE)GLFW installed $(DEFCOL)"
+	@echo "$(DEFCOL)"
+
+grind:
+	@echo "$(YELLOW)Installing Valgrind $(DEFCOL)"
+	$(HIDE) brew tap LouisBrunner/valgrind
+	$(HIDE) brew install --HEAD LouisBrunner/valgrind/valgrind
+	@echo "$(BLUE)Valgrind installed $(DEFCOL)"
 	@echo "$(DEFCOL)"
