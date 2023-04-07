@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/04/07 09:58:12 by llord            ###   ########.fr       */
+/*   Updated: 2023/04/07 12:28:25 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 /*
 
-moslty done
+mostly done
 - error handling
 - map parsing
 - tile connecting
 
-started
+to start
 - getting level data (textures/colours)
+- initializing textures
 - flood fill checks
 - initializing player
-- initializing textures
 
 to do
 - raycasting
@@ -48,13 +48,16 @@ int	main(int ac, char **av)
 	d = get_data(); //			creates the t_data *d struct when first called, accesses it after
 	get_lvl(av[1]); //			opens and copies the lvl file into d->lvl
 
-	printf(">%s<\n", d->lvl); //						DEBUG
+	//printf(">%s<\n", d->lvl); //						DEBUG
 
 	//init_level(); //			should remove the non-map data (replace it by \n (?))
 
 	init_map(d); //				checks and gets the map info from the .cub file (move into init_lvl (?))
 	connect_tiles(); //			connects tiles with their neighbours
-	//init_player(tc)
+	flood_check(d->spawn);
+	//init_player()
+
+	//print_tiles(); //									DEBUG
 
 	//init_gfx(); //			initializes the mlx and its textures
 	//	init_window();
@@ -64,5 +67,6 @@ int	main(int ac, char **av)
 	//	check_moves
 	//	re_display
 
+	printf("\n");
 	return (free_data());
 }

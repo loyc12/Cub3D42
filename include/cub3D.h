@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/04/06 13:53:08 by llord            ###   ########.fr       */
+/*   Updated: 2023/04/07 12:27:02 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,20 +183,26 @@ typedef struct s_data
 {
 	//init
 	char		*lvl; //		where to store the raw .cub info
-
-	//static
-	mlx_t		*window; //		where we draw stuff
-	t_tile		**tiles; //		the game board itself
 	t_colour	c_ceiling; //	ceiling colour
 	t_colour	c_cloor; //		floor colour
-
-	//dynamic
-	t_entity	*player; //		player entity
+	char		*north;
+	char		*east;
+	char		*south;
+	char		*west;
 
 	//graphics
+	mlx_t		*window; //		the mlx for the window
 	t_asset		**assets; //	array with all the assets
 
+	//environments
+	t_tile		**tiles; //		the game board itself
+
+	//entities
+	t_tile		*spawn; //		pointer to spawn tile
+	t_entity	*player; //		player entity
+
 	//meta
+	int			pf; //			player present flag
 	int			state; //		what the sim doin
 
 }				t_data;
@@ -206,9 +212,9 @@ typedef struct s_data
 //from main
 
 //from tilers
-t_tile	*create_tile(char c, t_coords *_tc);
-t_tile	*find_tile(int x, int y);
-void	connect_tiles(void);
+t_tile		*create_tile(char c, t_coords *_tc);
+t_tile		*find_tile(int x, int y);
+void		connect_tiles(void);
 
 //from getters
 t_data		*get_data(void);
@@ -222,12 +228,18 @@ int			free_data(void);
 void		check_state(void);
 void		exit_err(char *err);
 
+//from flooders
+void		flood_check(t_tile *tile);
+
 //from coorders
 t_coords	*coords_copy(t_coords *_c);
 
 //from initializers
 void		init_lvl(t_data *d);
 void		init_map(t_data *d);
+
+//DEBUG
+void		print_tiles(void);
 
 //does_overlap_tile(entity, tile) //		checks for collision with walls
 //does_overlap_entity(entity, entity)		only if implementing enemies/objects(?)

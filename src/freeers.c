@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/04/07 10:14:02 by llord            ###   ########.fr       */
+/*   Updated: 2023/04/07 12:26:04 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	check_state(void) //									OBSOLETED BY exit_err (?)
 void	exit_err(char *err)
 {
 	ft_puterr(err);
+	printf("\n");
 	get_data()->state = MSTATE_ERROR;
 	exit (free_data());
 }

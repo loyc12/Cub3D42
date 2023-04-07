@@ -100,6 +100,7 @@ FILES	=	main \
 			getters \
 			readers \
 			freeers \
+			flooders \
 			coorders \
 			initializers \
 

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/04/07 10:00:54 by llord            ###   ########.fr       */
+/*   Updated: 2023/04/07 12:16:23 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,17 @@ t_tile	*create_tile(char c, t_coords *_tc)
 	tile = ft_calloc(1, sizeof(t_tile));
 	tile->tc = coords_copy(_tc);
 
-
 	if (c == ' ')
 		tile->type = TTYPE_VOID;
 	else if (c == '1')
 		tile->type = TTYPE_WALL;
 	else if (c == '0')
 		tile->type = TTYPE_ROOM;
+	else if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
+	{
+		tile->type = TTYPE_ROOM;
+		get_data()->spawn = tile;
+	}
 	else
 		tile->type = TTYPE_ERROR;
 
@@ -56,8 +60,6 @@ void	connect_tiles(void)
 	t_tile	**tiles;
 	int		i;
 
-	printf("\n"); //			DEBUG
-
 	tiles = get_data()->tiles;
 	i = -1;
 	while (tiles[++i])
@@ -69,16 +71,56 @@ void	connect_tiles(void)
 		tiles[i]->north = find_tile((tiles[i]->tc->x), (tiles[i]->tc->y) - 1);
 		if (tiles[i]->north)
 			tiles[i]->north->south = tiles[i];
+	}
+}
 
-		//	PRINTS DEBUG INFO
-		printf("Connected tile at %i:%i with neighbours  :  ", tiles[i]->tc->x, tiles[i]->tc->y);
-		if (tiles[i]->west)
-			printf("W = %i:%i  :  ", (tiles[i]->tc->x) - 1, (tiles[i]->tc->y));
+//DEBUG FUNCTION
+void	print_tile(t_tile *tile)
+{
+	if (tile)
+	{
+		if (tile->tc)
+			printf("%i:%i", tile->tc->x, tile->tc->y);
 		else
-			printf("W = NONE :  ");
-		if (tiles[i]->north)
-			printf("N = %i:%i\n", (tiles[i]->tc->x), (tiles[i]->tc->y) - 1);
-		else
-			printf("N = NONE\n");
+			printf("ERR");
+	}
+	else
+		printf("NUL");
+}
+
+//DEBUG FUNCTION
+void	print_neighbours(t_tile *tile)
+{
+	/*
+	     [x:y]\n
+	[x:y] x:y [x:y]\n
+	     [x:y]\n
+	*/
+	printf("     [");
+	print_tile(tile->north);
+	printf("]\n[");
+	print_tile(tile->west);
+	printf("] ");
+	print_tile(tile);
+	printf(" [");
+	print_tile(tile->east);
+	printf("]\n     [");
+	print_tile(tile->south);
+	printf("]\n");
+}
+
+//DEBUG FUNCTION
+void	print_tiles(void)
+{
+	t_tile	**tiles;
+	int		i;
+
+
+	tiles = get_data()->tiles;
+	i = -1;
+	while (tiles[++i])
+	{
+		print_neighbours(tiles[i]);
+		printf("\n");
 	}
 }
