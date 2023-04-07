@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/04/06 13:26:40 by llord            ###   ########.fr       */
+/*   Updated: 2023/04/07 10:14:02 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	free_data(void)
 	ft_free_null(ADRS d->player);
 	ft_free_null(ADRS d->lvl);
 
-	//d->window; //					DESTROY ME HERE (?)
+	//d->window; //					DESTROY MLX HERE (?)
 
 	ft_free_null(ADRS d); //		MUST BE LAST FREED
 
@@ -52,13 +52,13 @@ int	free_data(void)
 }
 
 //frees all and exits if the d->state is negative (error)
-void	check_state(void)
+void	check_state(void) //									OBSOLETED BY exit_err (?)
 {
 	if (get_data()->state <= MSTATE_ERROR)
 		exit(free_data());
 }
 
-//frees all and exits if the d->state is negative (error)
+//frees all and exits
 void	exit_err(char *err)
 {
 	ft_puterr(err);

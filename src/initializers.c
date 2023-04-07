@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/04/06 13:40:57 by llord            ###   ########.fr       */
+/*   Updated: 2023/04/07 10:09:16 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 void	init_lvl(t_data *d)
 {
 	(void)d;
+	/*
+
+
+
+	*/
 }
 
 //checks the validity of a map character
@@ -41,12 +46,12 @@ void	init_map(t_data *d)
 	j = -1;
 	while (d->lvl[++i]) //				ASSUMES THAT LVL[i] IS AT MAP STARTS BY DEFAULT
 	{
-		if (d->lvl[i] == '\n') //		increments y and reset x when changing line
+		if (d->lvl[i] == '\n') //		if neline: increments y and reset x
 		{
 			(tc->y)++;
 			(tc->x) = -1;
 		}
-		else if (is_char_valid(d->lvl[i]))
+		else if (is_char_valid(d->lvl[i])) //	if char is valid: create a tiele
 			d->tiles[++j] = create_tile(d->lvl[i], tc);
 		else
 			exit_err(ERR_LVL_SY);

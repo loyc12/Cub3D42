@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/04/06 14:05:08 by llord            ###   ########.fr       */
+/*   Updated: 2023/04/07 10:00:54 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	connect_tiles(void)
 		if (tiles[i]->north)
 			tiles[i]->north->south = tiles[i];
 
-		//DEBUG
+		//	PRINTS DEBUG INFO
 		printf("Connected tile at %i:%i with neighbours  :  ", tiles[i]->tc->x, tiles[i]->tc->y);
 		if (tiles[i]->west)
 			printf("W = %i:%i  :  ", (tiles[i]->tc->x) - 1, (tiles[i]->tc->y));

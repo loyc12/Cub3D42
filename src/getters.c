@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/04/06 13:33:36 by llord            ###   ########.fr       */
+/*   Updated: 2023/04/07 10:02:04 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,10 @@ void	get_lvl(char *path)
 	while (path[i])
 		i++;
 	if (ft_strncmp(&path[i - 4], ".cub", 5))
-	{
-		ft_puterr(ERR_ARG_TY);
-		get_data()->state = MSTATE_ERROR;
-		return ;
-	}
+		exit_err(ERR_ARG_TY);
 	fd = open(path, O_RDONLY);
 	if (fd <= 0)
-	{
 		exit_err(ERR_FD_VAL);
-		get_data()->state = MSTATE_ERROR;
-		return ;
-	}
 	read_level(fd); //	reads the .cub file and stores it in d.level
 	close(fd);
 	check_state(); //	frees and exits if error
