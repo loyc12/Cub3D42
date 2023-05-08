@@ -1,3 +1,5 @@
+include Settings.mk
+
 #------------------------------------------------------------------------------#
 #                                   COLOURS                                    #
 #------------------------------------------------------------------------------#
@@ -76,45 +78,17 @@ HIDE	=	@
 #                                  VARIABLES                                   #
 #------------------------------------------------------------------------------#
 
-# Compiler, flags and shortcuts
+# Shortcuts
 CC		=	gcc
 RM		=	rm -rf
 CPY		=	cp -f
 MKDR	=	mkdir -p
 INCLUDE =	-I include
 
-# Executable name
-NAME	=	cub3D
-
-# Directory names
-SRCDIR	=	src/
-OBJDIR	=	bin/
-TSTDIR	=	tests/
-
-#SUBDIRS	=
-
-# Source file names (prefix their subdir if needed)
-
-FILES	=	main \
-			tilers \
-			getters \
-			readers \
-			freeers \
-			flooders \
-			coorders \
-			initializers \
-
-# Libraries (.a files) to include for compilation
-LIBX	=	-lglfw -L "/Users/$$USER/.brew/opt/glfw/lib/"
-LIBS	=	./Libft42/libft.a\
-			./MLX42/build/libmlx42.a\
-
 # Creates file paths
 SRCS	=	$(addprefix $(SRCDIR), $(addsuffix .c, $(FILES)))
 OBJS	=	$(addprefix $(OBJDIR), $(addsuffix .o, $(FILES)))
 
-# Default command to call when using make run or make leaks
-CMD		=	./cub3D ./maps/test_map_1.cub
 
 #------------------------------------------------------------------------------#
 #                                 BASE TARGETS                                 #
@@ -201,9 +175,9 @@ re: fclean all
 # Runs the program
 rerun: re run
 run: quick
-	@echo "$(YELLOW)Launching command : $(CMD) $(DEFCOL)"
+	@echo "$(YELLOW)Launching command : ./$(NAME) $(ARGS) $(DEFCOL)"
 	@echo "$(RED)"
-	$(HIDE) $(CMD) || true
+	$(HIDE) ./$(NAME) $(ARGS) || true
 	@echo "$(DEFCOL)"
 	@echo "$(GREEN)Exited normally! $(DEFCOL)"
 	@echo "$(DEFCOL)"
@@ -211,9 +185,9 @@ run: quick
 # Runs the program with leaks
 releaks: re leaks
 leaks: all
-	@echo "$(YELLOW)Launching command : leaks $(LFLAGS) -- $(CMD) $(DEFCOL)"
+	@echo "$(YELLOW)Launching command : leaks $(LFLAGS) -- ./$(NAME) $(ARGS) $(DEFCOL)"
 	@echo "$(RED)"
-	$(HIDE) leaks $(LFLAGS) -- $(CMD) || true
+	$(HIDE) leaks $(LFLAGS) -- ./$(NAME) $(ARGS) || true
 	@echo "$(DEFCOL)"
 	@echo "$(GREEN)Exited normally! $(DEFCOL)"
 	@echo "$(DEFCOL)"
@@ -221,9 +195,9 @@ leaks: all
 # Runs the program with valgrind
 revleaks: re vleaks
 vleaks: all
-	@echo "$(YELLOW)Launching command : valgrind $(VFLAGS) $(CMD) $(DEFCOL)"
+	@echo "$(YELLOW)Launching command : valgrind $(VFLAGS) ./$(NAME) $(ARGS) $(DEFCOL)"
 	@echo "$(RED)"
-	$(HIDE) valgrind $(VFLAGS) --suppressions=include/supp $(CMD) || true
+	$(HIDE) valgrind $(VFLAGS) --suppressions=include/supp ./$(NAME) $(ARGS) || true
 	@echo "$(DEFCOL)"
 	@echo "$(GREEN)Exited normally! $(DEFCOL)"
 	@echo "$(DEFCOL)"
@@ -271,6 +245,7 @@ glfw:
 	@echo "$(BLUE)GLFW installed $(DEFCOL)"
 	@echo "$(DEFCOL)"
 
+# Installs/Updates valgrind
 grind:
 	@echo "$(YELLOW)Installing Valgrind $(DEFCOL)"
 	$(HIDE) brew tap LouisBrunner/valgrind
