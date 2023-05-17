@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/04/07 12:27:02 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/17 16:04:02 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,27 @@
 
 // ======== DEFINITIONS ======== //
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE BUFSIZ
+# endif
+
+# if BUFFER_SIZE > 9223372036854775806
+#  undef BUFFER_SIZE
+#  define BUFFER_SIZE 0
+# endif
+
+# define ARG_COUNT		"Input Error : Invalid argument count"
+# define FILE_TYPE		"Input Error : Specified file is not a .cub"
+# define FILE_ACCESS	"Input Error : File cannot be opened"
+# define FILE_CONTENT	"Input Error : File have nothing to be read."
+# define FILE_RULE		"Input Error : File have invalid rule."
+# define FILE_PATH		"Input Error : File have invalid rule."
+# define RESSOURCE		"Input Error : File have no access to ressource."
+
 # define ERR_INIT	"Process Error : Initialization failure" //			internal error
 # define ERR_ACTION	"Process Error : Invalid value given" //			internal error
 # define ERR_FD_VAL	"Process Error : Unable to generate file descriptor" //			internal error
 
-# define ERR_ARG_CO	"Input Error : Invalid argument count"
-# define ERR_ARG_TY	"Input Error : Specified file is not a .cub"
-# define ERR_ARG_OP	"Input Error : File cannot be opened" //			inexistant file or invalid perms
 
 # define ERR_LVL_SP	"Level Error : File is missing specifications" //	such as wall textures or ceiling/floor colours
 # define ERR_LVL_SI	"Level Error : File is too large"
@@ -83,6 +97,16 @@ typedef enum e_ttype
 	TTYPE_ROOM	= 1,
 	TTYPE_WALL	= 2,
 }			t_ttype;
+
+typedef enum e_fd
+{
+	CUB,
+	NO,
+	SO,
+	WE,
+	EA,
+}			t_fd;
+
 
 // ======== CONSTANTS ======== //
 
@@ -182,6 +206,11 @@ typedef struct s_entity
 typedef struct s_data
 {
 	//init
+	int			fd;
+	int			fd_no;
+	int			fd_so;
+	int			fd_we;
+	int			fd_ea;
 	char		*lvl; //		where to store the raw .cub info
 	t_colour	c_ceiling; //	ceiling colour
 	t_colour	c_cloor; //		floor colour
@@ -209,7 +238,29 @@ typedef struct s_data
 
 // ======== FUNCTIONS ======== //
 
-//from main
+/*
+
+mostly done
+- error handling
+- map parsing
+- tile connecting
+
+to start
+- getting level data (textures/colours)
+- initializing textures
+- flood fill checks
+- initializing player
+
+to do
+- raycasting
+- graphic managment
+- input management
+- collision management
+- bonuses (?)
+
+*/
+/*main.c*///
+
 
 //from tilers
 t_tile		*create_tile(char c, t_coords *_tc);
@@ -223,7 +274,7 @@ void		get_lvl(char *path);
 //from readers
 void		read_level(int fd);
 
-//from freeers
+/*freers.c*/
 int			free_data(void);
 void		check_state(void);
 void		exit_err(char *err);
