@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/04/07 12:27:02 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/18 10:49:14 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <fcntl.h>
 # include <time.h>
 
-// ======== DEFINITIONS ======== //
+// ======== DEFINITIONS ======== // RENAME THEM TO MORE CONSCISE AND READABLE NAMES
 
 # define ERR_INIT	"Process Error : Initialization failure" //			internal error
 # define ERR_ACTION	"Process Error : Invalid value given" //			internal error
@@ -72,7 +72,7 @@ typedef enum e_etype
 {
 	ETYPE_DEBUG		= 0,
 	ETYPE_PLAYER	= 1,
-	ETYPE_ENEMY		= 2,
+	ETYPE_ENEMY		= 2
 }			t_etype;
 
 //tile type (how should we interact/display this tile)
@@ -81,7 +81,7 @@ typedef enum e_ttype
 	TTYPE_ERROR	= -1,
 	TTYPE_VOID	= 0,
 	TTYPE_ROOM	= 1,
-	TTYPE_WALL	= 2,
+	TTYPE_WALL	= 2
 }			t_ttype;
 
 // ======== CONSTANTS ======== //
@@ -127,16 +127,6 @@ typedef struct s_vector
 
 }			t_vector;
 
-//colour for floor and ceiling
-typedef struct s_colour
-{
-	int		r; //	red
-	int		g; //	green
-	int		b; //	blue
-//	int		a; //	alpha												(?)
-
-}			t_colour;
-
 //data for a given asset
 typedef struct s_asset
 {
@@ -178,13 +168,23 @@ typedef struct s_entity
 
 }				t_entity;
 
+//colour for floor and ceiling // MAYBE ALREADY EXISTS IN MLX LIB
+typedef struct s_colour
+{
+	int		r; //	red
+	int		g; //	green
+	int		b; //	blue
+//	int		a; //	alpha												(?)
+
+}			t_colour;
+
 //the main global var for the program. holds generic data
 typedef struct s_data
 {
-	//init
+	//level infos (paths and colours)
 	char		*lvl; //		where to store the raw .cub info
 	t_colour	c_ceiling; //	ceiling colour
-	t_colour	c_cloor; //		floor colour
+	t_colour	c_floor; //		floor colour
 	char		*north;
 	char		*east;
 	char		*south;

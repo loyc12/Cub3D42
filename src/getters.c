@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/04/07 10:02:04 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/18 10:17:55 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //acts as a pseudo "global" t_data var
 t_data	*get_data(void)
 {
-	static t_data	*d;
+	static t_data	*d; // this static allows this function to return the sate t_data whenever its called (from ANYWHERE in the code)
 
 	if (!d)
 	{

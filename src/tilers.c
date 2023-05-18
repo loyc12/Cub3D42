@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/04/07 12:16:23 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/18 10:53:35 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,17 @@ t_tile	*create_tile(char c, t_coords *_tc)
 	else
 		tile->type = TTYPE_ERROR;
 
-	printf("Created tile at %i:%i with type %i(%c)\n", _tc->x, _tc->y, tile->type, c); //	DEBUG
+	printf("Created tile at %i:%i with type ", _tc->x, _tc->y); //	DEBUG
+	if (tile->type == TTYPE_ROOM)
+		printf("floor");
+	else if (tile->type == TTYPE_VOID)
+		printf("void ");
+	else if (tile->type == TTYPE_WALL)
+		printf("wall ");
+	else
+		printf("%i", tile->type);
+	printf(" (%c)\n", c); //	DEBUG
+
 	return (tile);
 }
 
