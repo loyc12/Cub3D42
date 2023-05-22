@@ -6,35 +6,62 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/04/04 12:40:32 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/22 14:17:48 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-//reads the .cub file and stores it in d.level
-void	read_level(int fd)
+//parses the non-map info from d.level and voids it (replaces it by \n)
+void	get_info(void)
 {
-	char	*c;
-	t_data	*d;
-	int		i;
+	//...
+}
+
+//copies the .cub file's contents into d.level
+void	read_file(int fd)
+{
+	char		*c;
+	t_master	*d;
+	int			i;
 
 	c = ft_calloc(1, sizeof(char *));
-	d = get_data();
-	d->lvl = ft_calloc(M_CHARS, sizeof(char *));
+	d = get_master();
+	d->level = ft_calloc(M_CHARS, sizeof(char *));
 
 	i = -1;
 	while (++i < M_CHARS)
 	{
 		if (0 < read(fd, c, 1))
-			d->lvl[i] = c[0];
+			d->level[i] = c[0];
 		else
 			break ;
 	}
 	ft_free_null(ADRS c);
+	close(fd);
 	if (M_CHARS <= i)
-	{
-		ft_puterr(ERR_LVL_SI);
-		d->state = MSTATE_ERROR;
-	}
+		exit_err(ERR_LVL_SI);
+}
+
+//opens the .cub file and copies its contents into d.level
+void	read_level(char *path)
+{
+	int	fd;
+	int	i;
+
+	i = 0;
+	while (path[i])
+		i++;
+	if (ft_strncmp(&path[i - 4], ".cub", 5))
+		exit_err(ERR_ARG_TY);
+	fd = open(path, O_RDONLY);
+	if (fd <= 0)
+		exit_err(ERR_FD_VAL);
+	read_file(fd); //	copies the .cub file's contents into d.level
+	close(fd);
+
+//	get_info() //		parses the non-map info from d.level and voids it (replaces it by \n)
+
+//	check_info() //		verifies the texture paths and floor/ceiling colours
+
 }

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/05/18 10:49:14 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/22 13:51:03 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define ERR_ARG_OP	"Input Error : File cannot be opened" //			inexistant file or invalid perms
 
 # define ERR_LVL_SP	"Level Error : File is missing specifications" //	such as wall textures or ceiling/floor colours
-# define ERR_LVL_SI	"Level Error : File is too large"
+# define ERR_LVL_SI	"Level Error : File or map is too large"
 # define ERR_LVL_PL	"Level Error : Map has an invalid number or players"
 # define ERR_LVL_SY	"Level Error : Map uses invalid symbols"
 # define ERR_LVL_OP	"Level Error : Map is not enclosed"
@@ -87,19 +87,19 @@ typedef enum e_ttype
 // ======== CONSTANTS ======== //
 
 //rotation (1 rad ~= 57.3 deg)
-# define PI			(float)3.14159265359
-# define T_SPEED	(float)2.0 //	turning speed (in rad/sec)
+//# define PI			(float)3.14159265359
+//# define T_SPEED	(float)2.0 //	turning speed (in rad/sec)
 
 //translation (1 tile ~= 3m)
 # define W_SPEED	(float)0.4 //	walking speed (in tile/sec)
-# define E_SPEED	(float)0.7 //	enemy speed  (in tile/sec)			(?)
+//# define E_SPEED	(float)0.7 //	enemy speed  (in tile/sec)			(?)
 # define R_SPEED	(float)1.0 //	running speed (in tile/sec)
 
 //size
-# define M_CHARS	(int)16384 //	maximum level file size (in chars)
-# define M_SIZE		(int)256 //		maximum horizontal/vertical map size (in tiles)
+# define M_CHARS	(int)8192 //	maximum level file size (in chars)
+# define M_SIZE		(int)64 //		maximum horizontal/vertical map size (in tiles)
 # define A_SIZE		(int)64 //		asset size (in pixels)
-# define P_SIZE		(int)4 //		size of virtual pixels (in real pixels)		(?)
+//# define P_SIZE		(int)4 //		size of virtual pixels (in real pixels)		(?)
 
 //other
 # define NO_CLIP	0 //			whether or not to ignore colision checks
@@ -178,68 +178,65 @@ typedef struct s_colour
 
 }			t_colour;
 
-//the main global var for the program. holds generic data
-typedef struct s_data
+//the main global var for the program. holds generic data about the game and its state
+typedef struct s_master
 {
 	//level infos (paths and colours)
-	char		*lvl; //		where to store the raw .cub info
-	t_colour	c_ceiling; //	ceiling colour
-	t_colour	c_floor; //		floor colour
+	char		*level; //				where to store the raw .cub info
+	t_colour	c_ceiling; //			ceiling colour
+	t_colour	c_floor; //				floor colour
 	char		*north;
 	char		*east;
 	char		*south;
 	char		*west;
 
 	//graphics
-	mlx_t		*window; //		the mlx for the window
-	t_asset		**assets; //	array with all the assets
+	mlx_t		*window; //				the mlx for the window
+	t_asset		**assets; //			array with all the assets
 
 	//environments
-	t_tile		**tiles; //		the game board itself
+	t_tile		**tiles; //				the game board itself
 
 	//entities
-	t_tile		*spawn; //		pointer to spawn tile
-	t_entity	*player; //		player entity
+	t_tile		*spawn; //				pointer to spawn tile
+	t_entity	*player; //				player entity
 
 	//meta
-	int			pf; //			player present flag
-	int			state; //		what the sim doin
+	int			player_spawn_count; //	player flag for map parsing
+	int			master_state; //		what the sim doin
 
-}				t_data;
+}				t_master;
 
 // ======== FUNCTIONS ======== //
 
 //from main
+t_master	*get_master(void);
 
 //from tilers
 t_tile		*create_tile(char c, t_coords *_tc);
 t_tile		*find_tile(int x, int y);
-void		connect_tiles(void);
-
-//from getters
-t_data		*get_data(void);
-void		get_lvl(char *path);
+void		build_map(t_master *data);
+void		connect_map(void);
 
 //from readers
-void		read_level(int fd);
+void		read_level(char *path);
 
 //from freeers
-int			free_data(void);
-void		check_state(void);
+int			free_master(void);
 void		exit_err(char *err);
-
-//from flooders
-void		flood_check(t_tile *tile);
 
 //from coorders
 t_coords	*coords_copy(t_coords *_c);
 
 //from initializers
-void		init_lvl(t_data *d);
-void		init_map(t_data *d);
+void		init_map(void);
 
-//DEBUG
+//from debugers
 void		print_tiles(void);
+
+//from checkers
+void		check_map(void);
+void		flood_check_map(void);
 
 //does_overlap_tile(entity, tile) //		checks for collision with walls
 //does_overlap_entity(entity, entity)		only if implementing enemies/objects(?)

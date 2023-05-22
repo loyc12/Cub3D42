@@ -15,14 +15,14 @@ TSTDIR		=	tests/
 SUBDIRS		=	\
 
 # Source file names (prefix their subdir if needed)
-FILES	=	main \
-			tilers \
-			getters \
-			readers \
-			freeers \
-			flooders \
+FILES	=	checkers \
 			coorders \
+			debugers \
+			freeers \
 			initializers \
+			main \
+			readers \
+			tilers \
 
 # Libraries (.a files) to include for compilation
 LIBS	=	./Libft42/libft.a \
