@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/04/07 12:16:23 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/22 14:01:56 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,64 @@ t_tile	*create_tile(char c, t_coords *_tc)
 	else if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
 	{
 		tile->type = TTYPE_ROOM;
-		get_data()->spawn = tile;
+		get_master()->spawn = tile;
 	}
 	else
 		tile->type = TTYPE_ERROR;
 
-	printf("Created tile at %i:%i with type %i(%c)\n", _tc->x, _tc->y, tile->type, c); //	DEBUG
+	// 0======== DEBUG ========0
+	printf("Created tile at %i:%i with type ", _tc->x, _tc->y);
+	if (tile->type == TTYPE_ROOM)
+		printf("floor");
+	else if (tile->type == TTYPE_VOID)
+		printf("void ");
+	else if (tile->type == TTYPE_WALL)
+		printf("wall ");
+	else
+		printf("%i", tile->type);
+	printf(" (%c)\n", c);
+
 	return (tile);
 }
 
-// Tries to find a tile in d->tiles based on given x and y coords
+//creates the unconnected tiles for the map grid
+void	build_map(t_master *d)
+{
+	t_coords	*tc;
+	int			i;
+	int			j;
+
+	tc = ft_calloc(1, sizeof(t_coords));
+	i = -1;
+	while (d->level[i + 1] == '\n') //	skips initial empty lines
+		i++;
+	d->tiles = ft_calloc(ft_strlen(&(d->level[i])), sizeof(t_tile *)); // makes the tile array longer than needed
+	j = -1;
+	while (d->level[++i]) //
+	{
+		if (d->level[i] != '\n') //		if newline: increments y and reset x
+		{
+			if (tc->x >= M_SIZE || tc->y >= M_SIZE)
+				exit_err(ERR_LVL_SI);
+			d->tiles[++j] = create_tile(d->level[i], tc);
+		}
+		else
+		{
+			(tc->y)++;
+			(tc->x) = -1;
+		}
+		(tc->x)++;
+	}
+	ft_free_null(ADRS tc); //			frees the tile coordinate template
+}
+
+//finds a tile in d->tiles based on given x and y coords
 t_tile	*find_tile(int x, int y)
 {
 	t_tile	**tiles;
 	int		i;
 
-	tiles = get_data()->tiles;
+	tiles = get_master()->tiles;
 	i = -1;
 	while (tiles[++i])
 	{
@@ -54,13 +96,13 @@ t_tile	*find_tile(int x, int y)
 	return (NULL);
 }
 
-// Tries to connect all tiles with their neighbour
-void	connect_tiles(void)
+//connects tiles with their neighbours (creates the map grid)
+void	connect_map(void)
 {
-	t_tile	**tiles;
-	int		i;
+	t_tile		**tiles;
+	int			i;
 
-	tiles = get_data()->tiles;
+	tiles = get_master()->tiles;
 	i = -1;
 	while (tiles[++i])
 	{
@@ -71,56 +113,5 @@ void	connect_tiles(void)
 		tiles[i]->north = find_tile((tiles[i]->tc->x), (tiles[i]->tc->y) - 1);
 		if (tiles[i]->north)
 			tiles[i]->north->south = tiles[i];
-	}
-}
-
-//DEBUG FUNCTION
-void	print_tile(t_tile *tile)
-{
-	if (tile)
-	{
-		if (tile->tc)
-			printf("%i:%i", tile->tc->x, tile->tc->y);
-		else
-			printf("ERR");
-	}
-	else
-		printf("NUL");
-}
-
-//DEBUG FUNCTION
-void	print_neighbours(t_tile *tile)
-{
-	/*
-	     [x:y]\n
-	[x:y] x:y [x:y]\n
-	     [x:y]\n
-	*/
-	printf("     [");
-	print_tile(tile->north);
-	printf("]\n[");
-	print_tile(tile->west);
-	printf("] ");
-	print_tile(tile);
-	printf(" [");
-	print_tile(tile->east);
-	printf("]\n     [");
-	print_tile(tile->south);
-	printf("]\n");
-}
-
-//DEBUG FUNCTION
-void	print_tiles(void)
-{
-	t_tile	**tiles;
-	int		i;
-
-
-	tiles = get_data()->tiles;
-	i = -1;
-	while (tiles[++i])
-	{
-		print_neighbours(tiles[i]);
-		printf("\n");
 	}
 }

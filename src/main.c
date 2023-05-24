@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/17 16:14:06 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:04:42 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,58 +219,98 @@ int	verify_input(int ac, char **av, t_data *data)
 {
 	int		r;
 
+*/
+
+//acts as a pseudo "global" t_master var
+//creates the data struct when first called
+//returns the previously created data struct on subsequent calls
+t_master	*get_master(void)
+{
+	static t_master	*data; // this static allows this function to return the sate t_data whenever its called (from ANYWHERE in the code)
+
+	if (!data)
+		data = ft_calloc(1, sizeof(t_master));
+
+	return (data);
+}
+
+//verifies the inputs (arguments and level file) are valid
+void	check_inputs(int ac, char **av)
+{
+	//checks argcount
 	if (ac != 2)
-		return (msg_error(ARG_COUNT));
-	printf("--\n");
-	if (verify_type(av[0]) != 0)
-		return (msg_error(FILE_TYPE));
-	printf("--\n");
-	if (verify_access(av[0], data, CUB) != 0)
-		return (msg_error(FILE_ACCESS));
-	printf("--\n");
-	r = verify_file(data);
-	printf("--\n");
-	if (r == 1)
-		return (msg_error(FILE_CONTENT));
-	if (r == 2)
-		return (msg_error(FILE_RULE));
-	if (r == 3)
-		return (msg_error(FILE_PATH));
-	if (r == 4)
-		return (msg_error(RESSOURCE));
-	printf("Input is verified\n");
-	return (0);
+		exit_err(ERR_ARG_CO);
+
+	//checks level file's openability
+	if (access(av[1], F_OK) || access(av[1], R_OK))
+		exit_err(ERR_ARG_OP);
 }
 
 int	main(int ac, char **av)
 {
-	t_data	*data;
+	t_master	*data;
 
-	data = ft_calloc(1, sizeof(t_data));
-	printf("--\n");
-	verify_input(ac, av + 1, data);
+	data = get_master(); //		creates the t_master *d struct (first call behaviour)
 
-	data = get_data(); //			creates the t_data *d struct when first called, accesses it after
-	get_lvl(av[1]); //			opens and copies the lvl file into d->lvl
+	check_inputs(ac, av); //	verifies the inputs (arguments and level file) are valid
 
-	//printf(">%s<\n", d->lvl); //						DEBUG
+	read_level(av[1]); //		opens the .cub file and copies its contents into d.level
+	printf(">%s<\n\n", data->level); //	0============ DEBUG ============0
 
-	//init_level(); //			should remove the non-map data (replace it by \n (?))
+	init_map(); //				creates the map grid from the map-info contained in d.level
+	//print_tiles(); //					0============ DEBUG ============0
 
-	init_map(data); //				checks and gets the map info from the .cub file (move into init_lvl (?))
-	connect_tiles(); //			connects tiles with their neighbours
-	flood_check(data->spawn);
-	//init_player()
+	//	...
 
-	//print_tiles(); //									DEBUG
-
-	//init_gfx(); //			initializes the mlx and its textures
-	//	init_window();
-	//	init_textures();
-
-	//launch_game(); //			main game loop function
-	//	check_moves
-	//	re_display
 	printf("\n");
-	return (free_data());
+	return (free_master());
 }
+
+
+/*
+
+	data = get_master() //	creates the t_master *d struct (first call behaviour)
+
+	check_inputs() //		verifies the inputs (arguments and level file) are valid
+
+	read_level() //			opens the .cub file and copies its contents into d.level
+		read_file() //			copies the .cub file's contents into d.level
+		get_info() //			collects and voids the non-map info from d.level
+		check_info() //			verifies the texture paths and floor/ceiling colours
+
+	init_map() //			creates the map grid from the map-info contained in d.level
+		check_map() //			verifies each map character and the total map lenght
+		build_map()				creates the unconnected tiles for the map grid
+		connect_map() //		connects all the map's tiles into a tile grid
+		check_flood_fill()		verifies that the map is closed
+		init_player() //		creates the player's entity
+
+	init_window()
+		init_mlx()
+		get_textures()
+		check_textures()
+		open_window()
+
+	game_loop()
+	{
+		...
+		if (...)
+			close_game()
+	}
+
+
+
+	t_master {
+
+		char		*level
+		t_colour	colour x 2
+		char		*texture x 4
+		char		*last_line_read
+
+	}
+
+
+
+
+*/
+
