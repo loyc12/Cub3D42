@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 14:37:07 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 15:57:41 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,11 @@ int	main(int ac, char **av)
 	check_inputs(ac); //	verifies the inputs (arguments and level file) are valid
 
 	read_level(av[1]); //		opens the .cub file and copies its contents into d.level
-	printf(">%s<\n\n", data->level); //	0============ DEBUG ============0
+	print_paths(); //					0============ DEBUG ============0
+	printf(">\n%s\n<\n\n", data->level); //	0============ DEBUG ============0
 
-	init_map(); //				creates the map grid from the map-info contained in d.level
+
+	//init_map(); //				creates the map grid from the map-info contained in d.level
 	//print_tiles(); //					0============ DEBUG ============0
 
 	//	...

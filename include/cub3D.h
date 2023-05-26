@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 14:30:16 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 15:36:06 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,10 @@ typedef enum e_mstate
 typedef enum e_tid
 {
 	TID_DEBUG	= 0,
-	TID_NORTH	= 1,
-	TID_EAST	= 2,
-	TID_SOUTH	= 3,
-	TID_WEST	= 4,
-	TID_DOOR	= 5
+	TID_1_NORTH	= 1,
+	TID_1_EAST	= 2,
+	TID_1_SOUTH	= 3,
+	TID_1_WEST	= 4
 }			t_tid;
 
 //entity type (how should we interact with this entity)
@@ -98,6 +97,7 @@ typedef enum e_ttype
 # define M_CHARS	(int)8192 //	maximum level file size (in chars)
 # define M_SIZE		(int)64 //		maximum horizontal/vertical map size (in tiles)
 # define A_SIZE		(int)64 //		asset size (in pixels)
+# define A_COUNT	(int)5 //		asset size (in pixels)
 //# define P_SIZE		(int)4 //		size of virtual pixels (in real pixels)		(?)
 
 //other
@@ -182,12 +182,10 @@ typedef struct s_master
 {
 	//level infos (paths and colours)
 	char		*level; //				where to store the raw .cub info
+	int			map_start;
 	t_colour	c_ceiling; //			ceiling colour
 	t_colour	c_floor; //				floor colour
-	char		*north;
-	char		*east;
-	char		*south;
-	char		*west;
+	char		**t_paths;
 
 	//graphics
 	mlx_t		*window; //				the mlx for the window
@@ -232,6 +230,7 @@ void		init_map(void);
 
 //from debugers
 void		print_tiles(void);
+void		print_paths(void);
 
 //from checkers
 void		check_map(void);

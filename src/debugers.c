@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:51:15 by llord             #+#    #+#             */
-/*   Updated: 2023/05/22 14:05:09 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 15:56:42 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,26 @@ void	print_tiles(void)
 	{
 		print_neighbours(tiles[i]);
 	}
+}
+
+void	print_paths(void)
+{
+	t_master	*d;
+	int			i;
+
+	d = get_master();
+
+	i = -1;
+	if (d->t_paths)
+	{
+		while (++i < A_COUNT)
+		{
+			if (d->t_paths && d->t_paths[i])
+				printf("Path %i : '%s'\n", i, get_master()->t_paths[i]);
+			else
+				printf("Path %i missing\n", i);
+		}
+	}
+	else
+		printf("Paths missing\n");
 }
