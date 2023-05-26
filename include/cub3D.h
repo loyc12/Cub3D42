@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 16:13:35 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 16:18:02 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # define ERR_INIT	"Process Error : Initialization failure" //			internal error
 # define ERR_ACTION	"Process Error : Invalid value given" //			internal error
 
+# define ERR_ARG_CO	"Input Error : Invalid argument count"
+# define ERR_ARG_TY	"Input Error : Specified file is not a .cub"
+# define ERR_ARG_OP	"Input Error : File cannot be opened" //			inexistant file or invalid perms
 
 # define ERR_LVL_SP	"Level Error : File is missing specifications" //	such as wall textures or ceiling/floor colours
 # define ERR_LVL_SI	"Level Error : File or map is too large"

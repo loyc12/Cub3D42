@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 16:14:34 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 16:19:09 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ void	read_level(char *path)
 	while (path[i])
 		i++;
 	if (ft_strncmp(&path[i - 4], ".cub", 5))
-		exit_err(ERR_INIT);
+		exit_err(ERR_ARG_TY);
 	fd = open(path, O_RDONLY);
 	if (fd <= 0)
-		exit_err(ERR_INIT);
+		exit_err(ERR_ARG_OP);
 	read_file(fd); //	copies the .cub file's contents into d.level
 	close(fd);
 

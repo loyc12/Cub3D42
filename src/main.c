@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 16:13:10 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 16:18:33 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	check_inputs(int ac)
 {
 	//checks argcount
 	if (ac != 2)
-		exit_err(ERR_INIT);
+		exit_err(ERR_ARG_CO);
 }
 
 int	main(int ac, char **av)
@@ -61,15 +61,15 @@ int	main(int ac, char **av)
 
 	data = get_master(); //		creates the t_master *d struct (first call behaviour)
 
-	check_inputs(ac); //	verifies the inputs (arguments and level file) are valid
+	check_inputs(ac); //		verifies the inputs (arguments and level file) are valid
 
 	read_level(av[1]); //		opens the .cub file and copies its contents into d.level
-	print_paths(); //					0============ DEBUG ============0
-	printf(">\n%s\n<\n\n", data->level); //	0============ DEBUG ============0
+	print_paths(); //							0============ DEBUG ============0
+	printf(">\n%s\n<\n\n", data->level); //		0============ DEBUG ============0
 
 
-	//init_map(); //				creates the map grid from the map-info contained in d.level
-	//print_tiles(); //					0============ DEBUG ============0
+	//init_map(); //			creates the map grid from the map-info contained in d.level
+	//print_tiles(); //							0============ DEBUG ============0
 
 	//	...
 
