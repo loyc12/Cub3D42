@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 16:28:30 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 16:33:12 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,7 @@ void		read_level(char *path);
 
 //from freeers
 int			free_master(void);
-void		exit_err(char *err);
+void		close_with_error(char *err);
 
 //from coorders
 t_coords	*coords_copy(t_coords *_c);

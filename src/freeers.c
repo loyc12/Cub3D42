@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/22 13:20:24 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 16:32:08 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	free_master(void)
 }
 
 //frees all and exits
-void	exit_err(char *err)
+void	close_with_error(char *err)
 {
 	ft_puterr(err);
 	printf("\n");

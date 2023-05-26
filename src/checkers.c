@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:45:01 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 16:27:02 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 16:32:26 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ void	check_map(void)
 	while (data->level[++i])
 	{
 		if (data->level[i] != '\n' && !is_char_valid(data->level[i]))
-			exit_err(ERR_MAP_CHAR);
+			close_with_error(ERR_MAP_CHAR);
 	}
 	if (data->player_spawn_count != 1)
-		exit_err(ERR_MAP_PLAYER);
+		close_with_error(ERR_MAP_PLAYER);
 }
 
 //recursively checks whether a room is next to void
 void	flood_check(t_tile *tile)
 {
 	if (!tile || tile->type == TTYPE_VOID)
-		exit_err(ERR_MAP_BOUND);
+		close_with_error(ERR_MAP_BOUND);
 
 	if (tile->fff == 0)
 	{
