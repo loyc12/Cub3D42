@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 15:57:41 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 16:13:10 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,9 @@ void	check_inputs(int ac)
 {
 	//checks argcount
 	if (ac != 2)
-		exit_err(ERR_ARG_CO);
+		exit_err(ERR_INIT);
 }
 
-//entrypoint function
 int	main(int ac, char **av)
 {
 	t_master	*data;
