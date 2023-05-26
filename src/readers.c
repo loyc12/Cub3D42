@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 16:19:09 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 16:30:43 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*get_texture(char *line)
 	int		j;
 	int		k;
 
+	path = NULL;
 	i = 3; // skips initial info
 	while (line[i] && ft_isspace(line[i]))
 		i++;
@@ -103,7 +104,7 @@ void	read_file(int fd)
 	ft_free_null(ADRS c);
 	close(fd);
 	if (M_CHARS <= i)
-		exit_err(ERR_LVL_SI);
+		exit_err(ERR_FILE_SIZE);
 }
 
 //opens the .cub file and copies its contents into d.level
@@ -116,10 +117,10 @@ void	read_level(char *path)
 	while (path[i])
 		i++;
 	if (ft_strncmp(&path[i - 4], ".cub", 5))
-		exit_err(ERR_ARG_TY);
+		exit_err(ERR_FILE_NAME);
 	fd = open(path, O_RDONLY);
 	if (fd <= 0)
-		exit_err(ERR_ARG_OP);
+		exit_err(ERR_FILE_OPEN);
 	read_file(fd); //	copies the .cub file's contents into d.level
 	close(fd);
 

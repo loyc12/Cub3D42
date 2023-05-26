@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 16:18:02 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 16:28:30 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,20 @@
 
 // ======== DEFINITIONS ======== // RENAME THEM TO MORE CONSCISE AND READABLE NAMES
 
-# define ERR_INIT	"Process Error : Initialization failure" //			internal error
-# define ERR_ACTION	"Process Error : Invalid value given" //			internal error
+# define ERR_INIT	"Process Error : Initialization failure" //				internal error
+# define ERR_ACTION	"Process Error : Invalid value given" //				internal error
 
-# define ERR_ARG_CO	"Input Error : Invalid argument count"
-# define ERR_ARG_TY	"Input Error : Specified file is not a .cub"
-# define ERR_ARG_OP	"Input Error : File cannot be opened" //			inexistant file or invalid perms
+# define ERR_ARG_COUNT	"Input Error : Invalid argument count"
 
-# define ERR_LVL_SP	"Level Error : File is missing specifications" //	such as wall textures or ceiling/floor colours
-# define ERR_LVL_SI	"Level Error : File or map is too large"
-# define ERR_LVL_PL	"Level Error : Map has an invalid number or players"
-# define ERR_LVL_SY	"Level Error : Map uses invalid symbols"
-# define ERR_LVL_OP	"Level Error : Map is not enclosed"
+# define ERR_FILE_NAME	"File Error : Specified file is not a .cub"
+# define ERR_FILE_OPEN	"File Error : File cannot be opened" //				inexistant file or invalid perms
+# define ERR_FILE_INFO	"File Error : File is missing specifications" //	such as wall textures or ceiling/floor colours
+# define ERR_FILE_SIZE	"File Error : File is too large"
+
+# define ERR_MAP_SIZE	"Map Error : Map is too large"
+# define ERR_MAP_PLAYER	"Map Error : Map has an invalid number or players"
+# define ERR_MAP_CHAR	"Map Error : Map uses invalid symbols"
+# define ERR_MAP_BOUND	"MAP Error : Map is not enclosed"
 
 # define ADRS	(void **)&
 # define ADRS2	(void ***)&
