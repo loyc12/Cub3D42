@@ -28,7 +28,6 @@
 
 # define ERR_INIT	"Process Error : Initialization failure" //			internal error
 # define ERR_ACTION	"Process Error : Invalid value given" //			internal error
-# define ERR_FD_VAL	"Process Error : Unable to generate file descriptor" //			internal error
 
 
 # define ERR_LVL_SP	"Level Error : File is missing specifications" //	such as wall textures or ceiling/floor colours
