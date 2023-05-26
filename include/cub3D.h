@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/05/22 13:51:03 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:30:16 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 
 # define ERR_INIT	"Process Error : Initialization failure" //			internal error
 # define ERR_ACTION	"Process Error : Invalid value given" //			internal error
-# define ERR_FD_VAL	"Process Error : Unable to generate file descriptor" //			internal error
 
 # define ERR_ARG_CO	"Input Error : Invalid argument count"
 # define ERR_ARG_TY	"Input Error : Specified file is not a .cub"

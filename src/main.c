@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/22 14:19:07 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:37:07 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,11 @@ t_master	*get_master(void)
 }
 
 //verifies the inputs (arguments and level file) are valid
-void	check_inputs(int ac, char **av)
+void	check_inputs(int ac)
 {
 	//checks argcount
 	if (ac != 2)
 		exit_err(ERR_ARG_CO);
-
-	//checks level file's openability
-	if (access(av[1], F_OK) || access(av[1], R_OK))
-		exit_err(ERR_ARG_OP);
 }
 
 //entrypoint function
@@ -66,7 +62,7 @@ int	main(int ac, char **av)
 
 	data = get_master(); //		creates the t_master *d struct (first call behaviour)
 
-	check_inputs(ac, av); //	verifies the inputs (arguments and level file) are valid
+	check_inputs(ac); //	verifies the inputs (arguments and level file) are valid
 
 	read_level(av[1]); //		opens the .cub file and copies its contents into d.level
 	printf(">%s<\n\n", data->level); //	0============ DEBUG ============0
