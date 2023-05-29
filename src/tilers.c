@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/05/22 14:01:56 by llord            ###   ########.fr       */
+/*   Updated: 2023/05/26 16:32:44 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	build_map(t_master *d)
 		if (d->level[i] != '\n') //		if newline: increments y and reset x
 		{
 			if (tc->x >= M_SIZE || tc->y >= M_SIZE)
-				exit_err(ERR_LVL_SI);
+				close_with_error(ERR_MAP_SIZE);
 			d->tiles[++j] = create_tile(d->level[i], tc);
 		}
 		else

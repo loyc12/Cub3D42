@@ -6,7 +6,7 @@
 NAME	=	cub3D
 
 # Arguments to call the executable with by default
-ARGS	=	./levels/map_1.cub
+ARGS	=	./levels/map_2.cub
 
 # Directory names
 SRCDIR		=	src/

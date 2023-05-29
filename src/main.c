@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 15:57:25 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:08:31 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_master	*get_master(void)
 
 /*
 verifies the inputs (arguments and level file) are valid*/
-void	check_inputs(int ac)
+void	check_inputs(int ac, char **av)
 {
 	if (ac != 2)
-		exit_err(ERR_INIT);
+		close_with_error(ERR_INIT);
 	read_level(av[1]);
 }
 
@@ -39,11 +39,11 @@ int	main(int ac, char **av)
 
 	(void)av;
 	data = get_master();
-	check_inputs(ac);
+	check_inputs(ac, av);
 	printf(">%s<\n\n", data->level); //	0============ DEBUG ============0
 
-	init_map(); //				creates the map grid from the map-info contained in d.level
-	//print_tiles(); //					0============ DEBUG ============0
+	//init_map(); //			creates the map grid from the map-info contained in d.level
+	//print_tiles(); //							0============ DEBUG ============0
 
 	//	...
 
