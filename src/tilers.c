@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 16:32:44 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 11:07:24 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ t_tile	*create_tile(char c, t_coords *_tc)
 	tile = ft_calloc(1, sizeof(t_tile));
 	tile->tc = coords_copy(_tc);
 
-	if (c == ' ')
-		tile->type = TTYPE_VOID;
+	if (c == '0')
+		tile->type = TTYPE_ROOM;
 	else if (c == '1')
 		tile->type = TTYPE_WALL;
-	else if (c == '0')
-		tile->type = TTYPE_ROOM;
 	else if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
 	{
 		tile->type = TTYPE_ROOM;
@@ -38,8 +36,6 @@ t_tile	*create_tile(char c, t_coords *_tc)
 	printf("Created tile at %i:%i with type ", _tc->x, _tc->y);
 	if (tile->type == TTYPE_ROOM)
 		printf("floor");
-	else if (tile->type == TTYPE_VOID)
-		printf("void ");
 	else if (tile->type == TTYPE_WALL)
 		printf("wall ");
 	else
@@ -68,7 +64,8 @@ void	build_map(t_master *d)
 		{
 			if (tc->x >= M_SIZE || tc->y >= M_SIZE)
 				close_with_error(ERR_MAP_SIZE);
-			d->tiles[++j] = create_tile(d->level[i], tc);
+			if (!ft_isspace(d->level[i]))
+				d->tiles[++j] = create_tile(d->level[i], tc);
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:45:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 10:34:58 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 11:07:06 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	check_map(void)
 //recursively checks whether a room is next to void
 void	flood_check(t_tile *tile)
 {
-	if (!tile || tile->type == TTYPE_VOID)
+	if (!tile)
 		close_with_error(ERR_MAP_BOUND);
 
 	if (tile->fff == 0)

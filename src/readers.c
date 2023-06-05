@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 10:54:31 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 11:11:47 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*get_texture(char *line)
 		k++;
 	i = 0;
 	while (line[i] && i < k)
-		line[i++] = ' ';
+		line[i++] = '\n';
 	return (path);
 }
 
@@ -80,8 +80,8 @@ void	get_info(void)
 
 		if (is_map_start(i))
 			break ;
-		else if (d->level[i] != '\n')
-			d->level[i] = ' ';
+		else
+			d->level[i] = '\n';
 	}
 }
 
@@ -117,7 +117,7 @@ void	read_file(int fd)
 	ft_free_null(ADRS c);
 	close(fd);
 	if (M_CHARS <= i)
-		close_with_error(ERR_INIT);
+		close_with_error(ERR_MAP_SIZE);
 }
 
 /*
@@ -138,7 +138,7 @@ void	check_asset(void)
 	close(face_1);
 	close(side_1);
 	if (r == 1)
-		close_with_error(ERR_INIT);
+		close_with_error(ERR_FILE_OPEN);
 }
 
 //opens the .cub file and copies its contents into d.level
@@ -151,10 +151,10 @@ void	read_level(char *path)
 	while (path[i])
 		i++;
 	if (ft_strncmp(&path[i - 4], ".cub", 5))
-		close_with_error(ERR_INIT);
+		close_with_error(ERR_FILE_NAME);
 	fd = open(path, O_RDONLY);
 	if (fd <= 0)
-		close_with_error(ERR_INIT);
+		close_with_error(ERR_FILE_OPEN);
 	read_file(fd);
 	close(fd);
 	/*get_info()*/

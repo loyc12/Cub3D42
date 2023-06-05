@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 10:55:05 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 11:11:23 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,11 @@ typedef enum e_etype
 typedef enum e_ttype
 {
 	TTYPE_ERROR	= -1,
-	TTYPE_VOID	= 0,
-	TTYPE_ROOM	= 1,
-	TTYPE_WALL	= 2
+	TTYPE_ROOM	= 0,
+	TTYPE_WALL	= 1
 }			t_ttype;
 
-typedef enum e_fd
+typedef enum e_fd	//			????
 {
 	CUB,
 	NO,
