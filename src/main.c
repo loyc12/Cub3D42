@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 13:04:35 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:42:22 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,27 @@ void	init_game(int ac, char	**av)
 		close_with_error(ERR_INIT);
 	read_level(av[1]); //			opens the .cub file and copies its contents into d.level
 	printf(">%s<\n\n", get_master()->level); //		0============ DEBUG ============0
-//	init_map(); //					creates the map grid from the map-info contained in d.level
-//	print_tiles(); //					0============ DEBUG ============0
-	init_windows();
-	printf("\n");
+
+	init_map(); //					creates the map grid from the map-info contained in d.level
+
+//	print_tiles(); //								0============ DEBUG ============0
+
+	init_window();
+
+	print_paths(); //								0============ DEBUG ============0
+	print_colours(); //								0============ DEBUG ============0
+
 }
 
 int	main(int ac, char **av)
 {
-    init_game(ac, av); //           verifies the inputs (argument count) are valid
-//  ...
-    printf("\n");
-    return (free_master());
+	init_game(ac, av); //			verifies the inputs (argument count) are valid
+
+//	...
+
+	printf("\n");
+
+	return (free_master());
 }
 
 /*

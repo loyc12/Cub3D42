@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:51:15 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 15:56:42 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 12:38:38 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,37 @@ void	print_paths(void)
 
 	d = get_master();
 
-	i = -1;
+	i = 0;
+	printf("\n");
 	if (d->t_paths)
 	{
 		while (++i < A_COUNT)
 		{
 			if (d->t_paths && d->t_paths[i])
-				printf("Path %i : '%s'\n", i, get_master()->t_paths[i]);
+				printf("Path %i  : '%s'\n", i, d->t_paths[i]);
 			else
-				printf("Path %i missing\n", i);
+				printf("Path %i  : missing\n", i);
 		}
 	}
 	else
 		printf("Paths missing\n");
+}
+
+void	print_colours(void)
+{
+	t_master	*d;
+	int			i;
+
+	d = get_master();
+
+	i = -1;
+	printf("\n");
+	if (d->c_floor)
+		printf("Floor   : '%i,%i,%i'\n", d->c_floor->r, d->c_floor->g, d->c_floor->b);
+	else
+		printf("Floor   : missing");
+	if (d->c_floor)
+		printf("Ceiling : '%i,%i,%i'\n", d->c_ceiling->r, d->c_ceiling->g, d->c_ceiling->b);
+	else
+		printf("Ceiling : missing");
 }
