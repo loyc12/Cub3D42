@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 13:42:22 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:44:24 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,6 @@ t_master	*get_master(void)
 	if (!data)
 		data = ft_calloc(1, sizeof(t_master));
 	return (data);
-}
-
-void	init_windows(void)
-{
-	mlx_t	*mlx;
-
-	printf("OK\n");
-	mlx = mlx_init(500, 500, "CUBE3D", true);
-	printf("OK\n");
-	mlx_image_to_window(mlx, 0, 0, 0);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
 }
 
 /*
