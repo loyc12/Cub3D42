@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:51:15 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 12:38:38 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 13:44:13 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	print_paths(void)
 		}
 	}
 	else
-		printf("Paths missing\n");
+		printf("Paths    : missing\n");
 }
 
 void	print_colours(void)
@@ -98,9 +98,9 @@ void	print_colours(void)
 	if (d->c_floor)
 		printf("Floor   : '%i,%i,%i'\n", d->c_floor->r, d->c_floor->g, d->c_floor->b);
 	else
-		printf("Floor   : missing");
+		printf("Floor   : missing\n");
 	if (d->c_floor)
 		printf("Ceiling : '%i,%i,%i'\n", d->c_ceiling->r, d->c_ceiling->g, d->c_ceiling->b);
 	else
-		printf("Ceiling : missing");
+		printf("Ceiling : missing\n");
 }
