@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 10:28:35 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:19:22 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,22 @@ void	get_info(void)
 //		else if (!ft_strncmp(&(d->level[i]), "C ", 2))
 //			d->c_ceiling = get_colour(&(d->level[i]));
 
-//		if (check_for_map_start(i)) break ;
-//		else d->level[i] = '\n';
+		if (is_map_start(i))
+			break ;
+		else
+			d->level[i] = '\n';
 	}
 }
+
+
+/*
+for each path in t_paths (1 to 4 )
+	if t_paths[i]
+		open(t_paths[i])
+			check
+		close(t_paths[i])
+
+*/
 
 //copies the .cub file's contents into d.level
 void	read_file(int fd)
@@ -105,7 +117,7 @@ void	read_file(int fd)
 	ft_free_null(ADRS c);
 	close(fd);
 	if (M_CHARS <= i)
-		close_with_error(ERR_INIT);
+		close_with_error(ERR_MAP_SIZE);
 }
 
 /*
@@ -135,7 +147,7 @@ void	check_asset(void)
 	close(face_1);
 	close(side_1);*/
 	if (r == 1)
-		close_with_error(ERR_INIT);
+		close_with_error(ERR_FILE_OPEN);
 }
 
 //opens the .cub file and copies its contents into d.level
@@ -148,10 +160,10 @@ void	read_level(char *path)
 	while (path[i])
 		i++;
 	if (ft_strncmp(&path[i - 4], ".cub", 5))
-		close_with_error(ERR_INIT);
+		close_with_error(ERR_FILE_NAME);
 	fd = open(path, O_RDONLY);
 	if (fd <= 0)
-		close_with_error(ERR_INIT);
+		close_with_error(ERR_FILE_OPEN);
 	read_file(fd);
 	close(fd);
 	/*get_info()*/
@@ -160,6 +172,7 @@ void	read_level(char *path)
 	printf(">%s<\n\n", get_master()->level); //	0============ DEBUG ============0
 
 	get_info(); //		parses the non-map info from d.level and voids it (replaces it by \n)
+	check_asset();
 
 //	check_info(); //	verifies the texture paths and floor/ceiling colours
 

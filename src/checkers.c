@@ -6,17 +6,11 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:45:01 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 16:32:26 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 11:07:06 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-//verifies each map character and the total map lenght
-void	check_info(void)
-{
-	//...
-}
 
 //checks the validity of a map character
 bool	is_char_valid(char c)
@@ -29,6 +23,31 @@ bool	is_char_valid(char c)
 		return (true);
 	}
 	return (false);
+}
+
+//checks if the line at level[start] is the begining of the map
+bool	is_map_start(int i)
+{
+	char	*level;
+	int		j; //			counts the number of valid chars
+
+	level = get_master()->level;
+	j = 0;
+	while (level[i + j] && level[i + j] != '\n')
+	{
+		if (!ft_isspace(level[i + j])) //		ignores spaces
+		{
+			if (is_char_valid(level[i + j])) //	check if the line has only valid chars
+				j++;
+			else
+				return (false); //				else its not the start of the map
+		}
+		else
+			i++; //			doesn't count spaces as valid chars
+	}
+	if (j == 0)
+		return (false);
+	return (true);
 }
 
 //verifies each map character and the total map lenght
@@ -55,7 +74,7 @@ void	check_map(void)
 //recursively checks whether a room is next to void
 void	flood_check(t_tile *tile)
 {
-	if (!tile || tile->type == TTYPE_VOID)
+	if (!tile)
 		close_with_error(ERR_MAP_BOUND);
 
 	if (tile->fff == 0)

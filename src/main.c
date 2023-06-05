@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/29 11:08:31 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:15:37 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,41 +26,53 @@ t_master	*get_master(void)
 
 /*
 verifies the inputs (arguments and level file) are valid*/
-void	check_inputs(int ac, char **av)
+void	check_inputs(int ac)
 {
 	if (ac != 2)
-		close_with_error(ERR_INIT);
-	read_level(av[1]);
+		close_with_error(ERR_ARG_COUNT);
 }
 
 int	main(int ac, char **av)
 {
 	t_master	*data;
 
-	(void)av;
 	data = get_master();
-	check_inputs(ac, av);
+	check_inputs(ac); //			verifies the inputs (argument count) are valid
+	read_level(av[1]); //			opens the .cub file and copies its contents into d.level
+
 	printf(">%s<\n\n", data->level); //	0============ DEBUG ============0
 
-	//init_map(); //			creates the map grid from the map-info contained in d.level
-	//print_tiles(); //							0============ DEBUG ============0
+	init_map(); //					creates the map grid from the map-info contained in d.level
 
-	//	...
+//	print_tiles(); //					0============ DEBUG ============0
+
+//	...
 
 	printf("\n");
+
 	return (free_master());
 }
 
 
 /*
-	read_level() //			opens the .cub file and copies its contents into d.level
-		get_info() //			collects and voids the non-map info from d.level
 
-	init_map() //			creates the map grid from the map-info contained in d.level
-		check_map() //			verifies each map character and the total map lenght
-		build_map()				creates the unconnected tiles for the map grid
-		connect_map() //		connects all the map's tiles into a tile grid
-		check_flood_fill()		verifies that the map is closed
+use // in front of the line to mark what is completed
+
+
+//	data = get_master() //	creates the t_master *d struct (first call behaviour)
+
+//	check_inputs() //		verifies the inputs (arguments and level file) are valid
+
+	read_level() //			opens the .cub file and copies its contents into d.level
+//		read_file() //			copies the .cub file's contents into d.level
+//		get_info() //			collects and voids the non-map info from d.level
+		check_info() //			verifies the texture paths and floor/ceiling colours
+
+//	init_map() //			creates the map grid from the map-info contained in d.level
+//		check_map() //			verifies each map character and the total map lenght
+//		build_map()				creates the unconnected tiles for the map grid
+//		connect_map() //		connects all the map's tiles into a tile grid
+//		check_flood_fill()		verifies that the map is closed
 		init_player() //		creates the player's entity
 
 	init_window()
