@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 11:11:23 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 12:13:43 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define ERR_FILE_OPEN	"File Error : File cannot be opened" //				inexistant file or invalid perms
 # define ERR_FILE_INFO	"File Error : File is missing specifications" //	such as wall textures or ceiling/floor colours
 # define ERR_FILE_SIZE	"File Error : File is too large"
+# define ERR_FILE_TEXT	"File Error : Missing texture file"
 
 # define ERR_MAP_SIZE	"Map Error : Map is too large"
 # define ERR_MAP_PLAYER	"Map Error : Map has an invalid number or players"
@@ -82,16 +83,6 @@ typedef enum e_ttype
 	TTYPE_ROOM	= 0,
 	TTYPE_WALL	= 1
 }			t_ttype;
-
-typedef enum e_fd	//			????
-{
-	CUB,
-	NO,
-	SO,
-	WE,
-	EA,
-}			t_fd;
-
 
 // ======== CONSTANTS ======== //
 
