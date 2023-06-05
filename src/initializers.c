@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 13:21:22 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 13:30:19 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ void	init_player(void)
 void	init_window(void)
 {
 	mlx_t 		*mlx;
-	//mlx_image_t	*face = NULL;
 
 	printf("check 1\n");
 	mlx = mlx_init(2048, 1024, "Test", false);
-	//mlx_image_to_window(mlx, face, 0, 0);
 	printf("check 2\n");
+	mlx_loop(mlx);
+	printf("check 3\n");
+	mlx_terminate(mlx);
+	printf("check 4\n");
 }
 
 
