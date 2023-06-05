@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 10:51:14 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 10:57:19 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,10 @@ t_master	*get_master(void)
 
 /*
 verifies the inputs (arguments and level file) are valid*/
-void	check_inputs(int ac, char **av)
+void	check_inputs(int ac)
 {
 	if (ac != 2)
 		close_with_error(ERR_INIT);
-	read_level(av[1]);
 }
 
 int	main(int ac, char **av)
@@ -38,7 +37,9 @@ int	main(int ac, char **av)
 	t_master	*data;
 
 	data = get_master();
-	check_inputs(ac, av);
+	check_inputs(ac);
+	read_level(av[1]);
+
 	printf(">%s<\n\n", data->level); //	0============ DEBUG ============0
 
 	//init_map(); //			creates the map grid from the map-info contained in d.level
@@ -52,9 +53,14 @@ int	main(int ac, char **av)
 
 
 /*
+	data = get_master() //	creates the t_master *d struct (first call behaviour)
+
+	check_inputs() //		verifies the inputs (arguments and level file) are valid
+
 	read_level() //			opens the .cub file and copies its contents into d.level
+		read_file() //			copies the .cub file's contents into d.level
 		get_info() //			collects and voids the non-map info from d.level
-		check_info() //			checks the texture files' and colours' validity
+		check_info() //			verifies the texture paths and floor/ceiling colours
 
 	init_map() //			creates the map grid from the map-info contained in d.level
 		check_map() //			verifies each map character and the total map lenght

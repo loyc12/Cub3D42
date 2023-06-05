@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 10:44:01 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 10:54:31 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,8 @@ void	read_level(char *path)
 		close_with_error(ERR_INIT);
 	read_file(fd);
 	close(fd);
+	/*get_info()*/
+	check_asset();
 
 	printf(">%s<\n\n", get_master()->level); //	0============ DEBUG ============0
 
