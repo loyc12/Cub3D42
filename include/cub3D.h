@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 16:33:12 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 10:47:26 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,7 @@ void		print_tiles(void);
 void		print_paths(void);
 
 //from checkers
+bool		is_map_start(int i);
 void		check_map(void);
 void		flood_check_map(void);
 

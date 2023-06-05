@@ -6,40 +6,17 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 16:32:36 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 10:51:14 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 /*
-
-mostly done
-- error handling
-- map parsing
-- tile connecting
-
-to start
-- getting level data (textures/colours)
-- initializing textures
-- flood fill checks
-- initializing player
-
-to do
-- raycasting
-- graphic managment
-- input management
-- collision management
-- bonuses (?)
-
-*/
-
-//acts as a pseudo "global" t_master var
-//creates the data struct when first called
-//returns the previously created data struct on subsequent calls
+creates the t_master *d struct (first call behaviour)*/
 t_master	*get_master(void)
 {
-	static t_master	*data; // this static allows this function to return the sate t_data whenever its called (from ANYWHERE in the code)
+	static t_master	*data;
 
 	if (!data)
 		data = ft_calloc(1, sizeof(t_master));
@@ -47,26 +24,22 @@ t_master	*get_master(void)
 	return (data);
 }
 
-//verifies the inputs (arguments and level file) are valid
-void	check_inputs(int ac)
+/*
+verifies the inputs (arguments and level file) are valid*/
+void	check_inputs(int ac, char **av)
 {
-	//checks argcount
 	if (ac != 2)
-		close_with_error(ERR_ARG_COUNT);
+		close_with_error(ERR_INIT);
+	read_level(av[1]);
 }
 
 int	main(int ac, char **av)
 {
 	t_master	*data;
 
-	data = get_master(); //		creates the t_master *d struct (first call behaviour)
-
-	check_inputs(ac); //		verifies the inputs (arguments and level file) are valid
-
-	read_level(av[1]); //		opens the .cub file and copies its contents into d.level
-	print_paths(); //							0============ DEBUG ============0
-	printf(">\n%s\n<\n\n", data->level); //		0============ DEBUG ============0
-
+	data = get_master();
+	check_inputs(ac, av);
+	printf(">%s<\n\n", data->level); //	0============ DEBUG ============0
 
 	//init_map(); //			creates the map grid from the map-info contained in d.level
 	//print_tiles(); //							0============ DEBUG ============0
@@ -79,15 +52,9 @@ int	main(int ac, char **av)
 
 
 /*
-
-	data = get_master() //	creates the t_master *d struct (first call behaviour)
-
-	check_inputs() //		verifies the inputs (arguments and level file) are valid
-
 	read_level() //			opens the .cub file and copies its contents into d.level
-		read_file() //			copies the .cub file's contents into d.level
 		get_info() //			collects and voids the non-map info from d.level
-		check_info() //			verifies the texture paths and floor/ceiling colours
+		check_info() //			checks the texture files' and colours' validity
 
 	init_map() //			creates the map grid from the map-info contained in d.level
 		check_map() //			verifies each map character and the total map lenght
@@ -108,8 +75,6 @@ int	main(int ac, char **av)
 		if (...)
 			close_game()
 	}
-
-
 
 	t_master {
 

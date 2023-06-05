@@ -6,9 +6,10 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 16:32:41 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 10:44:01 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "cub3D.h"
 
@@ -38,7 +39,7 @@ char	*get_texture(char *line)
 		k++;
 	i = 0;
 	while (line[i] && i < k)
-		line[i++] = '\n';
+		line[i++] = ' ';
 	return (path);
 }
 
@@ -77,10 +78,22 @@ void	get_info(void)
 //		else if (!ft_strncmp(&(d->level[i]), "C ", 2))
 //			d->c_ceiling = get_colour(&(d->level[i]));
 
-//		if (check_for_map_start(i)) break ;
-//		else d->level[i] = '\n';
+		if (is_map_start(i))
+			break ;
+		else if (d->level[i] != '\n')
+			d->level[i] = ' ';
 	}
 }
+
+
+/*
+for each path in t_paths (1 to 4 )
+	if t_paths[i]
+		open(t_paths[i])
+			check
+		close(t_paths[i])
+
+*/
 
 //copies the .cub file's contents into d.level
 void	read_file(int fd)
@@ -104,7 +117,28 @@ void	read_file(int fd)
 	ft_free_null(ADRS c);
 	close(fd);
 	if (M_CHARS <= i)
-		close_with_error(ERR_FILE_SIZE);
+		close_with_error(ERR_INIT);
+}
+
+/*
+Check the path of assets and verify content is there and usable*/
+void	check_asset(void)
+{
+	int			face_1;
+	int			side_1;
+	int			r;
+
+	r = 0;
+	face_1 = open("./assets/face_1.png", O_RDONLY);
+	if (face_1 < 0)
+		r = 1;
+	side_1 = open("./assets/side_1.png", O_RDONLY);
+	if (side_1 < 0)
+		r = 1;
+	close(face_1);
+	close(side_1);
+	if (r == 1)
+		close_with_error(ERR_INIT);
 }
 
 //opens the .cub file and copies its contents into d.level
@@ -117,16 +151,17 @@ void	read_level(char *path)
 	while (path[i])
 		i++;
 	if (ft_strncmp(&path[i - 4], ".cub", 5))
-		close_with_error(ERR_FILE_NAME);
+		close_with_error(ERR_INIT);
 	fd = open(path, O_RDONLY);
 	if (fd <= 0)
-		close_with_error(ERR_FILE_OPEN);
-	read_file(fd); //	copies the .cub file's contents into d.level
+		close_with_error(ERR_INIT);
+	read_file(fd);
 	close(fd);
 
 	printf(">%s<\n\n", get_master()->level); //	0============ DEBUG ============0
 
 	get_info(); //		parses the non-map info from d.level and voids it (replaces it by \n)
+	check_asset();
 
 //	check_info(); //	verifies the texture paths and floor/ceiling colours
 
