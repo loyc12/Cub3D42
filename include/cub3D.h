@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 11:11:23 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 11:28:48 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,6 @@ typedef enum e_ttype
 	TTYPE_ROOM	= 0,
 	TTYPE_WALL	= 1
 }			t_ttype;
-
-typedef enum e_fd	//			????
-{
-	CUB,
-	NO,
-	SO,
-	WE,
-	EA,
-}			t_fd;
-
 
 // ======== CONSTANTS ======== //
 
