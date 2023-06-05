@@ -19,6 +19,7 @@ FILES	=	checkers \
 			coorders \
 			debugers \
 			freeers \
+			getters \
 			initializers \
 			main \
 			readers \

@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 13:43:03 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:07:49 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,9 @@ void		print_colours(void);
 bool		is_map_start(int i);
 void		check_map(void);
 void		flood_check_map(void);
+
+//from getters
+void		get_info(void);
 
 //does_overlap_tile(entity, tile) //		checks for collision with walls
 //does_overlap_entity(entity, entity)		only if implementing enemies/objects(?)
