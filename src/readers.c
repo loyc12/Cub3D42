@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/29 11:49:07 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/05 10:28:35 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,29 +112,28 @@ void	read_file(int fd)
 Check the path of assets and verify content is there and usable*/
 void	check_asset(void)
 {
-	int			face_1;
-	int			face_2;
-	int			face_3;
-	int			side_1;
+	/*d = get_master = .... While path, open, close if !open, return err.*/
+	int			img;
 	int			r;
+	int			d;
+	int			i;
 
-	r = 0;
+	d = get_master();
+	i = 4;
+	while (i > 0)
+	{
+		img = open(d->t_paths[i], O_RDONLY);
+	}
+
+	/*r = 0;
 	face_1 = open("./assets/face_1.png", O_RDONLY);
 	if (face_1 < 0)
-		r = 1;
-	face_2 = open("./assets/face_2.png", O_RDONLY);
-	if (face_2 < 0)
-		r = 1;
-	face_3 = open("./assets/face_3.png", O_RDONLY);
-	if (face_3 < 0)
 		r = 1;
 	side_1 = open("./assets/side_1.png", O_RDONLY);
 	if (side_1 < 0)
 		r = 1;
 	close(face_1);
-	close(face_2);
-	close(face_3);
-	close(side_1);
+	close(side_1);*/
 	if (r == 1)
 		close_with_error(ERR_INIT);
 }
