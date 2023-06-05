@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 11:19:22 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:35:09 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,28 +124,30 @@ void	read_file(int fd)
 Check the path of assets and verify content is there and usable*/
 void	check_asset(void)
 {
-	/*d = get_master = .... While path, open, close if !open, return err.*/
+	t_master	*d;
 	int			img;
 	int			r;
-	int			d;
 	int			i;
 
 	d = get_master();
 	i = 4;
+	r = 0;
 	while (i > 0)
 	{
-		img = open(d->t_paths[i], O_RDONLY);
+		if (d->t_paths[i])
+		{
+			img = open(d->t_paths[i], O_RDONLY);
+			if (img < 0)
+				r = 1;
+			close(img);
+		}
+		else
+		{
+			r = 1;
+			break ;
+		}
+		i--;
 	}
-
-	/*r = 0;
-	face_1 = open("./assets/face_1.png", O_RDONLY);
-	if (face_1 < 0)
-		r = 1;
-	side_1 = open("./assets/side_1.png", O_RDONLY);
-	if (side_1 < 0)
-		r = 1;
-	close(face_1);
-	close(side_1);*/
 	if (r == 1)
 		close_with_error(ERR_FILE_OPEN);
 }
@@ -166,9 +168,6 @@ void	read_level(char *path)
 		close_with_error(ERR_FILE_OPEN);
 	read_file(fd);
 	close(fd);
-	/*get_info()*/
-	check_asset();
-
 	printf(">%s<\n\n", get_master()->level); //	0============ DEBUG ============0
 
 	get_info(); //		parses the non-map info from d.level and voids it (replaces it by \n)

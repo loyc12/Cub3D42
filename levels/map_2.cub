@@ -1,12 +1,12 @@
 
 
-NO  ./dummy
-SO      ./lol
-WE nope
-EA   32674528376
+NO  ./assets/face_1.png
+SO  ./assets/side_1.png
+WE  ./assets/side_1.png
+EA  ./assets/face_1.png
 
 
-  
+
  111
  1010  0 1
  111
@@ -16,4 +16,4 @@ EA   32674528376
 10000101
 100N0111
 111111
-   
+
