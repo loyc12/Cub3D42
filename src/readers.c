@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 11:41:42 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 12:30:57 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,39 +19,62 @@ char	*get_texture(char *line)
 	char	*path;
 	int		i;
 	int		j;
-	int		k;
 
 	path = NULL;
-	i = 3; // skips initial info
+	i = 3; //					skips initial info
 	while (line[i] && ft_isspace(line[i]))
-		i++;
-	j = i;
-	k = 0;
-	while (line[j + k] && !ft_isspace(line[j + k]) && line[j + k] != '\n')
-		k++;
-	if (k > 0)
+		i++; //					skips initial spaces
+	j = 0;
+	while (line[i + j] && !ft_isspace(line[i + j]) && line[i + j] != '\n')
+		j++; //					finds the lenght of the path string
+	if (j > 0)
 	{
-		path = ft_calloc(j, sizeof(char));
-		ft_strlcpy(path, &(line[j]), k + 1);
+		path = ft_calloc(j + 1, sizeof(char));
+		ft_strlcpy(path, &(line[i]), j + 1);
 	}
-	k += j;
-	while (line[k] && line[k] != '\n')
-		k++;
 	i = 0;
-	while (line[i] && i < k)
-		line[i++] = '\n';
+	while (line[i] && line[i] != '\n')
+		line[i++] = '\n'; //	voids everything
 	return (path);
 }
 
-//extracts and returns the colour found in a given line
-/*
-t_colour	get_colour(char *line)
+//gets a colour component from a line
+int	get_next_num(char *line, int *i)
 {
-	int	i;
+	int	num;
 
-	i = 2; // skips initial info
+	num = 0;
+	while (line[*i] && line[*i] != '\n' && !ft_isdigit(line[*i]))
+		(*i)++;
+	while (line[*i] && line[*i] != '\n' && ft_isdigit(line[*i]))
+	{
+		num *= 10;
+		num += line[*i] - '0';
+		(*i)++;
+	}
+	return (num);
 }
-*/
+
+
+//extracts and returns the colour found in a given line
+t_colour	*get_colour(char *line)
+{
+	t_colour	*c;
+	int			i;
+
+	c = ft_calloc(1, sizeof(t_colour));
+	i = 2; // skips initial info
+
+	c->r = get_next_num(line, &i);
+	c->g = get_next_num(line, &i);
+	c->b = get_next_num(line, &i);
+
+	i = 0;
+	while (line[i] && line[i] != '\n')
+		line[i++] = '\n'; //	voids everything
+	return (c);
+}
+
 
 //parses the non-map info from d.level and voids it (replaces it by \n)
 void	get_info(void)
@@ -63,7 +86,7 @@ void	get_info(void)
 	d->t_paths = ft_calloc(A_COUNT, sizeof(char *));
 
 	i = -1;
-	while (d->level[++i]) //		THIS WILL LEAKS WHEN DUPLICATE TEXTURES
+	while (d->level[++i]) //		THIS WILL LEAKS WHEN DUPLICATE TEXTURES/COLOURS
 	{
 		if (!ft_strncmp(&(d->level[i]), "NO ", 3))
 			d->t_paths[TID_1_NORTH] = get_texture(&(d->level[i]));
@@ -73,10 +96,10 @@ void	get_info(void)
 			d->t_paths[TID_1_SOUTH] = get_texture(&(d->level[i]));
 		else if (!ft_strncmp(&(d->level[i]), "WE ", 3))
 			d->t_paths[TID_1_WEST] = get_texture(&(d->level[i]));
-//		else if (!ft_strncmp(&(d->level[i]), "F ", 2))
-//			d->c_floor = get_colour(&(d->level[i]));
-//		else if (!ft_strncmp(&(d->level[i]), "C ", 2))
-//			d->c_ceiling = get_colour(&(d->level[i]));
+		else if (!ft_strncmp(&(d->level[i]), "F ", 2))
+			d->c_floor = get_colour(&(d->level[i]));
+		else if (!ft_strncmp(&(d->level[i]), "C ", 2))
+			d->c_ceiling = get_colour(&(d->level[i]));
 
 		if (is_map_start(i))
 			break ;
@@ -84,16 +107,6 @@ void	get_info(void)
 			d->level[i] = '\n';
 	}
 }
-
-
-/*
-for each path in t_paths (1 to 4 )
-	if t_paths[i]
-		open(t_paths[i])
-			check
-		close(t_paths[i])
-
-*/
 
 //copies the .cub file's contents into d.level
 void	read_file(int fd)

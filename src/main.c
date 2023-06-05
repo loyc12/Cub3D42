@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 11:36:27 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 12:29:19 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	init_game(int ac, char	**av)
 
 //	init_window();
 
+	print_paths(); //								0============ DEBUG ============0
+	print_colours(); //								0============ DEBUG ============0
+
 }
 
 int	main(int ac, char **av)
 {
 	init_game(ac, av); //			verifies the inputs (argument count) are valid
-
-
-
 
 //	...
 

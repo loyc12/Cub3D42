@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 11:40:48 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 12:29:37 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,8 +185,8 @@ typedef struct s_master
 	//level infos (paths and colours)
 	char		*level; //				where to store the raw .cub info
 	int			map_start;
-	t_colour	c_ceiling; //			ceiling colour
-	t_colour	c_floor; //				floor colour
+	t_colour	*c_ceiling; //			ceiling colour
+	t_colour	*c_floor; //			floor colour
 	char		**t_paths;
 
 	//graphics
@@ -233,6 +233,7 @@ void		init_map(void);
 //from debugers
 void		print_tiles(void);
 void		print_paths(void);
+void		print_colours(void);
 
 //from checkers
 bool		is_map_start(int i);
