@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 12:29:19 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 13:15:38 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	init_game(int ac, char	**av)
 
 //	print_tiles(); //								0============ DEBUG ============0
 
-//	init_window();
+	init_window();
 
 	print_paths(); //								0============ DEBUG ============0
 	print_colours(); //								0============ DEBUG ============0

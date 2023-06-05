@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 12:29:37 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 13:16:21 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,7 @@ void		close_with_error(char *err);
 t_coords	*coords_copy(t_coords *_c);
 
 //from initializers
+void		init_window(void);
 void		init_map(void);
 
 //from debugers
