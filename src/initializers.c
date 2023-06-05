@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 11:47:24 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:00:46 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	init_map(void)
 //	init_player() //			creates the player's entity
 }
 
-void	init_window(void)
+/*void	init_window(void)
 {
 	t_master	*data;
 
 	data = get_master();
 	data->window = mlx_init(2048, 1024, "CUBE3D", true);
-}
+}*/

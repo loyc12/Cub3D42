@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 12:13:43 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:04:35 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ t_master	*get_master(void)
 	return (data);
 }
 
-
 void	init_windows(void)
 {
-	t_master	*data;
+	mlx_t	*mlx;
 
-	data = get_master();
-	data->window = mlx_init(500, 500, "CUBE3D", true);
 	printf("OK\n");
-	mlx_image_to_window(data->window, 0, 0, 0);
+	mlx = mlx_init(500, 500, "CUBE3D", true);
+	printf("OK\n");
+	mlx_image_to_window(mlx, 0, 0, 0);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
 }
 
 /*
@@ -42,7 +43,7 @@ void	init_game(int ac, char	**av)
 		close_with_error(ERR_INIT);
 	read_level(av[1]); //			opens the .cub file and copies its contents into d.level
 	printf(">%s<\n\n", get_master()->level); //		0============ DEBUG ============0
-	init_map(); //					creates the map grid from the map-info contained in d.level
+//	init_map(); //					creates the map grid from the map-info contained in d.level
 //	print_tiles(); //					0============ DEBUG ============0
 	init_windows();
 	printf("\n");
