@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 11:35:09 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:41:42 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,30 +126,23 @@ void	check_asset(void)
 {
 	t_master	*d;
 	int			img;
-	int			r;
 	int			i;
 
 	d = get_master();
 	i = 4;
-	r = 0;
 	while (i > 0)
 	{
 		if (d->t_paths[i])
 		{
 			img = open(d->t_paths[i], O_RDONLY);
 			if (img < 0)
-				r = 1;
+				close_with_error(ERR_FILE_OPEN);
 			close(img);
 		}
 		else
-		{
-			r = 1;
-			break ;
-		}
+			close_with_error(ERR_FILE_TEXT);
 		i--;
 	}
-	if (r == 1)
-		close_with_error(ERR_FILE_OPEN);
 }
 
 //opens the .cub file and copies its contents into d.level

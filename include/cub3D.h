@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 11:28:48 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/05 11:40:48 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define ERR_FILE_OPEN	"File Error : File cannot be opened" //				inexistant file or invalid perms
 # define ERR_FILE_INFO	"File Error : File is missing specifications" //	such as wall textures or ceiling/floor colours
 # define ERR_FILE_SIZE	"File Error : File is too large"
+# define ERR_FILE_TEXT	"File Error : Missing texture file"
 
 # define ERR_MAP_SIZE	"Map Error : Map is too large"
 # define ERR_MAP_PLAYER	"Map Error : Map has an invalid number or players"
