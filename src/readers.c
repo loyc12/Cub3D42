@@ -6,10 +6,9 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 13:41:09 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/06 10:42:12 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cub3D.h"
 
@@ -38,29 +37,45 @@ void	read_file(int fd)
 		close_with_error(ERR_MAP_SIZE);
 }
 
-/*
-Check the path of assets and verify content is there and usable*/
-void	check_asset(void)
+//Verifies that the texture paths are valid
+void	check_assets(void)
 {
 	t_master	*d;
-	int			img;
+	int			fd;
 	int			i;
 
 	d = get_master();
-	i = 4;
-	while (i > 0)
+	i = 3;
+	while (i >= 0) // checks asset paths [1] to [4]
 	{
 		if (d->t_paths[i])
 		{
-			img = open(d->t_paths[i], O_RDONLY);
-			if (img < 0)
-				close_with_error(ERR_FILE_OPEN);
-			close(img);
+			fd = open(d->t_paths[i], O_RDONLY);
+			if (fd < 0)
+				close_with_error(ERR_FILE_ASSET);
+			close(fd);
 		}
 		else
-			close_with_error(ERR_FILE_TEXT);
+			close_with_error(ERR_FILE_SPECS);
 		i--;
 	}
+}
+
+//Verifies that the floor & ceiling colours are within bounds
+void	check_colours(void)
+{
+	t_master	*d;
+
+	d = get_master();
+	if (!(d->c_ceiling) || !(d->c_floor))
+		close_with_error(ERR_FILE_SPECS);
+	if (d->c_ceiling->r > 255 || d->c_ceiling->g > 255 || d->c_ceiling->b > 255 || \
+		d->c_floor->r > 255 || d->c_floor->g > 255 || d->c_floor->b > 255)
+		close_with_error(ERR_FILE_COLOR);
+	if (d->c_ceiling->r < 0 || d->c_ceiling->g < 0 || d->c_ceiling->b < 0 || \
+		d->c_floor->r < 0 || d->c_floor->g < 0 || d->c_floor->b < 0)
+		close_with_error(ERR_FILE_COLOR);
+
 }
 
 //opens the .cub file and copies its contents into d.level
@@ -72,18 +87,19 @@ void	read_level(char *path)
 	i = 0;
 	while (path[i])
 		i++;
-	if (ft_strncmp(&path[i - 4], ".cub", 5))
-		close_with_error(ERR_FILE_NAME);
+
 	fd = open(path, O_RDONLY);
+	if (ft_strncmp(&path[i - 4], ".cub", 5))
+		close_with_error(ERR_FILE_CUBE);
 	if (fd <= 0)
-		close_with_error(ERR_FILE_OPEN);
+		close_with_error(ERR_FILE_LEVEL);
 	read_file(fd);
 	close(fd);
+
 	printf(">%s<\n\n", get_master()->level); //	0============ DEBUG ============0
 
-	get_info(); //		parses the non-map info from d.level and voids it (replaces it by \n)
-	check_asset();
-
-//	check_info(); //	verifies the texture paths and floor/ceiling colours
+	get_info();
+	check_assets();
+	check_colours();
 
 }
