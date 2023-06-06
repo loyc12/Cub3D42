@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 11:19:04 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/06 13:03:43 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ int	free_master(void)
 	ft_free_null(ADRS data->c_ceiling);
 	ft_free_null(ADRS data->c_floor);
 	ft_free_array(ADRS2 data->t_paths);
-	//printf("%s\n", data->t_paths[TID_1_NORTH]);
-	if (data->window)
-		mlx_terminate(data->window);
-	//d->window; //					DESTROY MLX HERE (?)
+//	if (data->window)
+//		mlx_terminate(data->window);
 	ft_free_null(ADRS data); //		MUST BE LAST FREED
 	return (state);
 }

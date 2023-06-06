@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 11:07:24 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/06 13:46:44 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,7 @@ t_tile	*create_tile(char c, t_coords *_tc)
 	else
 		tile->type = TTYPE_ERROR;
 
-	// 0======== DEBUG ========0
-	printf("Created tile at %i:%i with type ", _tc->x, _tc->y);
-	if (tile->type == TTYPE_ROOM)
-		printf("floor");
-	else if (tile->type == TTYPE_WALL)
-		printf("wall ");
-	else
-		printf("%i", tile->type);
-	printf(" (%c)\n", c);
+//	announce_tile(tile, c); // 			0======== DEBUG ========0
 
 	return (tile);
 }
@@ -62,7 +54,7 @@ void	build_map(t_master *d)
 	{
 		if (d->level[i] != '\n') //		if newline: increments y and reset x
 		{
-			if (tc->x >= M_SIZE || tc->y >= M_SIZE)
+			if (tc->x >= MAX_MAP_SIZE || tc->y >= MAX_MAP_SIZE)
 				close_with_error(ERR_MAP_SIZE);
 			if (!ft_isspace(d->level[i]))
 				d->tiles[++j] = create_tile(d->level[i], tc);

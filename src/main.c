@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 11:44:26 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/06 13:49:26 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_game(int ac, char **av)
 
 //	print_tiles(); //							0============ DEBUG ============0
 
-	init_window();
+//	init_window();
 	print_paths(); //							0============ DEBUG ============0
 	print_colours(); //							0============ DEBUG ============0
 
@@ -94,5 +94,25 @@ use // in front of the line to mark what is completed
 
 
 
+	player entity
+		position
+		angle
+
+	do this for every slice of the screen
+	{
+		ray_cast()
+			from position with angle
+			find the nearest wall
+			return wall type, distance and hit position (in a struct?)
+		display_slice()
+			display a colum in the midle of the screen (at ray 'position')
+			height based on hit distance
+			texture based on wall type and hit position
+	}
+
+	hitpoint struct
+		ray lenght
+		wall type
+		texture position (x)
 
 */

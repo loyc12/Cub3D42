@@ -6,23 +6,23 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:45:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 11:44:38 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/06 13:43:38 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 //gets a colour component from a line
-int	get_next_num(char *line, int *i)				//TODO : discriminate symbols (only digits, ',' and ' ')
+int	get_next_num(char *line, int *i) //					TODO : discriminate symbols (only digits, ',' and ' ')
 {
 	int	num;
 	int	j;
 
 	j = 0;
 	num = 0;
-	while (line[*i] && line[*i] != '\n' && !ft_isdigit(line[*i]))
+	while (line[*i] && ft_isspace(line[*i])) //			skip spaces
 		(*i)++;
-	while (line[*i] && line[*i] != '\n' && ft_isdigit(line[*i]))
+	while (line[*i] && ft_isdigit(line[*i]))
 	{
 		num *= 10;
 		num += line[*i] - '0';
@@ -31,6 +31,8 @@ int	get_next_num(char *line, int *i)				//TODO : discriminate symbols (only digi
 	}
 	if (j == 0)
 		num = -1;
+	if (line[*i] && line[*i] != '\n')
+	(*i)++; //		skip the character right after the num
 	return (num);
 }
 
@@ -40,7 +42,7 @@ void	get_colour(char *line, t_colour **c)
 	int			i;
 
 	if (*c) //		frees and voids previous colour
-		ft_free_null((void **)*c);
+		ft_free_null((void **)c);
 
 	*c = ft_calloc(1, sizeof(t_colour));
 	i = 2; // skips initial info
@@ -52,7 +54,7 @@ void	get_colour(char *line, t_colour **c)
 	while (line[i] && line[i] != '\n')
 	{
 		if (!ft_isspace(line[i]))
-			(*c)->b = -1; //		renders colour invalid if more than 3 nums on line
+			(*c)->r = -1; //		renders colour invalid if more than 3 nums on line
 		i++;
 	}
 
@@ -93,7 +95,7 @@ void	get_info(void)
 	int			i;
 
 	d = get_master();
-	d->t_paths = ft_calloc(A_COUNT + 1, sizeof(char *));
+	d->t_paths = ft_calloc(ASSET_COUNT + 1, sizeof(char *));
 	i = -1;
 
 	while (d->level[++i])
