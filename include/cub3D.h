@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 14:11:28 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:42:14 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,10 @@ typedef enum e_mstate
 //texture ID (the index of the texture in the asset array)
 typedef enum e_tid
 {
-	TID_DEBUG	= 0,
-	TID_1_NORTH	= 1,
-	TID_1_EAST	= 2,
-	TID_1_SOUTH	= 3,
-	TID_1_WEST	= 4
+	TID_1_NORTH	= 0,
+	TID_1_EAST	= 1,
+	TID_1_SOUTH	= 2,
+	TID_1_WEST	= 3
 }			t_tid;
 
 //entity type (how should we interact with this entity)

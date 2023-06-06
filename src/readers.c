@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 13:48:35 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:54:33 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	check_asset(void)
 	int			i;
 
 	d = get_master();
-	i = 4;
-	while (i > 0)
+	i = 3;
+	while (i >= 0)
 	{
 		if (d->t_paths[i])
 		{

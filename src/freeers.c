@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   freeers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/05/26 16:32:08 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/06 10:53:10 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	free_tiles(t_master *data)
 		while (data->tiles[++i])
 		{
 			//free the stuff inside the tiles here
-
 			ft_free_null(ADRS data->tiles[i]->tc);
 			ft_free_null(ADRS data->tiles[i]);
 		}
@@ -46,11 +45,14 @@ int	free_master(void)
 	ft_free_array(ADRS2 data->assets);
 	ft_free_null(ADRS data->player);
 	ft_free_null(ADRS data->level);
-
+	ft_free_null(ADRS data->c_ceiling);
+	ft_free_null(ADRS data->c_floor);
+	ft_free_array(ADRS2 data->t_paths);
+	//printf("%s\n", data->t_paths[TID_1_NORTH]);
+	if (data->window)
+		mlx_terminate(data->window);
 	//d->window; //					DESTROY MLX HERE (?)
-
 	ft_free_null(ADRS data); //		MUST BE LAST FREED
-
 	return (state);
 }
 
