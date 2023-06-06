@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 10:58:02 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/06 11:44:26 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_master	*get_master(void)
 }
 
 //verifies the inputs (arguments and level file) are valid
-void	init_game(int ac, char	**av)
+void	init_game(int ac, char **av)
 {
 	if (ac != 2)
 		close_with_error(ERR_ARG_COUNT);
@@ -34,10 +34,11 @@ void	init_game(int ac, char	**av)
 
 	init_map();
 
-//	print_tiles(); //								0============ DEBUG ============0
+//	print_tiles(); //							0============ DEBUG ============0
+
 	init_window();
-	print_paths(); //								0============ DEBUG ============0
-	print_colours(); //								0============ DEBUG ============0
+	print_paths(); //							0============ DEBUG ============0
+	print_colours(); //							0============ DEBUG ============0
 
 }
 

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 10:58:01 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/06 11:17:14 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	init_window(void)
 {
 	mlx_t 		*mlx;
 
-	printf("check 1\n");
+	printf("\ncheck 1\n"); //			0============ DEBUG ============0
 	mlx = mlx_init(2048, 1024, "Test", false);
-	printf("check 2\n");
+	printf("check 2\n"); //				0============ DEBUG ============0
 	mlx_loop(mlx);
-	printf("check 3\n");
+	printf("check 3\n"); //				0============ DEBUG ============0
 	mlx_terminate(mlx);
-	printf("check 4\n");
+	printf("check 4\n"); //				0============ DEBUG ============0
 }
 
 //creates the map grid from the map-info contained in d.level
