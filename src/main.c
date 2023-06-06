@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 14:12:19 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:58:02 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-/*
-creates the t_master *d struct (first call behaviour)*/
+//creates the t_master *d struct (first call behaviour)
 t_master	*get_master(void)
 {
 	static t_master	*data;
@@ -23,16 +22,17 @@ t_master	*get_master(void)
 	return (data);
 }
 
-/*
-verifies the inputs (arguments and level file) are valid*/
+//verifies the inputs (arguments and level file) are valid
 void	init_game(int ac, char	**av)
 {
 	if (ac != 2)
-		close_with_error(ERR_INIT);
-	read_level(av[1]); //			opens the .cub file and copies its contents into d.level
-	printf(">%s<\n\n", get_master()->level); //		0============ DEBUG ============0
+		close_with_error(ERR_ARG_COUNT);
 
-	init_map(); //					creates the map grid from the map-info contained in d.level
+	read_level(av[1]);
+
+	printf(">%s<\n\n", get_master()->level); //	0============ DEBUG ============0
+
+	init_map();
 
 //	print_tiles(); //								0============ DEBUG ============0
 	init_window();
@@ -43,7 +43,7 @@ void	init_game(int ac, char	**av)
 
 int	main(int ac, char **av)
 {
-	init_game(ac, av); //			verifies the inputs (argument count) are valid
+	init_game(ac, av);
 
 //	...
 
@@ -57,12 +57,12 @@ int	main(int ac, char **av)
 use // in front of the line to mark what is completed
 
 
-//	init_game() //		verifies the argc and init all things
+//	init_game() //			verifies the argc and init all things
 //		read_level() //			opens the .cub file and copies its contents into d.level
 //			read_file() //			copies the .cub file's contents into d.level
 //			get_info() //			collects and voids the non-map info from d.level
-//			check_assets() //		verifies the texture paths
-			check_colours() //		verifies the colours of the floor/ceiling
+//			check_assets() //		verifies that the texture paths are valid
+			check_colours() //		verifies that the floor & ceiling colours are within bounds
 //		init_map() //			creates the map grid from the map-info contained in d.level
 //			check_map() //			verifies each map character and the total map lenght
 //			build_map()				creates the unconnected tiles for the map grid
@@ -95,4 +95,3 @@ use // in front of the line to mark what is completed
 
 
 */
-

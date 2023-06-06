@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:45:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 13:41:25 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/06 10:37:06 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 int	get_next_num(char *line, int *i)
 {
 	int	num;
+	int	j;
 
+	j = 0;
 	num = 0;
 	while (line[*i] && line[*i] != '\n' && !ft_isdigit(line[*i]))
 		(*i)++;
@@ -25,10 +27,12 @@ int	get_next_num(char *line, int *i)
 		num *= 10;
 		num += line[*i] - '0';
 		(*i)++;
+		j++;
 	}
+	if (j == 0)
+		num = -1;
 	return (num);
 }
-
 
 //extracts and returns the colour found in a given line
 t_colour	*get_colour(char *line)
@@ -42,6 +46,13 @@ t_colour	*get_colour(char *line)
 	c->r = get_next_num(line, &i);
 	c->g = get_next_num(line, &i);
 	c->b = get_next_num(line, &i);
+
+	while (line[i] && line[i] != '\n')
+	{
+		if (!ft_isspace(line[i]))
+			c->b = -1; //		renders colour invalid if more than 3 nums on line
+		i++;
+	}
 
 	i = 0;
 	while (line[i] && line[i] != '\n')
@@ -82,8 +93,8 @@ void	get_info(void)
 
 	d = get_master();
 	d->t_paths = ft_calloc(A_COUNT, sizeof(char *));
-
 	i = -1;
+
 	while (d->level[++i]) //		THIS WILL LEAKS WHEN DUPLICATE TEXTURES/COLOURS
 	{
 		if (!ft_strncmp(&(d->level[i]), "NO ", 3))

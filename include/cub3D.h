@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 10:42:14 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/06 11:07:20 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@
 
 # define ERR_ARG_COUNT	"Input Error : Invalid argument count"
 
-# define ERR_FILE_NAME	"File Error : Specified file is not a .cub"
-# define ERR_FILE_OPEN	"File Error : File cannot be opened" //				inexistant file or invalid perms
-# define ERR_FILE_INFO	"File Error : File is missing specifications" //	such as wall textures or ceiling/floor colours
-# define ERR_FILE_SIZE	"File Error : File is too large"
-# define ERR_FILE_TEXT	"File Error : Missing texture file"
+# define ERR_FILE_LEVEL	"File Error : Invalid level file path" //			inexistant file or invalid perms
+# define ERR_FILE_CUBE	"File Error : Level file is not a .cub"
+# define ERR_FILE_SIZE	"File Error : Level file is too large"
+# define ERR_FILE_SPECS	"File Error : Level specification missing" //		wall assets paths or ceiling & floor colours
+# define ERR_FILE_ASSET	"File Error : Invalid asset file path" //			inexistant file or invalid perms
+# define ERR_FILE_COLOR	"File Error : Invalid colour code"
 
 # define ERR_MAP_SIZE	"Map Error : Map is too large"
 # define ERR_MAP_PLAYER	"Map Error : Map has an invalid number or players"
@@ -98,7 +99,7 @@ typedef enum e_ttype
 # define M_CHARS	(int)8192 //	maximum level file size (in chars)
 # define M_SIZE		(int)64 //		maximum horizontal/vertical map size (in tiles)
 # define A_SIZE		(int)64 //		asset size (in pixels)
-# define A_COUNT	(int)5 //		asset size (in pixels)
+# define A_COUNT	(int)4 //		asset count
 //# define P_SIZE		(int)4 //		size of virtual pixels (in real pixels)		(?)
 
 //other

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 13:48:23 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:58:01 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	init_window(void)
 	mlx_terminate(mlx);
 	printf("check 4\n");
 }
-
 
 //creates the map grid from the map-info contained in d.level
 void	init_map(void)

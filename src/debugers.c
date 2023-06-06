@@ -6,15 +6,13 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:51:15 by llord             #+#    #+#             */
-/*   Updated: 2023/06/05 13:44:13 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/06 10:55:15 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-
 //	0================ DEBUG FUNCTIONS ================0
-
 
 void	print_tile(t_tile *tile)
 {
@@ -54,7 +52,6 @@ void	print_tiles(void)
 	t_tile	**tiles;
 	int		i;
 
-
 	tiles = get_master()->tiles;
 	i = -1;
 	while (tiles[++i])
@@ -70,7 +67,7 @@ void	print_paths(void)
 
 	d = get_master();
 
-	i = 0;
+	i = -1;
 	printf("\n");
 	if (d->t_paths)
 	{
