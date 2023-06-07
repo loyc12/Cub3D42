@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/07 10:10:04 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/07 10:27:29 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	main(int ac, char **av)
 //	...
 
 	printf("\n");
-
 	return (free_master());
 }
 
@@ -70,8 +69,8 @@ use // in front of the line to mark what is completed
 //			connect_map() //		connects all the map's tiles into a tile grid
 //			check_flood_fill()		verifies that the map is closed
 			init_player() //		creates the player's entity
-		init_window()
-			init_mlx()
+//		init_window()
+//			init_mlx()
 			get_textures()
 			check_textures()
 			open_window()

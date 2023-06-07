@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/07 10:28:47 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/07 10:29:17 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_window(void)
 	mlx_t 	*mlx;
 
 	printf("\ncheck 1\n"); //			0============ DEBUG ============0
-	mlx = mlx_init(2048, 1024, "Test", false);
+	mlx = mlx_init(2048, 1024, "CUBE3D", false);
 	printf("check 2\n"); //				0============ DEBUG ============0
 	mlx_loop(mlx);
 	printf("check 3\n"); //				0============ DEBUG ============0
@@ -46,10 +46,20 @@ void	init_map(void)
 //	init_player() //			creates the player's entity
 }
 
-/*void	init_window(void)
+//verifies the inputs (arguments and level file) are valid
+void	init_game(int ac, char **av)
 {
-	t_master	*data;
+	if (ac != 2)
+		close_with_error(ERR_ARG_COUNT);
+	read_level(av[1]);
+	printf(">%s<\n\n", get_master()->level); //	0============ DEBUG ============0
 
-	data = get_master();
-	data->window = mlx_init(2048, 1024, "CUBE3D", true);
-}*/
+	init_map();
+
+//	print_tiles(); //							0============ DEBUG ============0
+
+	init_window();
+	print_paths(); //							0============ DEBUG ============0
+	print_colours(); //							0============ DEBUG ============0
+
+}
