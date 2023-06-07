@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:51:15 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 10:55:15 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/06 13:43:29 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,18 @@ void	print_tiles(void)
 	}
 }
 
+void	announce_tile(t_tile *tile, char c)
+{
+	printf("Created tile at %i:%i with type ", tile->tc->x, tile->tc->y);
+	if (tile->type == TTYPE_ROOM)
+		printf("floor");
+	else if (tile->type == TTYPE_WALL)
+		printf("wall ");
+	else
+		printf("%i", tile->type);
+	printf(" (%c)\n", c);
+}
+
 void	print_paths(void)
 {
 	t_master	*d;
@@ -71,7 +83,7 @@ void	print_paths(void)
 	printf("\n");
 	if (d->t_paths)
 	{
-		while (++i < A_COUNT)
+		while (++i < ASSET_COUNT)
 		{
 			if (d->t_paths && d->t_paths[i])
 				printf("Path %i  : '%s'\n", i, d->t_paths[i]);

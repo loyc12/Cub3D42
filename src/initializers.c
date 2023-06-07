@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/07 10:20:22 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:27:15 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_player(void)
 
 void	init_window(void)
 {
-	mlx_t 		*mlx;
+	mlx_t 	*mlx;
 
 	printf("\ncheck 1\n"); //			0============ DEBUG ============0
 	mlx = mlx_init(2048, 1024, "CUBE3D", false);

@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/07 10:18:53 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:27:06 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,19 @@ typedef enum e_ttype
 //# define T_SPEED	(float)2.0 //	turning speed (in rad/sec)
 
 //translation (1 tile ~= 3m)
-# define W_SPEED	(float)0.4 //	walking speed (in tile/sec)
-//# define E_SPEED	(float)0.7 //	enemy speed  (in tile/sec)			(?)
-# define R_SPEED	(float)1.0 //	running speed (in tile/sec)
+# define WALK_SPEED		(float)0.4 //	walking speed (in tile/sec)
+# define RUN_SPEED		(float)1.0 //	running speed (in tile/sec)
 
-//size
-# define M_CHARS	(int)8192 //	maximum level file size (in chars)
-# define M_SIZE		(int)64 //		maximum horizontal/vertical map size (in tiles)
-# define A_SIZE		(int)64 //		asset size (in pixels)
-# define A_COUNT	(int)4 //		asset count
-//# define P_SIZE		(int)4 //		size of virtual pixels (in real pixels)		(?)
+//sizes
+# define MAX_CHAR_COUNT	(int)8192 //	maximum level file size (in chars)
+# define MAX_MAP_SIZE	(int)64 //		maximum horizontal/vertical map size (in tiles)
+
+# define ASSET_SIZE		(int)64 //		asset size (in pixels)
+# define ASSET_COUNT	(int)4 //		asset count
+
+# define SCREEN_WIDTH	(int)1024
+# define SCREEN_HEIGHT	(int)768
+# define PIXEL_SIZE		(int)4 //		size of virtual pixels (in real pixels)
 
 //other
 # define NO_CLIP	0 //			whether or not to ignore colision checks
@@ -122,9 +125,9 @@ typedef struct s_coords
 //float coordinates for entities and such
 typedef struct s_vector
 {
-	float	x; //	north-south position
-	float	y; //	east-west position
-	float	d; //	orientation
+	double	x; //	north-south position
+	double	y; //	east-west position
+	double	d; //	orientation
 
 }			t_vector;
 
@@ -162,7 +165,7 @@ typedef struct s_entity
 {
 	//static
 	t_asset		*sprite; //	asset to display 							(?)
-	float		radius; //	colision radius (in tile size)
+	double		radius; //	colision radius (in tile size)
 
 	//dynamic
 	t_vector	*pv; //		unit coordinates (where inside the tile)
@@ -234,6 +237,7 @@ void		init_game(int ac, char **av);
 
 //from debugers
 void		print_tiles(void);
+void		announce_tile(t_tile *tile, char c);
 void		print_paths(void);
 void		print_colours(void);
 

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 10:58:03 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/06 13:46:30 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	read_file(int fd)
 
 	c = ft_calloc(1, sizeof(char *));
 	d = get_master();
-	d->level = ft_calloc(M_CHARS, sizeof(char *));
+	d->level = ft_calloc(MAX_CHAR_COUNT, sizeof(char *));
 
 	i = -1;
-	while (++i < M_CHARS)
+	while (++i < MAX_CHAR_COUNT)
 	{
 		if (0 < read(fd, c, 1))
 			d->level[i] = c[0];
@@ -33,7 +33,7 @@ void	read_file(int fd)
 	}
 	ft_free_null(ADRS c);
 	close(fd);
-	if (M_CHARS <= i)
+	if (MAX_CHAR_COUNT <= i)
 		close_with_error(ERR_MAP_SIZE);
 }
 
