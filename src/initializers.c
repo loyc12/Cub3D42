@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/07 11:08:27 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/07 12:04:25 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	init_player(void)
 	player->vector = coords_to_vector(data->spawn->coords);
 	player->radius = PLAYER_RADIUS;
 
-	if (data->player_dir == 'N')
-		player->vector->d = 0;
 	if (data->player_dir == 'E')
+		player->vector->d = 0;
+	if (data->player_dir == 'N')
 		player->vector->d = 90;
-	if (data->player_dir == 'S')
-		player->vector->d = 180;
 	if (data->player_dir == 'W')
+		player->vector->d = 180;
+	if (data->player_dir == 'S')
 		player->vector->d = 270;
 
 	data->player = player;

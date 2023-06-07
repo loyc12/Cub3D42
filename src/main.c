@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/07 10:32:09 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/07 13:30:35 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,15 @@ use // in front of the line to mark what is completed
 	do this for every slice of the screen
 	{
 		ray_cast()
-			from position with angle
-			find the nearest wall
-			return wall type, distance and hit position (in a struct?)
+			from player position & angle
+			find the nearest wall (from angle relative to player)
+				find step direction (+/- x, +/- y)
+				find Xi and Yi
+				find Xscale and Yscale
+				while (!hit)
+					check in X until Dx > Dy
+					check in Y until Dy > Dx
+			return hit struct (distance + position + wall type)
 		display_slice()
 			display a colum in the midle of the screen (at ray 'position')
 			height based on hit distance
