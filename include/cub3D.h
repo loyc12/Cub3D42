@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 13:43:14 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/07 10:20:42 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,6 @@ typedef enum e_ttype
 # define SCREEN_HEIGHT	(int)768
 # define PIXEL_SIZE		(int)4 //		size of virtual pixels (in real pixels)
 
-
-
 //other
 # define NO_CLIP	0 //			whether or not to ignore colision checks
 
@@ -127,9 +125,9 @@ typedef struct s_coords
 //float coordinates for entities and such
 typedef struct s_vector
 {
-	float	x; //	north-south position
-	float	y; //	east-west position
-	float	d; //	orientation
+	double	x; //	north-south position
+	double	y; //	east-west position
+	double	d; //	orientation
 
 }			t_vector;
 
@@ -167,7 +165,7 @@ typedef struct s_entity
 {
 	//static
 	t_asset		*sprite; //	asset to display 							(?)
-	float		radius; //	colision radius (in tile size)
+	double		radius; //	colision radius (in tile size)
 
 	//dynamic
 	t_vector	*pv; //		unit coordinates (where inside the tile)
