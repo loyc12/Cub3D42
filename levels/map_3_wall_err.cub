@@ -7,7 +7,7 @@ WE  ./assets/side_1.png
 
 EA  ./assets/side_1.png
 
-F 0,255,255
+F -1,255,255
 C 225,30,0
 
 SO  ./assets/face_1.png

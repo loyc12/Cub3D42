@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 11:44:26 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/07 10:20:53 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,6 @@ t_master	*get_master(void)
 	return (data);
 }
 
-//verifies the inputs (arguments and level file) are valid
-void	init_game(int ac, char **av)
-{
-	if (ac != 2)
-		close_with_error(ERR_ARG_COUNT);
-
-	read_level(av[1]);
-
-	printf(">%s<\n\n", get_master()->level); //	0============ DEBUG ============0
-
-	init_map();
-
-//	print_tiles(); //							0============ DEBUG ============0
-
-	init_window();
-	print_paths(); //							0============ DEBUG ============0
-	print_colours(); //							0============ DEBUG ============0
-
-}
-
 int	main(int ac, char **av)
 {
 	init_game(ac, av);
@@ -49,7 +29,6 @@ int	main(int ac, char **av)
 //	...
 
 	printf("\n");
-
 	return (free_master());
 }
 
@@ -70,8 +49,8 @@ use // in front of the line to mark what is completed
 //			connect_map() //		connects all the map's tiles into a tile grid
 //			check_flood_fill()		verifies that the map is closed
 			init_player() //		creates the player's entity
-		init_window()
-			init_mlx()
+//		init_window()
+//			init_mlx()
 			get_textures()
 			check_textures()
 			open_window()

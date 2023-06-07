@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 11:07:20 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/07 10:18:53 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,7 @@ t_coords	*coords_copy(t_coords *_c);
 //from initializers
 void		init_window(void);
 void		init_map(void);
+void		init_game(int ac, char **av);
 
 //from debugers
 void		print_tiles(void);
