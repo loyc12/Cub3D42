@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 13:03:43 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/07 11:04:08 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,19 @@ void	free_tiles(t_master *data)
 		while (data->tiles[++i])
 		{
 			//free the stuff inside the tiles here
-			ft_free_null(ADRS data->tiles[i]->tc);
+			ft_free_null(ADRS data->tiles[i]->coords);
 			ft_free_null(ADRS data->tiles[i]);
 		}
 		ft_free_null(ADRS data->tiles);
+	}
+}
+
+void	free_entity(t_entity *entity)
+{
+	if (entity)
+	{
+		ft_free_null(ADRS entity->vector);
+		ft_free_null(ADRS entity);
 	}
 }
 
@@ -42,8 +51,9 @@ int	free_master(void)
 	//free the stuff inside d here
 
 	free_tiles(data);
+	free_entity(data->player);
+
 	ft_free_array(ADRS2 data->assets);
-	ft_free_null(ADRS data->player);
 	ft_free_null(ADRS data->level);
 	ft_free_null(ADRS data->c_ceiling);
 	ft_free_null(ADRS data->c_floor);

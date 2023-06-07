@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:51:15 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 13:43:29 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/07 11:10:31 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	print_tile(t_tile *tile)
 {
 	if (tile)
 	{
-		if (tile->tc)
-			printf("%i:%i", tile->tc->x, tile->tc->y);
+		if (tile->coords)
+			printf("%i:%i", tile->coords->x, tile->coords->y);
 		else
 			printf("ERR");
 	}
@@ -62,7 +62,7 @@ void	print_tiles(void)
 
 void	announce_tile(t_tile *tile, char c)
 {
-	printf("Created tile at %i:%i with type ", tile->tc->x, tile->tc->y);
+	printf("Created tile at %i:%i with type ", tile->coords->x, tile->coords->y);
 	if (tile->type == TTYPE_ROOM)
 		printf("floor");
 	else if (tile->type == TTYPE_WALL)
@@ -112,4 +112,13 @@ void	print_colours(void)
 		printf("Ceiling : '%i,%i,%i'\n", d->c_ceiling->r, d->c_ceiling->g, d->c_ceiling->b);
 	else
 		printf("Ceiling : missing\n");
+}
+
+void	print_player(void)
+{
+	t_entity	*p;
+
+	p = get_master()->player;
+
+	printf("\nPlayer with radius %.2f at (%.2f : %.2f) looking towards %.2f\n", p->radius, p->vector->x, p->vector->y, p->vector->d);
 }

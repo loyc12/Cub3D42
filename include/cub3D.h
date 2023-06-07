@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/07 10:29:23 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/07 11:09:14 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ typedef enum e_ttype
 //# define T_SPEED	(float)2.0 //	turning speed (in rad/sec)
 
 //translation (1 tile ~= 3m)
-# define WALK_SPEED		(float)0.4 //	walking speed (in tile/sec)
-# define RUN_SPEED		(float)1.0 //	running speed (in tile/sec)
+# define WALK_SPEED		(double)0.4 //	walking speed (in tile/sec)
+# define RUN_SPEED		(double)1.0 //	running speed (in tile/sec)
 
 //sizes
 # define MAX_CHAR_COUNT	(int)8192 //	maximum level file size (in chars)
@@ -104,6 +104,8 @@ typedef enum e_ttype
 # define SCREEN_WIDTH	(int)1024
 # define SCREEN_HEIGHT	(int)768
 # define PIXEL_SIZE		(int)4 //		size of virtual pixels (in real pixels)
+
+# define PLAYER_RADIUS	(double)0.1
 
 //other
 # define NO_CLIP	0 //			whether or not to ignore colision checks
@@ -118,8 +120,6 @@ typedef struct s_coords
 {
 	int		x; //	north-south
 	int		y; //	east-west
-//	int		z; //	height												(?)
-
 }			t_coords;
 
 //float coordinates for entities and such
@@ -127,7 +127,7 @@ typedef struct s_vector
 {
 	double	x; //	north-south position
 	double	y; //	east-west position
-	double	d; //	orientation
+	double	d; //	degree
 
 }			t_vector;
 
@@ -146,7 +146,7 @@ typedef struct s_asset
 typedef struct s_tile
 {
 	//static
-	t_coords	*tc; //		tile coordinates
+	t_coords	*coords; //	tile coordinates
 	int			type; //	used for texturing and interactions
 
 	//neighbours
@@ -165,10 +165,11 @@ typedef struct s_entity
 {
 	//static
 //	t_asset		*sprite; //	asset to display 							(?)
-//	double		radius; //	colision radius (in tile size)
+	double		radius; //	colision radius (in tile size)
 
 	//dynamic
-	t_vector	*pv; //		unit coordinates (where inside the tile)
+
+	t_vector	*vector; //		unit coordinates (where inside the tile)
 
 }				t_entity;
 
@@ -201,6 +202,7 @@ typedef struct s_master
 
 	//entities
 	t_tile		*spawn; //				pointer to spawn tile
+	char		player_dir;
 	t_entity	*player; //				player entity
 
 	//meta
@@ -211,49 +213,63 @@ typedef struct s_master
 
 // ======== FUNCTIONS ======== //
 
-//from main
-t_master	*get_master(void);
-
-//from tilers
-t_tile		*create_tile(char c, t_coords *_tc);
-t_tile		*find_tile(int x, int y);
-void		build_map(t_master *data);
-void		connect_map(void);
-
-//from readers
-void		read_level(char *path);
-
-//from freeers
-int			free_master(void);
-void		close_with_error(char *err);
+//from checkers --- (5)
+bool		is_char_valid(char c);
+bool		is_map_start(int i);
+void		check_map(void);
+void		flood_check(t_tile *tile);
+void		flood_check_map(void);
 
 //from coorders
 t_coords	*coords_copy(t_coords *_c);
+t_vector	*coords_to_vector(t_coords	*_c);
 
-//from initializers
+//from debugers
+void		print_tile(t_tile *tile);
+void		print_tiles(void);
+void		print_neighbours(t_tile *tile);
+void		announce_tile(t_tile *tile, char c);
+void		print_paths(void);
+void		print_colours(void);
+void		print_player(void);
+
+//from freeers --- (4)
+void		free_tiles(t_master *data);
+void		free_entity(t_entity *entity);
+int			free_master(void);
+void		close_with_error(char *err);
+
+//from getters --- (4)
+int			get_next_num(char *line, int *i);
+void		get_colour(char *line, t_colour **c);
+void		get_texture(char *line, char **path);
+void		get_info(void);
+
+//from initializers --- (4)
+void		init_player(void);
 void		init_window(void);
 void		init_map(void);
 void		init_game(int ac, char **av);
 
-//from debugers
-void		print_tiles(void);
-void		announce_tile(t_tile *tile, char c);
-void		print_paths(void);
-void		print_colours(void);
+//from main
+t_master	*get_master(void);
 
-//from checkers
-bool		is_map_start(int i);
-void		check_map(void);
-void		flood_check_map(void);
+//from readers
+void		read_file(int fd);
+void		check_assets(void);
+void		check_colours(void);
+void		read_level(char *path);
 
-//from getters
-void		get_info(void);
+//from tilers
+t_tile		*create_tile(char c, t_coords *_coords);
+t_tile		*find_tile(int x, int y);
+void		build_map(t_master *data);
+void		connect_map(void);
+
 
 //does_overlap_tile(entity, tile) //		checks for collision with walls
 //does_overlap_entity(entity, entity)		only if implementing enemies/objects(?)
-
 //move_entity(entity, direction) //			blocks at wall
-//normalize_coords(entity) //				updates tc and uc when uc is outside of tc
 
 #endif // CUB3D_H
 

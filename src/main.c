@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/07 10:27:29 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:32:09 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,6 @@ t_master	*get_master(void)
 	if (!data)
 		data = ft_calloc(1, sizeof(t_master));
 	return (data);
-}
-
-//verifies the inputs (arguments and level file) are valid
-void	init_game(int ac, char **av)
-{
-	if (ac != 2)
-		close_with_error(ERR_ARG_COUNT);
-
-	read_level(av[1]);
-
-	printf(">%s<\n\n", get_master()->level); //	0============ DEBUG ============0
-
-	init_map();
-
-//	print_tiles(); //							0============ DEBUG ============0
-
-//	init_window();
-	print_paths(); //							0============ DEBUG ============0
-	print_colours(); //							0============ DEBUG ============0
-
 }
 
 int	main(int ac, char **av)
@@ -67,8 +47,8 @@ use // in front of the line to mark what is completed
 //			check_map() //			verifies each map character and the total map lenght
 //			build_map()				creates the unconnected tiles for the map grid
 //			connect_map() //		connects all the map's tiles into a tile grid
-//			check_flood_fill()		verifies that the map is closed
-			init_player() //		creates the player's entity
+//			check_flood_fill() //	verifies that the map is closed
+		init_player() //			creates the player's entity
 //		init_window()
 //			init_mlx()
 			get_textures()

@@ -6,19 +6,19 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 13:46:44 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/07 10:59:41 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 //creates a tile of a given type with the copy of given coords
-t_tile	*create_tile(char c, t_coords *_tc)
+t_tile	*create_tile(char c, t_coords *_coords)
 {
 	t_tile	*tile;
 
 	tile = ft_calloc(1, sizeof(t_tile));
-	tile->tc = coords_copy(_tc);
+	tile->coords = coords_copy(_coords);
 
 	if (c == '0')
 		tile->type = TTYPE_ROOM;
@@ -28,6 +28,7 @@ t_tile	*create_tile(char c, t_coords *_tc)
 	{
 		tile->type = TTYPE_ROOM;
 		get_master()->spawn = tile;
+		get_master()->player_dir = c;
 	}
 	else
 		tile->type = TTYPE_ERROR;
@@ -40,11 +41,11 @@ t_tile	*create_tile(char c, t_coords *_tc)
 //creates the unconnected tiles for the map grid
 void	build_map(t_master *d)
 {
-	t_coords	*tc;
+	t_coords	*coords;
 	int			i;
 	int			j;
 
-	tc = ft_calloc(1, sizeof(t_coords));
+	coords = ft_calloc(1, sizeof(t_coords));
 	i = -1;
 	while (d->level[i + 1] == '\n') //	skips initial empty lines
 		i++;
@@ -54,19 +55,19 @@ void	build_map(t_master *d)
 	{
 		if (d->level[i] != '\n') //		if newline: increments y and reset x
 		{
-			if (tc->x >= MAX_MAP_SIZE || tc->y >= MAX_MAP_SIZE)
+			if (coords->x >= MAX_MAP_SIZE || coords->y >= MAX_MAP_SIZE)
 				close_with_error(ERR_MAP_SIZE);
 			if (!ft_isspace(d->level[i]))
-				d->tiles[++j] = create_tile(d->level[i], tc);
+				d->tiles[++j] = create_tile(d->level[i], coords);
 		}
 		else
 		{
-			(tc->y)++;
-			(tc->x) = -1;
+			(coords->y)++;
+			(coords->x) = -1;
 		}
-		(tc->x)++;
+		(coords->x)++;
 	}
-	ft_free_null(ADRS tc); //			frees the tile coordinate template
+	ft_free_null(ADRS coords); //			frees the tile coordinate template
 }
 
 //finds a tile in d->tiles based on given x and y coords
@@ -79,7 +80,7 @@ t_tile	*find_tile(int x, int y)
 	i = -1;
 	while (tiles[++i])
 	{
-		if (tiles[i]->tc->x == x && tiles[i]->tc->y == y)
+		if (tiles[i]->coords->x == x && tiles[i]->coords->y == y)
 			return (tiles[i]);
 	}
 	return (NULL);
@@ -95,11 +96,11 @@ void	connect_map(void)
 	i = -1;
 	while (tiles[++i])
 	{
-		tiles[i]->west = find_tile((tiles[i]->tc->x) - 1, (tiles[i]->tc->y));
+		tiles[i]->west = find_tile((tiles[i]->coords->x) - 1, (tiles[i]->coords->y));
 		if (tiles[i]->west)
 			tiles[i]->west->east = tiles[i];
 
-		tiles[i]->north = find_tile((tiles[i]->tc->x), (tiles[i]->tc->y) - 1);
+		tiles[i]->north = find_tile((tiles[i]->coords->x), (tiles[i]->coords->y) - 1);
 		if (tiles[i]->north)
 			tiles[i]->north->south = tiles[i];
 	}
