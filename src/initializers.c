@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 13:46:09 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/07 10:28:47 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 void	init_player(void)
 {
-	//...
+	t_entity	*p;
+
+	p = ft_calloc(1, sizeof(t_entity));
+	p->pv = ft_calloc(1, sizeof(t_vector));
+
+	get_master()->player = p;
+
 }
 
 void	init_window(void)
