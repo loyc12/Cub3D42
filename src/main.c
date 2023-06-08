@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/08 11:32:34 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/08 12:11:02 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int	main(int ac, char **av)
 //	...
 	find_x_ratio(90);
 	find_y_ratio(90);
-	find_hit_type(4, 3, 1, 1);
-	find_hit_type(4, 3, -1, 1);
-	find_hit_type(4, 3, -1, -1);
-	find_hit_type(4, 3, 1, -1);
+	find_hit_type(4, 4, 1, 1);
+	find_hit_type(4, 4, -1, 1);
+	find_hit_type(4, 4, -1, -1);
+	find_hit_type(4, 4, 1, -1);
 
 	printf("\n");
 	return (free_master());

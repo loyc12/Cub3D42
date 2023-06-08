@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/08 11:33:13 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/08 12:10:20 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	find_hit_type(double x, double y, double x_dir, double y_dir)
 	if (x_dir < 0)
 		x -= 1;
 	if (y_dir < 0)
-		y += 1;
+		y -= 1;
 	hit_tile = find_tile((int)x, (int)y);
 	printf("\nlol\n");
 
