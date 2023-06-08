@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/07 11:09:14 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/08 11:23:03 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <time.h>
+# include <math.h>
 
 // ======== DEFINITIONS ======== // RENAME THEM TO MORE CONSCISE AND READABLE NAMES
 
@@ -87,7 +88,7 @@ typedef enum e_ttype
 // ======== CONSTANTS ======== //
 
 //rotation (1 rad ~= 57.3 deg)
-//# define PI			(float)3.14159265359
+# define PI			(double)3.14159265359
 //# define T_SPEED	(float)2.0 //	turning speed (in rad/sec)
 
 //translation (1 tile ~= 3m)
@@ -212,6 +213,13 @@ typedef struct s_master
 }				t_master;
 
 // ======== FUNCTIONS ======== //
+
+//from casters
+double	find_nearest(double x, double y, double x_dir);
+double	find_x_ratio(double angle);
+double	find_y_ratio(double angle);
+int		find_hit_type(double x, double y, double x_dir, double y_dir);
+void	cast_ray(t_vector *pos, double angle);
 
 //from checkers --- (5)
 bool		is_char_valid(char c);

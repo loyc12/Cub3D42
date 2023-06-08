@@ -15,7 +15,8 @@ TSTDIR		=	tests/
 SUBDIRS		=	\
 
 # Source file names (prefix their subdir if needed)
-FILES	=	checkers \
+FILES	=	casters \
+			checkers \
 			coorders \
 			debugers \
 			freeers \
