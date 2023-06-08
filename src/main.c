@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/08 12:11:02 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/08 12:45:09 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,7 @@ int	main(int ac, char **av)
 	init_game(ac, av);
 
 //	...
-	find_x_ratio(90);
-	find_y_ratio(90);
-	find_hit_type(4, 4, 1, 1);
-	find_hit_type(4, 4, -1, 1);
-	find_hit_type(4, 4, -1, -1);
-	find_hit_type(4, 4, 1, -1);
+	cast_ray(get_master()->player->vector, 0); //	0======== DEBUG ========0
 
 	printf("\n");
 	return (free_master());

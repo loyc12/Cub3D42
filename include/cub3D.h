@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/08 11:23:03 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/08 12:35:50 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ typedef struct s_coords
 //float coordinates for entities and such
 typedef struct s_vector
 {
-	double	x; //	north-south position
-	double	y; //	east-west position
+	double	x; //	east-west position
+	double	y; //	north-south position
 	double	d; //	degree
 
 }			t_vector;
@@ -215,7 +215,6 @@ typedef struct s_master
 // ======== FUNCTIONS ======== //
 
 //from casters
-double	find_nearest(double x, double y, double x_dir);
 double	find_x_ratio(double angle);
 double	find_y_ratio(double angle);
 int		find_hit_type(double x, double y, double x_dir, double y_dir);

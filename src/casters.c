@@ -6,21 +6,13 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/08 12:10:20 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/08 13:07:44 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 //hit_struct();
-
-double	find_nearest(double x, double y, double dir) //	normally would work with swapped x and y
-{
-	(void)x;
-	(void)y;
-	(void)dir;
-	return (dir);
-}
 
 double	find_x_ratio(double angle) //	superfluous;
 {
@@ -54,17 +46,16 @@ int	find_hit_type(double x, double y, double x_dir, double y_dir)
 	if (y_dir < 0)
 		y -= 1;
 	hit_tile = find_tile((int)x, (int)y);
-	printf("\nlol\n");
 
 	printf("Hit Tile : %i,%i\n", (int)x, (int)y); //	0======== DEBUG ========0
 	if (hit_tile)
 	{
-		printf("Hit Type : %i\n", hit_tile->type); //	0======== DEBUG ========0
+		printf("Hit Type : %i\n\n", hit_tile->type); //	0======== DEBUG ========0
 		return (hit_tile->type);
 	}
 	else
 	{
-		printf("Hit Type : NOT FOUND\n"); //	0======== DEBUG ========0
+		printf("Hit Type : NOT FOUND\n\n"); //	0======== DEBUG ========0
 		return (TTYPE_ERROR);
 	}
 
@@ -72,45 +63,126 @@ int	find_hit_type(double x, double y, double x_dir, double y_dir)
 
 void	cast_ray(t_vector *pos, double angle)
 {
-	int	x_dir;
-	int	x_dist;
-	int	x_ratio;
-	int	y_dir;
-	int	y_dist;
-	int	y_ratio;
+	double	x;
+	int		x_dir;
+	double	x_dist;
+	double	x_ratio;
+
+	double	y;
+	int		y_dir;
+	double	y_dist;
+	double	y_ratio;
+
+	int		type;
 
 	angle += pos->d; //	make the angle relative to the player angle
 
-	y_dir = 1; //	find incrementation direction for y (used for tan())
-	if (angle < 0 && 180 < angle)
-		y_dir = -1;
-
-	x_dir = 1; //	find incrementation direction for x (used for tan())
-	if (angle < -90 && 90 < angle)
-		x_dir = -1;
-
-	x_dist = find_nearest(pos->x, pos->y, x_dir); // finds first distance in x, x_dist = init_dist, then new_dist
-	y_dist = find_nearest(pos->y, pos->x, y_dir); // finds first distance in y, y_dist = init_dist, then new_dist
-
 	x_ratio = find_x_ratio(angle);
 	y_ratio = find_y_ratio(angle);
-/*
+
+	if ((-90 <= angle && angle <= 90) || (270 <= angle && angle <= 450)) //	if x+
+	{
+		x_dir = 1;
+		if (angle != 0 && angle != 360)
+		{
+			printf("1\n");
+			x_dist = ((pos->x) - (int)(pos->x)) / x_ratio; //	will crash at right angle
+		}
+		else
+		{
+			printf("2\n");
+			x_dist = INFINITY;
+		}
+	}
+	else //																if x-
+	{
+		x_dir = -1;
+		if (angle != -180 && angle != 180)
+		{
+			printf("3\n");
+			x_dist = (1 - ((pos->x) - (int)(pos->x))) / x_ratio; //	will crash at right angle
+		}
+		else
+		{
+			printf("4\n");
+			x_dist = INFINITY;
+		}
+	}
+
+	if ((0 <= angle && angle <= 180) || (360 <= angle && angle <= 540)) //	if y+
+	{
+		y_dir = 1;
+		if (angle != 90 && angle != 450)
+		{
+			printf("5\n");
+			y_dist = ((pos->y) - (int)(pos->y)) / y_ratio;
+		}
+		else
+		{
+			printf("6\n");
+			y_dist = INFINITY;
+		}
+	}
+	else //																if y-
+	{
+		y_dir = -1;
+		if (angle != -90 && angle != 270)
+		{
+			printf("7\n");
+			y_dist = (1 - ((pos->y) - (int)(pos->y))) / x_ratio; //	will crash at right angle
+		}
+		else
+		{
+			printf("8\n");
+			y_dist = INFINITY;
+		}
+	}
+
+	printf("Dxi : %.3f\n", x_dist); //		0======== DEBUG ========0
+	printf("Dyi : %.3f\n\n", y_dist); //	0======== DEBUG ========0
+
 	while (true) //don't forget test pour si depasse mur (fausse donnée, si oui on doit revoir le calcul)
 	{
 		while (x_dist <= y_dist)
 		{
-			if (TTYPE_WALL == find_hit_type(pos->x + (x_dist * x_ratio), pos->y + (x_dist * y_ratio), x_dir, y_dir))
-				return (hit_struct());
+			x = pos->x + (x_dist * x_ratio);
+			y = pos->y + (x_dist * y_ratio);
+			type = find_hit_type(x, y, x_dir, y_dir);
+			if (type == TTYPE_WALL)
+			{
+				printf("Hit wall at %.3f:%.3f\n", x, y); //	0======== DEBUG ========0
+				printf("Distance : %.3f\n\n", x_dist); //	0======== DEBUG ========0
+				return ;
+			}
+			else if (type == TTYPE_ERROR)
+			{
+				printf("Out of bound at %.3f:%.3f\n", x, y); //	0======== DEBUG ========0
+				printf("Distance : %.3f\n\n", x_dist); //	0======== DEBUG ========0
+				return ;
+			}
 			x_dist += x_ratio; //	increment distance in x
 		}
 		while (x_dist >= y_dist)
 		{
-			if (TTYPE_WALL == find_hit_type(pos->x + (y_dist * x_ratio), pos->y + (y_dist * y_ratio), x_dir, y_dir))
-				return (hit_struct());
+			x = pos->x + (y_dist * x_ratio);
+			y = pos->y + (y_dist * y_ratio);
+			type = find_hit_type(x, y, x_dir, y_dir);
+			if (type == TTYPE_WALL)
+			{
+				printf("Hit wall at %.3f:%.3f\n", x, y); //	0======== DEBUG ========0
+				printf("Distance : %.3f\n\n", y_dist); //	0======== DEBUG ========0
+				return ;
+			}
+			else if (type == TTYPE_ERROR)
+			{
+				printf("Out of bound at %.3f:%.3f\n", x, y); //	0======== DEBUG ========0
+				printf("Distance : %.3f\n\n", y_dist); //	0======== DEBUG ========0
+				return ;
+			}
 			y_dist += y_ratio; //	increment distance in y
 		}
 	}
-*/
+
 }
 
 
