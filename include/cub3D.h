@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/08 12:35:50 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/12 10:52:00 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,35 @@ typedef struct s_colour
 
 }			t_colour;
 
+//colour for floor and ceiling // MAYBE ALREADY EXISTS IN MLX LIB
+typedef struct s_ray
+{
+	//direction of the ray's travel
+	int		x_dir;
+	int		y_dir;
+
+	//distance traveled by the ray (when checking x|y hits)
+	double	x_ray_dist;
+	double	y_ray_dist;
+
+	//multiplicative factors for x\y to/from ray conversion
+	double	ray_to_x_ratio;
+	double	ray_to_y_ratio;
+	double	x_to_ray_ratio;
+	double	y_to_ray_ratio;
+
+	bool	ignore_x;
+	bool	ignore_y;
+
+	//x|y coords of the current hit check
+	double	x_coord;
+	double	y_coord;
+
+	double	angle;
+	int		hit_type;
+
+}			t_ray;
+
 //the main global var for the program. holds generic data about the game and its state
 typedef struct s_master
 {
@@ -215,10 +244,9 @@ typedef struct s_master
 // ======== FUNCTIONS ======== //
 
 //from casters
-double	find_x_ratio(double angle);
-double	find_y_ratio(double angle);
-int		find_hit_type(double x, double y, double x_dir, double y_dir);
-void	cast_ray(t_vector *pos, double angle);
+void		find_ratios(t_ray *r);
+int			find_hit_type(double x, double y, double x_dir, double y_dir);
+t_ray		*cast_ray(t_vector *pos, double ray_angle);
 
 //from checkers --- (5)
 bool		is_char_valid(char c);
@@ -272,7 +300,6 @@ t_tile		*create_tile(char c, t_coords *_coords);
 t_tile		*find_tile(int x, int y);
 void		build_map(t_master *data);
 void		connect_map(void);
-
 
 //does_overlap_tile(entity, tile) //		checks for collision with walls
 //does_overlap_entity(entity, entity)		only if implementing enemies/objects(?)
