@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/12 11:45:35 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/12 13:10:33 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,31 @@
 int	find_hit_type(t_ray *r)
 {
 	t_tile	*hit_tile;
+	int		hit_x;
+	int		hit_y;
 
-	hit_tile = find_tile((int)r->x_coord, (int)r->y_coord);
+	//these prevent rounding errors
+	if (r->ray_to_x_ratio < 0)
+		hit_x = floor(r->x_coord - 0.00001);
+	else
+		hit_x = floor(r->x_coord + 0.00001);
+	if (r->ray_to_y_ratio < 0)
+		hit_y = floor(r->y_coord - 0.00001);
+	else
+		hit_y = floor(r->y_coord + 0.00001);
 
-	printf("Hit Tile : %.3f, %.3f\n", r->x_coord, r->y_coord); //	0======== DEBUG ========0
+	hit_tile = find_tile(hit_x, hit_y);
+
+	printf("Hit point : %.3f, %.3f\n", r->x_coord, r->y_coord); //	0======== DEBUG ========0
+	printf("Hit tile  : %i, %i\n", hit_x, hit_y); //	0======== DEBUG ========0
 	if (hit_tile)
 	{
-		printf("Hit Type : %i\n\n", hit_tile->type); //	0======== DEBUG ========0
+		printf("Hit Type  : %i\n\n", hit_tile->type); //	0======== DEBUG ========0
 		return (hit_tile->type);
 	}
 	else
 	{
-		printf("Hit Type : NOT FOUND\n\n"); //	0======== DEBUG ========0
+		printf("Hit Type  : NOT FOUND\n\n"); //	0======== DEBUG ========0
 		return (TTYPE_ERROR);
 	}
 
@@ -39,41 +52,46 @@ void	find_first_ray_dists(t_ray *r)
 	{
 		if ((-90 <= r->angle && r->angle <= 90) || (270 <= r->angle && r->angle <= 450))
 		{
-			printf("\nPositive x dir\n"); //	0======== DEBUG ========0
+			printf("\nPositive x\n"); //	0======== DEBUG ========0
 			r->x_ray_dist = fabs(((r->player_pos->x) - floor(r->player_pos->x)) * r->x_to_ray_ratio); //	will crash at right angle
 		}
 		else
 		{
-			printf("\nNegative x dir\n"); //	0======== DEBUG ========0
+			printf("\nNegative x\n"); //	0======== DEBUG ========0
 			r->x_ray_dist = fabs((1 - ((r->player_pos->x) - floor(r->player_pos->x))) * r->x_to_ray_ratio); //	will crash at right angle
 		}
 	}
 	else
+	{
 		r->x_ray_dist = INFINITY;
+		printf("\nIgnoring x\n"); //	0======== DEBUG ========0
+	}
 	if (!(r->ignore_y))
 	{
 		if ((0 <= r->angle && r->angle <= 180) || (360 <= r->angle && r->angle <= 540))
 		{
-			printf("\nPositive y dir\n"); //	0======== DEBUG ========0
+			printf("Positive y\n"); //	0======== DEBUG ========0
 			r->y_ray_dist = fabs(((r->player_pos->y) - floor(r->player_pos->y)) * r->y_to_ray_ratio);
 		}
 		else
 		{
-			printf("\nNegative y dir\n"); //	0======== DEBUG ========0
-			printf("7\n");
+			printf("Negative y\n"); //	0======== DEBUG ========0
 			r->y_ray_dist = fabs((1 - ((r->player_pos->y) - floor(r->player_pos->y))) * r->y_to_ray_ratio); //	will crash at right angle
 		}
 	}
 	else
+	{
 		r->y_ray_dist = INFINITY;
+		printf("Ignoring y\n"); //	0======== DEBUG ========0
+	}
 
 	printf("\nInitial distance in x : %.3f\n", r->x_ray_dist); //		0======== DEBUG ========0
-	printf("Initial DIstance in y: %.3f\n\n", r->y_ray_dist); //	0======== DEBUG ========0
+	printf("Initial distance in y: %.3f\n\n", r->y_ray_dist); //	0======== DEBUG ========0
 }
 
 bool	evaluate_x_hits(t_ray *r)
 {
-	printf("Switching to X checks\n"); //	0======== DEBUG ========0
+	printf("Switching to X checks\n\n"); //	0======== DEBUG ========0
 	while (r->x_ray_dist <= r->y_ray_dist)
 	{
 		r->x_coord = r->player_pos->x + (r->x_ray_dist * r->ray_to_x_ratio);
@@ -83,6 +101,7 @@ bool	evaluate_x_hits(t_ray *r)
 
 		if (r->hit_type == TTYPE_WALL)
 		{
+			r->ray_dist = r->x_ray_dist;
 			printf("Distance : %.3f\n\n", r->x_ray_dist); //	0======== DEBUG ========0
 			return (true);
 		}
@@ -90,6 +109,7 @@ bool	evaluate_x_hits(t_ray *r)
 		{
 			printf("Out of bound at %.3f:%.3f\n", r->x_coord, r->y_coord); //	0======== DEBUG ========0
 			printf("Distance : %.3f\n", r->x_ray_dist); //	0======== DEBUG ========0
+			r->ray_dist = r->x_ray_dist;
 			return (true);
 		}
 		r->x_ray_dist += fabs(r->x_to_ray_ratio); //	increment distance in x
@@ -99,7 +119,7 @@ bool	evaluate_x_hits(t_ray *r)
 
 bool	evaluate_y_hits(t_ray *r)
 {
-	printf("Switching to Y checks\n"); //	0======== DEBUG ========0
+	printf("Switching to Y checks\n\n"); //	0======== DEBUG ========0
 	while (r->y_ray_dist <= r->x_ray_dist)
 	{
 		r->x_coord = r->player_pos->x + (r->y_ray_dist * r->ray_to_x_ratio);
@@ -109,13 +129,15 @@ bool	evaluate_y_hits(t_ray *r)
 
 		if (r->hit_type == TTYPE_WALL)
 		{
-			printf("Distance : %.3f\n\n", r->y_ray_dist); //	0======== DEBUG ========0
+			printf("Distance : %.3f\n", r->y_ray_dist); //	0======== DEBUG ========0
+			r->ray_dist = r->y_ray_dist;
 			return (true);
 		}
 		else if (r->hit_type == TTYPE_ERROR)
 		{
 			printf("Out of bound at %.3f:%.3f\n", r->x_coord, r->y_coord); //	0======== DEBUG ========0
 			printf("Distance : %.3f\n", r->y_ray_dist); //	0======== DEBUG ========0
+			r->ray_dist = r->y_ray_dist;
 			return (true);
 		}
 		r->y_ray_dist += fabs(r->y_to_ray_ratio); //	increment distance in y
@@ -129,26 +151,25 @@ t_ray	*cast_ray(t_vector *pos, double ray_angle)
 
 	r = ft_calloc(1, sizeof(t_ray));
 
-	r->angle = ray_angle + pos->d; //	make the angle relative to the player angle
+	r->angle = ray_angle + pos->d; //	makse the ray angle absolute
 	r->player_pos = pos;
 
 	find_ratios(r);
 	find_first_ray_dists(r);
 
-	while (true) //don't forget test pour si depasse mur (fausse donnée, si oui on doit revoir le calcul)
+	while (true)
 	{
 		if (evaluate_x_hits(r))
 			break ;
 		if (evaluate_y_hits(r))
 			break ;
 	}
-	if (r->hit_type == TTYPE_ERROR)
-	{
-		free(r);
-		r = NULL;
-	}
-	return r;
 
+	printf("Wall height : %.3f\n\n", 1 / r->ray_dist); //	0======== DEBUG ========0
+
+	if (r->hit_type == TTYPE_ERROR)
+		return (free(r), NULL);
+	return (r);
 }
 
 /*

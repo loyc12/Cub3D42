@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/12 11:43:04 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/12 12:43:41 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ typedef struct s_ray
 	//distance traveled by the ray (when checking x|y hits)
 	double		x_ray_dist;
 	double		y_ray_dist;
+	double		ray_dist; //	final distance found
 
 	//multiplicative factors for x\y to/from ray conversion
 	double		ray_to_x_ratio;
@@ -202,11 +203,12 @@ typedef struct s_ray
 	bool		ignore_y;
 
 	//x|y coords of the current hit check
-	double		x_coord;
-	double		y_coord;
+	double		x_coord; //	final coord
+	double		y_coord; //	final coord
+	double		wall_pos; //final texture slice to use
 
-	double		angle;
-	int			hit_type;
+	double		angle; //	final absolute angle
+	int			hit_type; //final wall type
 
 }				t_ray;
 

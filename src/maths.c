@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:36:32 by llord             #+#    #+#             */
-/*   Updated: 2023/06/12 11:36:59 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/12 12:55:54 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ void	find_ratios(t_ray *r)
 
 	printf("\nrtx : %.3f\n", r->ray_to_x_ratio); //	0======== DEBUG ========0
 	printf("xtr : %.3f\n", r->x_to_ray_ratio); //	0======== DEBUG ========0
-	printf("rty : %.3f\n", r->ray_to_y_ratio); //	0======== DEBUG ========0
+	printf("\nrty : %.3f\n", r->ray_to_y_ratio); //	0======== DEBUG ========0
 	printf("ytr : %.3f\n", r->y_to_ray_ratio); //	0======== DEBUG ========0
 }
