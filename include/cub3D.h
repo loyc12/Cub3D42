@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/12 10:52:00 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/12 11:16:37 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,10 +187,6 @@ typedef struct s_colour
 //colour for floor and ceiling // MAYBE ALREADY EXISTS IN MLX LIB
 typedef struct s_ray
 {
-	//direction of the ray's travel
-	int		x_dir;
-	int		y_dir;
-
 	//distance traveled by the ray (when checking x|y hits)
 	double	x_ray_dist;
 	double	y_ray_dist;
@@ -245,7 +241,7 @@ typedef struct s_master
 
 //from casters
 void		find_ratios(t_ray *r);
-int			find_hit_type(double x, double y, double x_dir, double y_dir);
+int			find_hit_type(t_ray *r);
 t_ray		*cast_ray(t_vector *pos, double ray_angle);
 
 //from checkers --- (5)

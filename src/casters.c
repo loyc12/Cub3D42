@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/12 10:53:14 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/12 11:21:08 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	find_ratios(t_ray *r)
 {
 	if (r->angle != -90 && r->angle != 90 && r->angle != 270 && r->angle != 450)
 	{
-		r->ray_to_x_ratio = fabs(cos(2 * PI * r->angle / 360));
+		r->ray_to_x_ratio = cos(2 * PI * r->angle / 360);
 		r->x_to_ray_ratio = (1 / r->ray_to_x_ratio);
 	}
 	else
@@ -27,7 +27,7 @@ void	find_ratios(t_ray *r)
 	}
 	if (r->angle != -180 && r->angle != 0 && r->angle != 180 && r->angle != 360)
 	{
-		r->ray_to_y_ratio = fabs(sin(2 * PI * r->angle / 360));
+		r->ray_to_y_ratio = sin(2 * PI * r->angle / 360);
 		r->y_to_ray_ratio = (1 / r->ray_to_y_ratio);
 	}
 	else
@@ -44,17 +44,13 @@ void	find_ratios(t_ray *r)
 }
 
 //finds the tile from given x and y (and x and y directions) and returns its type
-int	find_hit_type(double x, double y, double x_dir, double y_dir)
+int	find_hit_type(t_ray *r)
 {
 	t_tile	*hit_tile;
 
-	if (x_dir < 0)
-		x -= 1;
-	if (y_dir < 0)
-		y -= 1;
-	hit_tile = find_tile((int)x, (int)y);
+	hit_tile = find_tile((int)r->x_coord, (int)r->y_coord);
 
-	printf("Hit Tile : %.3f, %.3f\n", x, y); //	0======== DEBUG ========0
+	printf("Hit Tile : %.3f, %.3f\n", r->x_coord, r->y_coord); //	0======== DEBUG ========0
 	if (hit_tile)
 	{
 		printf("Hit Type : %i\n\n", hit_tile->type); //	0======== DEBUG ========0
@@ -82,15 +78,13 @@ t_ray	*cast_ray(t_vector *pos, double ray_angle)
 	{
 		if ((-90 <= r->angle && r->angle <= 90) || (270 <= r->angle && r->angle <= 450)) //	if x+
 		{
-			printf("\nPositive x_dir\n"); //	0======== DEBUG ========0
-			r->x_dir = 1;
-			r->x_ray_dist = ((pos->x) - floor(pos->x)) * r->x_to_ray_ratio; //	will crash at right angle
+			printf("\nPositive x dir\n"); //	0======== DEBUG ========0
+			r->x_ray_dist = fabs(((pos->x) - floor(pos->x)) * r->x_to_ray_ratio); //	will crash at right angle
 		}
 		else //																if x-
 		{
-			printf("\nNegative x_dir\n"); //	0======== DEBUG ========0
-			r->x_dir = -1;
-			r->x_ray_dist = (1 - ((pos->x) - floor(pos->x))) * r->x_to_ray_ratio; //	will crash at right angle
+			printf("\nNegative x dir\n"); //	0======== DEBUG ========0
+			r->x_ray_dist = fabs((1 - ((pos->x) - floor(pos->x))) * r->x_to_ray_ratio); //	will crash at right angle
 		}
 	}
 	else
@@ -100,16 +94,14 @@ t_ray	*cast_ray(t_vector *pos, double ray_angle)
 	{
 		if ((0 <= r->angle && r->angle <= 180) || (360 <= r->angle && r->angle <= 540)) //	if y+
 		{
-			printf("\nPositive y_dir\n"); //	0======== DEBUG ========0
-			r->y_dir = 1;
-			r->y_ray_dist = ((pos->y) - floor(pos->y)) * r->y_to_ray_ratio;
+			printf("\nPositive y dir\n"); //	0======== DEBUG ========0
+			r->y_ray_dist = fabs(((pos->y) - floor(pos->y)) * r->y_to_ray_ratio);
 		}
 		else //																if y-
 		{
-			printf("\nNegative y_dir\n"); //	0======== DEBUG ========0
-			r->y_dir = -1;
+			printf("\nNegative y dir\n"); //	0======== DEBUG ========0
 			printf("7\n");
-			r->y_ray_dist = (1 - ((pos->y) - floor(pos->y))) * r->y_to_ray_ratio; //	will crash at right angle
+			r->y_ray_dist = fabs((1 - ((pos->y) - floor(pos->y))) * r->y_to_ray_ratio); //	will crash at right angle
 		}
 	}
 	else
@@ -126,7 +118,7 @@ t_ray	*cast_ray(t_vector *pos, double ray_angle)
 			r->x_coord = pos->x + (r->x_ray_dist * r->ray_to_x_ratio);
 			r->y_coord = pos->y + (r->x_ray_dist * r->ray_to_y_ratio);
 
-			r->hit_type = find_hit_type(r->x_coord, r->y_coord, r->x_dir, r->y_dir);
+			r->hit_type = find_hit_type(r);
 
 			if (r->hit_type == TTYPE_WALL)
 			{
@@ -136,22 +128,18 @@ t_ray	*cast_ray(t_vector *pos, double ray_angle)
 			else if (r->hit_type == TTYPE_ERROR)
 			{
 				printf("Out of bound at %.3f:%.3f\n", r->x_coord, r->y_coord); //	0======== DEBUG ========0
-				printf("Distance : %.3f\n\n", r->x_ray_dist); //	0======== DEBUG ========0
+				printf("Distance : %.3f\n", r->x_ray_dist); //	0======== DEBUG ========0
 				return (free(r), NULL);
 			}
-			r->x_ray_dist += r->x_to_ray_ratio; //	increment distance in x
+			r->x_ray_dist += fabs(r->x_to_ray_ratio); //	increment distance in x
 		}
 		printf("Switching to Y checks\n"); //	0======== DEBUG ========0
 		while (r->y_ray_dist <= r->x_ray_dist)
 		{
-
-//			r->x_coord = pos->x + (r->x_dir * r->y_ray_dist * r->ray_to_x_ratio);
-//			r->y_coord = pos->y + (r->y_dir * r->y_ray_dist * r->ray_to_y_ratio);
-
 			r->x_coord = pos->x + (r->y_ray_dist * r->ray_to_x_ratio);
 			r->y_coord = pos->y + (r->y_ray_dist * r->ray_to_y_ratio);
 
-			r->hit_type = find_hit_type(r->x_coord, r->y_coord, r->x_dir, r->y_dir);
+			r->hit_type = find_hit_type(r);
 
 			if (r->hit_type == TTYPE_WALL)
 			{
@@ -161,10 +149,10 @@ t_ray	*cast_ray(t_vector *pos, double ray_angle)
 			else if (r->hit_type == TTYPE_ERROR)
 			{
 				printf("Out of bound at %.3f:%.3f\n", r->x_coord, r->y_coord); //	0======== DEBUG ========0
-				printf("Distance : %.3f\n\n", r->y_ray_dist); //	0======== DEBUG ========0
+				printf("Distance : %.3f\n", r->y_ray_dist); //	0======== DEBUG ========0
 				return (free(r), NULL);
 			}
-			r->y_ray_dist += r->y_to_ray_ratio; //	increment distance in y
+			r->y_ray_dist += fabs(r->y_to_ray_ratio); //	increment distance in y
 		}
 	}
 
