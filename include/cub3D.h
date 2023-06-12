@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/12 11:16:37 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/12 11:43:04 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,27 +187,28 @@ typedef struct s_colour
 //colour for floor and ceiling // MAYBE ALREADY EXISTS IN MLX LIB
 typedef struct s_ray
 {
+	t_vector	*player_pos;
 	//distance traveled by the ray (when checking x|y hits)
-	double	x_ray_dist;
-	double	y_ray_dist;
+	double		x_ray_dist;
+	double		y_ray_dist;
 
 	//multiplicative factors for x\y to/from ray conversion
-	double	ray_to_x_ratio;
-	double	ray_to_y_ratio;
-	double	x_to_ray_ratio;
-	double	y_to_ray_ratio;
+	double		ray_to_x_ratio;
+	double		ray_to_y_ratio;
+	double		x_to_ray_ratio;
+	double		y_to_ray_ratio;
 
-	bool	ignore_x;
-	bool	ignore_y;
+	bool		ignore_x;
+	bool		ignore_y;
 
 	//x|y coords of the current hit check
-	double	x_coord;
-	double	y_coord;
+	double		x_coord;
+	double		y_coord;
 
-	double	angle;
-	int		hit_type;
+	double		angle;
+	int			hit_type;
 
-}			t_ray;
+}				t_ray;
 
 //the main global var for the program. holds generic data about the game and its state
 typedef struct s_master
@@ -239,9 +240,11 @@ typedef struct s_master
 
 // ======== FUNCTIONS ======== //
 
-//from casters
-void		find_ratios(t_ray *r);
+//from casters --- (5)
 int			find_hit_type(t_ray *r);
+void		find_first_ray_dists(t_ray *r);
+bool		evaluate_x_hits(t_ray *r);
+bool		evaluate_y_hits(t_ray *r);
 t_ray		*cast_ray(t_vector *pos, double ray_angle);
 
 //from checkers --- (5)
@@ -284,6 +287,9 @@ void		init_game(int ac, char **av);
 
 //from main
 t_master	*get_master(void);
+
+//maths.c
+void		find_ratios(t_ray *r);
 
 //from readers
 void		read_file(int fd);

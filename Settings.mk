@@ -23,6 +23,7 @@ FILES	=	casters \
 			getters \
 			initializers \
 			main \
+			maths \
 			readers \
 			tilers \
 
