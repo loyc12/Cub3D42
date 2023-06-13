@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 14:55:29 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 15:37:38 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef enum e_ttype
 
 # define PLAYER_RADIUS	(double)0.1
 # define PLAYER_FOV		(double)90
+# define P_FACTOR		(double)1
 
 //other
 # define NO_CLIP	0 //			whether or not to ignore colision checks

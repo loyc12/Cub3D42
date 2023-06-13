@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 14:55:25 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 15:39:17 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	init_player(void)
 	player->vector = coords_to_vector(data->spawn->coords);
 	player->radius = PLAYER_RADIUS;
 
-//	player->vector->d = 186; //	0======== DEBUG ========0
-/**/
+	player->vector->d = 45; //	0======== DEBUG ========0
+/*
 	if (data->player_dir == 'E')
 		player->vector->d = 0;
 	if (data->player_dir == 'S')
@@ -33,6 +33,7 @@ void	init_player(void)
 		player->vector->d = 180;
 	if (data->player_dir == 'N')
 		player->vector->d = 270;
+*/
 
 	data->player = player;
 
@@ -90,6 +91,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 void	init_window(void)
 {
 	t_master	*data;
+	double		f;
 	int			i;
 
 	data = get_master();
@@ -104,7 +106,9 @@ void	init_window(void)
 	i = -data->half_width;
 	while (i < data->half_width) //	calculate the angle based on the fov
 	{
-		draw_slice(cast_ray(data->player->vector, data->fov_ratio * i), i); //	0======== DEBUG ========0
+		//f = data->fov_ratio * (P_FACTOR + ((1 - P_FACTOR) * (i / PLAYER_FOV) * (i / PLAYER_FOV)));
+		f = data->fov_ratio * i;
+		draw_slice(cast_ray(data->player->vector, f), i); //	0======== DEBUG ========0
 		i++;
 	}
 
