@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 12:37:32 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 14:01:54 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,15 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 void	init_window(void)
 {
 	t_master	*data;
+	uint32_t	wall_colour;
 
+	wall_colour = (0 << 24 | 192 << 16 | 0 << 8 | 255); //	0======== DEBUG ========0
 	data = get_master();
 	data->window = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "CUBE3D", false);
 
 	make_canvas();
+
+	draw_slice(0, 1, wall_colour); //						0======== DEBUG ========0
 
 	mlx_key_hook(data->window, &key_hook, NULL);
 	mlx_loop(data->window);

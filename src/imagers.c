@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 12:49:45 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 14:01:47 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	draw_square(int x, int y, int c)
 	}
 }
 
-void	draw_line(int x, double size, int c)
+//draws a macro pixel vertical line on the screen (0 is at the right of the center)
+void	draw_slice(int x, double size, int c)
 {
 	int	y;
 	int	half_height;
@@ -57,14 +58,11 @@ void	make_canvas(void)
 {
 	t_master	*d;
 	int			canvas_colour[4];
-	uint32_t	wall_colour;
 
 	canvas_colour[0] = 0;
 	canvas_colour[1] = 0;
 	canvas_colour[2] = 0;
 	canvas_colour[3] = 255;
-
-	wall_colour = (0 << 24 | 192 << 16 | 0 << 8 | 255); //	0======== DEBUG ========0
 
 	d = get_master();
 	d->canvas = mlx_new_image(d->window, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -73,7 +71,6 @@ void	make_canvas(void)
 
 	mlx_image_to_window(d->window, d->canvas, 0, 0);
 
-	draw_line(0, 0.5, wall_colour); //		0======== DEBUG ========0
 }
 
 //initializes a single mlx image

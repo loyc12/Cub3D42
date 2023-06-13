@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 11:46:41 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 14:02:54 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,17 @@ typedef struct s_ray
 
 }				t_ray;
 
+//colour for floor and ceiling // MAYBE ALREADY EXISTS IN MLX LIB
+typedef struct s_slice
+{
+	double			screen_pos; //	horizontal position in the screen
+	double			size; //		~ 1 / hit distance
+	int				hit_type; //	hit tile type
+	mlx_texture_t	*texture; //	texture to use
+	double			texture_pos; //	horizontal position in the texture
+
+}					t_slice;
+
 //the main global var for the program. holds generic data about the game and its state
 typedef struct s_master
 {
@@ -283,7 +294,9 @@ void			get_colour(char *line, t_colour **c);
 void			get_texture(char *line, char **path);
 void			get_info(void);
 
-//from imager --- (2)
+//from imager --- (4)
+void			draw_square(int x, int y, int c);
+void			draw_slice(int x, double size, int c);
 void			make_canvas(void);
 mlx_texture_t	*make_texture(char *path);
 
