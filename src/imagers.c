@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 12:43:33 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 12:49:45 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ void	make_canvas(void)
 	d = get_master();
 	d->canvas = mlx_new_image(d->window, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	//ft_memset(d->canvas->pixels, canvas_colour[3], SCREEN_WIDTH * d->canvas->height * BPP); //	0======== DEBUG ========0
-	ft_fmemset(d->canvas->pixels, canvas_colour, SCREEN_WIDTH * d->canvas->height * BPP, 4); //	0======== DEBUG ========0
+	ft_memfset(d->canvas->pixels, canvas_colour, SCREEN_WIDTH * d->canvas->height * BPP, 4); //	0======== DEBUG ========0
 
 	mlx_image_to_window(d->window, d->canvas, 0, 0);
 
