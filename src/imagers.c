@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 14:01:47 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 14:30:29 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,23 @@ void	draw_square(int x, int y, int c)
 }
 
 //draws a macro pixel vertical line on the screen (0 is at the right of the center)
-void	draw_slice(int x, double size, int c)
+void	draw_slice(t_slice *slice)
 {
-	int	y;
-	int	half_height;
+	t_master	*d;
+	uint32_t	wall_colour;
+	int			y;
 
-	half_height = (SCREEN_HEIGHT / (2 * PIXEL_SIZE));
+	d = get_master();
+	wall_colour = (0 << 24 | 192 << 16 | 0 << 8 | 255); //		0======== DEBUG ========0
 
-	y = -half_height;
-	while (y < half_height)
+	y = -d->half_height;
+	while (y < d->half_height)
 	{
-		if ((size * -half_height) <= y && y < (size * half_height))
-			draw_square(x, y, c); //		0======== DEBUG ========0
+		if ((slice->size * -d->half_height) <= y && y < (slice->size * d->half_height))
+			draw_square(slice->screen_pos, y, wall_colour); //	0======== DEBUG ========0
 		y++;
 	}
-
+	ft_free_null(ADRS slice);
 }
 
 //initializes the background (canvas) to draw on

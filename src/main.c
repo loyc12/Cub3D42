@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/12 11:24:19 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 14:21:35 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int	main(int ac, char **av)
 	init_game(ac, av);
 
 //	...
-	t_ray *r = cast_ray(get_master()->player->vector, 0); //	0======== DEBUG ========0
-	free(r);
+//	t_slice *r = cast_ray(get_master()->player->vector, 0); //	0======== DEBUG ========0
 
 	printf("\n");
 	return (free_master());

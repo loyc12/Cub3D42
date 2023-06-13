@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 09:10:59 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 14:34:48 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,12 +145,31 @@ bool	evaluate_y_hits(t_ray *r)
 	return (false);
 }
 
-t_ray	*cast_ray(t_vector *pos, double ray_angle)
+t_slice	*create_slice(t_ray *r, double angle)
+{
+	t_slice	*slice;
+
+	if (r->hit_type == TTYPE_ERROR)
+		return (ft_free_null(ADRS r), NULL);
+
+	slice = ft_calloc(1, sizeof(t_slice));
+
+	slice->size = 1 / r->ray_dist;
+	slice->hit_type = r->hit_type;
+	slice->screen_pos = angle; //		to calculate screen_pos
+	//					also need to find texture_pos and get right texture
+
+	ft_free_null(ADRS r);
+
+	return (slice);
+}
+
+
+t_slice	*cast_ray(t_vector *pos, double ray_angle)
 {
 	t_ray	*r;
 
 	r = ft_calloc(1, sizeof(t_ray));
-
 
 	r->angle = ray_angle + pos->d; //	makse the ray angle absolute
 	r->player_pos = pos;
@@ -167,12 +186,9 @@ t_ray	*cast_ray(t_vector *pos, double ray_angle)
 		if (evaluate_y_hits(r))
 			break ;
 	}
-
 	printf("Wall height : %.3f\n\n", 1 / r->ray_dist); //	0======== DEBUG ========0
 
-	if (r->hit_type == TTYPE_ERROR)
-		return (free(r), NULL);
-	return (r);
+	return (create_slice(r, ray_angle));
 }
 
 /*

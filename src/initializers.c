@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 14:01:54 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 14:33:08 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,22 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 void	init_window(void)
 {
 	t_master	*data;
-	uint32_t	wall_colour;
+	int			i;
 
-	wall_colour = (0 << 24 | 192 << 16 | 0 << 8 | 255); //	0======== DEBUG ========0
 	data = get_master();
+
+	data->half_height = (SCREEN_HEIGHT / (PIXEL_SIZE * 2));
+	data->half_width = (SCREEN_WIDTH / (PIXEL_SIZE * 2));
 	data->window = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "CUBE3D", false);
 
 	make_canvas();
 
-	draw_slice(0, 1, wall_colour); //						0======== DEBUG ========0
+	i = -data->half_width;
+	while (i < data->half_width)
+	{
+		draw_slice(cast_ray(data->player->vector, i++)); //	0======== DEBUG ========0
+	}
+
 
 	mlx_key_hook(data->window, &key_hook, NULL);
 	mlx_loop(data->window);
@@ -127,10 +134,11 @@ void	init_game(int ac, char **av)
 	init_map();
 	init_player();
 
-//	print_tiles(); //							0============ DEBUG ============0
 	init_window();
-	print_paths(); //							0============ DEBUG ============0
-	print_colours(); //							0============ DEBUG ============0
-	print_player(); //							0============ DEBUG ============0
+
+//	print_tiles(); //							0============ DEBUG ============0
+//	print_paths(); //							0============ DEBUG ============0
+//	print_colours(); //							0============ DEBUG ============0
+//	print_player(); //							0============ DEBUG ============0
 
 }

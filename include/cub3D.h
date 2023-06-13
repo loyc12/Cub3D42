@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 14:02:54 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 14:27:31 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ typedef struct s_ray
 
 }				t_ray;
 
-//colour for floor and ceiling // MAYBE ALREADY EXISTS IN MLX LIB
+//...
 typedef struct s_slice
 {
 	double			screen_pos; //	horizontal position in the screen
@@ -237,6 +237,8 @@ typedef struct s_master
 	//graphics
 	mlx_t		*window; //				the mlx for the window
 	mlx_image_t	*canvas;
+	int			half_height; //			half the height of the screen in PIXEL_SIZE
+	int			half_width; //			half the width of the screen in PIXEL_SIZE
 //	t_asset		**assets; //			array with all the assets
 
 	//environments
@@ -260,7 +262,7 @@ int				find_hit_type(t_ray *r);
 void			find_first_ray_dists(t_ray *r);
 bool			evaluate_x_hits(t_ray *r);
 bool			evaluate_y_hits(t_ray *r);
-t_ray			*cast_ray(t_vector *pos, double ray_angle);
+t_slice			*cast_ray(t_vector *pos, double ray_angle);
 
 //from checkers --- (5)
 bool			is_char_valid(char c);
@@ -296,7 +298,7 @@ void			get_info(void);
 
 //from imager --- (4)
 void			draw_square(int x, int y, int c);
-void			draw_slice(int x, double size, int c);
+void			draw_slice(t_slice *slice);
 void			make_canvas(void);
 mlx_texture_t	*make_texture(char *path);
 
