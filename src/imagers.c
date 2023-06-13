@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 09:40:56 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 10:08:36 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ mlx_image_t	*make_background(void)
 
 	d = get_master();
 	background = mlx_new_image(d->window, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	ft_memset(background->pixels, 128, background->width * background->height * BPP); //	DEBUG
+
 	mlx_image_to_window(d->window, background, 0, 0);
 
 	return (background);
