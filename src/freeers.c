@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/07 11:04:08 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 10:38:25 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	free_master(void)
 	free_tiles(data);
 	free_entity(data->player);
 
-	ft_free_array(ADRS2 data->assets);
 	ft_free_null(ADRS data->level);
 	ft_free_null(ADRS data->c_ceiling);
 	ft_free_null(ADRS data->c_floor);

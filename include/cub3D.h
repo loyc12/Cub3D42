@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 10:07:32 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 11:46:41 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 
 # define ADRS	(void **)&
 # define ADRS2	(void ***)&
-# define BPP 	sizeof(int32_t)
+# define BPP 	4 // sizeof(int32_t)
 
 // ======== ENUM STATES ======== //
 
@@ -103,9 +103,9 @@ typedef enum e_ttype
 # define ASSET_SIZE		(int)64 //		asset size (in pixels)
 # define ASSET_COUNT	(int)4 //		asset count
 
-# define SCREEN_WIDTH	(int)1024
-# define SCREEN_HEIGHT	(int)768
-# define PIXEL_SIZE		(int)4 //		size of virtual pixels (in real pixels)
+# define SCREEN_WIDTH	(int)1536
+# define SCREEN_HEIGHT	(int)1152
+# define PIXEL_SIZE		(int)8 //		size of virtual pixels (in real pixels)
 
 # define PLAYER_RADIUS	(double)0.1
 
@@ -225,7 +225,8 @@ typedef struct s_master
 
 	//graphics
 	mlx_t		*window; //				the mlx for the window
-	t_asset		**assets; //			array with all the assets
+	mlx_image_t	*canvas;
+//	t_asset		**assets; //			array with all the assets
 
 	//environments
 	t_tile		**tiles; //				the game board itself
@@ -283,7 +284,7 @@ void			get_texture(char *line, char **path);
 void			get_info(void);
 
 //from imager --- (2)
-mlx_image_t		*make_background(void);
+void			make_canvas(void);
 mlx_texture_t	*make_texture(char *path);
 
 //from initializers --- (4)

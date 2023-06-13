@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 09:59:05 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 12:37:32 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ void	init_window(void)
 
 	data = get_master();
 	data->window = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "CUBE3D", false);
-	make_background();
+
+	make_canvas();
+
 	mlx_key_hook(data->window, &key_hook, NULL);
 	mlx_loop(data->window);
 	mlx_terminate(data->window);
