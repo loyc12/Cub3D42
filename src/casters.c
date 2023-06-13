@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/12 13:10:33 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 09:10:59 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,11 @@ t_ray	*cast_ray(t_vector *pos, double ray_angle)
 
 	r = ft_calloc(1, sizeof(t_ray));
 
+
 	r->angle = ray_angle + pos->d; //	makse the ray angle absolute
 	r->player_pos = pos;
+
+	printf("\n\nCasting ray at angle : %.3f\n", r->angle); //		0======== DEBUG ========0
 
 	find_ratios(r);
 	find_first_ray_dists(r);

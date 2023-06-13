@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/12 13:04:48 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 09:59:05 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	init_player(void)
 	player->vector = coords_to_vector(data->spawn->coords);
 	player->radius = PLAYER_RADIUS;
 
-	player->vector->d = 186; //	0======== DEBUG ========0
-/*
+//	player->vector->d = 186; //	0======== DEBUG ========0
+
 	if (data->player_dir == 'E')
 		player->vector->d = 0;
 	if (data->player_dir == 'S')
@@ -33,23 +33,70 @@ void	init_player(void)
 		player->vector->d = 180;
 	if (data->player_dir == 'N')
 		player->vector->d = 270;
-*/
 
 	data->player = player;
 
 }
 
+void	key_esc(void)
+{
+	printf("ESC touched\n");
+	mlx_close_window(get_master()->window);
+	return ;
+}
+
+void	mv_front(void)
+{
+	printf("W touched\n");
+	return ;
+}
+
+void	mv_back(void)
+{
+	printf("S touched\n");
+	return ;
+}
+
+void	turn_left(void)
+{
+	printf("D touched\n");
+	return ;
+}
+
+void	turn_right(void)
+{
+	printf("A touched\n");
+	return ;
+}
+
+void	key_hook(mlx_key_data_t keydata, void *param)
+{
+	(void)param;
+	if (keydata.key == MLX_KEY_ESCAPE)
+		key_esc();
+	if (!(keydata.key == MLX_KEY_ESCAPE))
+	{
+		if (keydata.key == MLX_KEY_W)
+			mv_front();
+		if (keydata.key == MLX_KEY_S)
+			mv_back();
+		if (keydata.key == MLX_KEY_D)
+			turn_left();
+		if (keydata.key == MLX_KEY_A)
+			turn_right();
+	}
+}
+
 void	init_window(void)
 {
-	mlx_t 	*mlx;
+	t_master	*data;
 
-	printf("\ncheck 1\n"); //			0============ DEBUG ============0
-	mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "CUBE3D", false);
-	printf("check 2\n"); //				0============ DEBUG ============0
-	mlx_loop(mlx);
-	printf("check 3\n"); //				0============ DEBUG ============0
-	mlx_terminate(mlx);
-	printf("check 4\n"); //				0============ DEBUG ============0
+	data = get_master();
+	data->window = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "CUBE3D", false);
+	make_background();
+	mlx_key_hook(data->window, &key_hook, NULL);
+	mlx_loop(data->window);
+	mlx_terminate(data->window);
 }
 
 //creates the map grid from the map-info contained in d.level
@@ -75,8 +122,7 @@ void	init_game(int ac, char **av)
 	init_player();
 
 //	print_tiles(); //							0============ DEBUG ============0
-
-//	init_window();
+	init_window();
 	print_paths(); //							0============ DEBUG ============0
 	print_colours(); //							0============ DEBUG ============0
 	print_player(); //							0============ DEBUG ============0

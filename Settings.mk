@@ -21,6 +21,7 @@ FILES	=	casters \
 			debugers \
 			freeers \
 			getters \
+			imagers \
 			initializers \
 			main \
 			maths \

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/12 12:43:41 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 10:00:13 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,67 +243,71 @@ typedef struct s_master
 // ======== FUNCTIONS ======== //
 
 //from casters --- (5)
-int			find_hit_type(t_ray *r);
-void		find_first_ray_dists(t_ray *r);
-bool		evaluate_x_hits(t_ray *r);
-bool		evaluate_y_hits(t_ray *r);
-t_ray		*cast_ray(t_vector *pos, double ray_angle);
+int				find_hit_type(t_ray *r);
+void			find_first_ray_dists(t_ray *r);
+bool			evaluate_x_hits(t_ray *r);
+bool			evaluate_y_hits(t_ray *r);
+t_ray			*cast_ray(t_vector *pos, double ray_angle);
 
 //from checkers --- (5)
-bool		is_char_valid(char c);
-bool		is_map_start(int i);
-void		check_map(void);
-void		flood_check(t_tile *tile);
-void		flood_check_map(void);
+bool			is_char_valid(char c);
+bool			is_map_start(int i);
+void			check_map(void);
+void			flood_check(t_tile *tile);
+void			flood_check_map(void);
 
 //from coorders
-t_coords	*coords_copy(t_coords *_c);
-t_vector	*coords_to_vector(t_coords	*_c);
+t_coords		*coords_copy(t_coords *_c);
+t_vector		*coords_to_vector(t_coords	*_c);
 
 //from debugers
-void		print_tile(t_tile *tile);
-void		print_tiles(void);
-void		print_neighbours(t_tile *tile);
-void		announce_tile(t_tile *tile, char c);
-void		print_paths(void);
-void		print_colours(void);
-void		print_player(void);
+void			print_tile(t_tile *tile);
+void			print_tiles(void);
+void			print_neighbours(t_tile *tile);
+void			announce_tile(t_tile *tile, char c);
+void			print_paths(void);
+void			print_colours(void);
+void			print_player(void);
 
 //from freeers --- (4)
-void		free_tiles(t_master *data);
-void		free_entity(t_entity *entity);
-int			free_master(void);
-void		close_with_error(char *err);
+void			free_tiles(t_master *data);
+void			free_entity(t_entity *entity);
+int				free_master(void);
+void			close_with_error(char *err);
 
 //from getters --- (4)
-int			get_next_num(char *line, int *i);
-void		get_colour(char *line, t_colour **c);
-void		get_texture(char *line, char **path);
-void		get_info(void);
+int				get_next_num(char *line, int *i);
+void			get_colour(char *line, t_colour **c);
+void			get_texture(char *line, char **path);
+void			get_info(void);
+
+//from imager --- (2)
+mlx_image_t		*make_background(void);
+mlx_texture_t	*make_texture(char *path);
 
 //from initializers --- (4)
-void		init_player(void);
-void		init_window(void);
-void		init_map(void);
-void		init_game(int ac, char **av);
+void			init_player(void);
+void			init_window(void);
+void			init_map(void);
+void			init_game(int ac, char **av);
 
 //from main
-t_master	*get_master(void);
+t_master		*get_master(void);
 
 //maths.c
-void		find_ratios(t_ray *r);
+void			find_ratios(t_ray *r);
 
 //from readers
-void		read_file(int fd);
-void		check_assets(void);
-void		check_colours(void);
-void		read_level(char *path);
+void			read_file(int fd);
+void			check_assets(void);
+void			check_colours(void);
+void			read_level(char *path);
 
 //from tilers
-t_tile		*create_tile(char c, t_coords *_coords);
-t_tile		*find_tile(int x, int y);
-void		build_map(t_master *data);
-void		connect_map(void);
+t_tile			*create_tile(char c, t_coords *_coords);
+t_tile			*find_tile(int x, int y);
+void			build_map(t_master *data);
+void			connect_map(void);
 
 //does_overlap_tile(entity, tile) //		checks for collision with walls
 //does_overlap_entity(entity, entity)		only if implementing enemies/objects(?)
