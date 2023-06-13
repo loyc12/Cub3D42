@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 14:34:48 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 14:50:47 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,10 @@ t_slice	*create_slice(t_ray *r, double angle)
 
 	slice = ft_calloc(1, sizeof(t_slice));
 
+	r->ray_dist *= cos(2 * PI * angle / 360);
+
 	slice->size = 1 / r->ray_dist;
 	slice->hit_type = r->hit_type;
-	slice->screen_pos = angle; //		to calculate screen_pos
 	//					also need to find texture_pos and get right texture
 
 	ft_free_null(ADRS r);

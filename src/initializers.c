@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 14:33:08 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 14:55:25 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_player(void)
 	player->radius = PLAYER_RADIUS;
 
 //	player->vector->d = 186; //	0======== DEBUG ========0
-
+/**/
 	if (data->player_dir == 'E')
 		player->vector->d = 0;
 	if (data->player_dir == 'S')
@@ -96,14 +96,16 @@ void	init_window(void)
 
 	data->half_height = (SCREEN_HEIGHT / (PIXEL_SIZE * 2));
 	data->half_width = (SCREEN_WIDTH / (PIXEL_SIZE * 2));
+	data->fov_ratio = ((PIXEL_SIZE * PLAYER_FOV) / SCREEN_WIDTH);
 	data->window = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "CUBE3D", false);
 
 	make_canvas();
 
 	i = -data->half_width;
-	while (i < data->half_width)
+	while (i < data->half_width) //	calculate the angle based on the fov
 	{
-		draw_slice(cast_ray(data->player->vector, i++)); //	0======== DEBUG ========0
+		draw_slice(cast_ray(data->player->vector, data->fov_ratio * i), i); //	0======== DEBUG ========0
+		i++;
 	}
 
 

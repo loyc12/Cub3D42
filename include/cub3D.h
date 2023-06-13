@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 14:27:31 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 14:55:29 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,10 @@ typedef enum e_ttype
 
 # define SCREEN_WIDTH	(int)1536
 # define SCREEN_HEIGHT	(int)1152
-# define PIXEL_SIZE		(int)8 //		size of virtual pixels (in real pixels)
+# define PIXEL_SIZE		(int)4 //		size of virtual pixels (in real pixels)
 
 # define PLAYER_RADIUS	(double)0.1
+# define PLAYER_FOV		(double)90
 
 //other
 # define NO_CLIP	0 //			whether or not to ignore colision checks
@@ -216,7 +217,6 @@ typedef struct s_ray
 //...
 typedef struct s_slice
 {
-	double			screen_pos; //	horizontal position in the screen
 	double			size; //		~ 1 / hit distance
 	int				hit_type; //	hit tile type
 	mlx_texture_t	*texture; //	texture to use
@@ -239,6 +239,7 @@ typedef struct s_master
 	mlx_image_t	*canvas;
 	int			half_height; //			half the height of the screen in PIXEL_SIZE
 	int			half_width; //			half the width of the screen in PIXEL_SIZE
+	double		fov_ratio;
 //	t_asset		**assets; //			array with all the assets
 
 	//environments
@@ -298,7 +299,7 @@ void			get_info(void);
 
 //from imager --- (4)
 void			draw_square(int x, int y, int c);
-void			draw_slice(t_slice *slice);
+void			draw_slice(t_slice *slice, int screen_pos);
 void			make_canvas(void);
 mlx_texture_t	*make_texture(char *path);
 

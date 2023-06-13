@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 14:30:29 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/13 14:51:11 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw_square(int x, int y, int c)
 }
 
 //draws a macro pixel vertical line on the screen (0 is at the right of the center)
-void	draw_slice(t_slice *slice)
+void	draw_slice(t_slice *slice, int screen_pos)
 {
 	t_master	*d;
 	uint32_t	wall_colour;
@@ -49,7 +49,7 @@ void	draw_slice(t_slice *slice)
 	while (y < d->half_height)
 	{
 		if ((slice->size * -d->half_height) <= y && y < (slice->size * d->half_height))
-			draw_square(slice->screen_pos, y, wall_colour); //	0======== DEBUG ========0
+			draw_square(screen_pos, y, wall_colour); //	0======== DEBUG ========0
 		y++;
 	}
 	ft_free_null(ADRS slice);
