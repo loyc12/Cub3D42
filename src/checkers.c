@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:45:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/07 10:30:44 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 11:01:39 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,35 +71,43 @@ void	check_map(void)
 		close_with_error(ERR_MAP_PLAYER);
 }
 
-//recursively checks whether a room is next to void
-void	flood_check(t_tile *tile)
+//Verifies that the texture paths are valid
+void	check_assets(void)
 {
-	if (!tile)
-		close_with_error(ERR_MAP_BOUND);
+	t_master	*d;
+	int			fd;
+	int			i;
 
-	if (tile->fff == 0)
+	d = get_master();
+	i = 3;
+	while (i >= 0) // checks asset paths [1] to [4]
 	{
-		tile->fff++;
-		if (tile->type != TTYPE_WALL)
+		if (d->t_paths[i])
 		{
-			flood_check(tile->north);
-			flood_check(tile->east);
-			flood_check(tile->south);
-			flood_check(tile->west);
+			fd = open(d->t_paths[i], O_RDONLY);
+			if (fd < 0)
+				close_with_error(ERR_FILE_ASSET);
+			close(fd);
 		}
+		else
+			close_with_error(ERR_FILE_SPECS);
+		i--;
 	}
 }
 
-//verifies that the map is closed around the player
-void	flood_check_map(void)
+//Verifies that the floor & ceiling colours are within bounds
+void	check_colours(void)
 {
-	t_tile	*tile;
+	t_master	*d;
 
-	tile = get_master()->spawn;
+	d = get_master();
+	if (!(d->c_ceiling) || !(d->c_floor))
+		close_with_error(ERR_FILE_SPECS);
+	if (d->c_ceiling->r > 255 || d->c_ceiling->g > 255 || d->c_ceiling->b > 255 || \
+		d->c_floor->r > 255 || d->c_floor->g > 255 || d->c_floor->b > 255)
+		close_with_error(ERR_FILE_COLOR);
+	if (d->c_ceiling->r < 0 || d->c_ceiling->g < 0 || d->c_ceiling->b < 0 || \
+		d->c_floor->r < 0 || d->c_floor->g < 0 || d->c_floor->b < 0)
+		close_with_error(ERR_FILE_COLOR);
 
-	tile->fff = 0;
-	flood_check(tile->north);
-	flood_check(tile->east);
-	flood_check(tile->south);
-	flood_check(tile->west);
 }

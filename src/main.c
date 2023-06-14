@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 14:21:35 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 10:49:51 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,30 @@ t_master	*get_master(void)
 	return (data);
 }
 
+void	play_game(t_master *data)
+{
+	double	f;
+	int		i;
+
+	i = -data->half_width;
+	while (i < data->half_width) //	calculate the angle based on the fov
+	{
+		f = data->fov_ratio * i;
+		f *= sin((180 - f) * PI / 360);
+		draw_slice(cast_ray(data->player->vector, f), i); //	0======== DEBUG ========0
+		i++;
+	}
+
+	mlx_key_hook(data->window, &key_hook, NULL);
+	mlx_loop(data->window);
+	mlx_terminate(data->window);
+}
+
 int	main(int ac, char **av)
 {
 	init_game(ac, av);
 
-//	...
-//	t_slice *r = cast_ray(get_master()->player->vector, 0); //	0======== DEBUG ========0
+	play_game(get_master());
 
 	printf("\n");
 	return (free_master());

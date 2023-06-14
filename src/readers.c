@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/06 13:46:30 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 11:01:31 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,47 +35,6 @@ void	read_file(int fd)
 	close(fd);
 	if (MAX_CHAR_COUNT <= i)
 		close_with_error(ERR_MAP_SIZE);
-}
-
-//Verifies that the texture paths are valid
-void	check_assets(void)
-{
-	t_master	*d;
-	int			fd;
-	int			i;
-
-	d = get_master();
-	i = 3;
-	while (i >= 0) // checks asset paths [1] to [4]
-	{
-		if (d->t_paths[i])
-		{
-			fd = open(d->t_paths[i], O_RDONLY);
-			if (fd < 0)
-				close_with_error(ERR_FILE_ASSET);
-			close(fd);
-		}
-		else
-			close_with_error(ERR_FILE_SPECS);
-		i--;
-	}
-}
-
-//Verifies that the floor & ceiling colours are within bounds
-void	check_colours(void)
-{
-	t_master	*d;
-
-	d = get_master();
-	if (!(d->c_ceiling) || !(d->c_floor))
-		close_with_error(ERR_FILE_SPECS);
-	if (d->c_ceiling->r > 255 || d->c_ceiling->g > 255 || d->c_ceiling->b > 255 || \
-		d->c_floor->r > 255 || d->c_floor->g > 255 || d->c_floor->b > 255)
-		close_with_error(ERR_FILE_COLOR);
-	if (d->c_ceiling->r < 0 || d->c_ceiling->g < 0 || d->c_ceiling->b < 0 || \
-		d->c_floor->r < 0 || d->c_floor->g < 0 || d->c_floor->b < 0)
-		close_with_error(ERR_FILE_COLOR);
-
 }
 
 //opens the .cub file and copies its contents into d.level

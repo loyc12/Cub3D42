@@ -15,17 +15,21 @@ TSTDIR		=	tests/
 SUBDIRS		=	\
 
 # Source file names (prefix their subdir if needed)
-FILES	=	casters \
+FILES	=	actions \
+			casters \
 			checkers \
 			coorders \
 			debugers \
+			flooders \
 			freeers \
 			getters \
-			imagers \
+			hookers \
 			initializers \
 			main \
 			maths \
 			readers \
+			slicers \
+			textures \
 			tilers \
 
 # Libraries (.a files) to include for compilation

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 10:42:22 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 10:55:20 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,83 +38,19 @@ void	init_player(void)
 
 }
 
-void	key_esc(void)
-{
-	printf("ESC touched\n");
-	mlx_close_window(get_master()->window);
-	return ;
-}
-
-void	mv_front(void)
-{
-	printf("W touched\n");
-	return ;
-}
-
-void	mv_back(void)
-{
-	printf("S touched\n");
-	return ;
-}
-
-void	turn_left(void)
-{
-	printf("D touched\n");
-	return ;
-}
-
-void	turn_right(void)
-{
-	printf("A touched\n");
-	return ;
-}
-
-void	key_hook(mlx_key_data_t keydata, void *param)
-{
-	(void)param;
-	if (keydata.key == MLX_KEY_ESCAPE)
-		key_esc();
-	if (!(keydata.key == MLX_KEY_ESCAPE))
-	{
-		if (keydata.key == MLX_KEY_W)
-			mv_front();
-		if (keydata.key == MLX_KEY_S)
-			mv_back();
-		if (keydata.key == MLX_KEY_D)
-			turn_left();
-		if (keydata.key == MLX_KEY_A)
-			turn_right();
-	}
-}
-
 void	init_window(void)
 {
 	t_master	*data;
-	double		f;
-	int			i;
 
 	data = get_master();
 
 	data->half_height = (SCREEN_HEIGHT / (PIXEL_SIZE * 2));
 	data->half_width = (SCREEN_WIDTH / (PIXEL_SIZE * 2));
-	data->fov_ratio = ((PIXEL_SIZE * PLAYER_FOV) / SCREEN_WIDTH) / sin((180 - (PLAYER_FOV / 2)) * PI / 360);
+	data->fov_ratio = ((PIXEL_SIZE * PLAYER_FOV) / SCREEN_WIDTH);
+	data->fov_ratio /= sin((180 - (PLAYER_FOV / 2)) * PI / 360); //	compensates for fish eye effect compensation (lol)
 	data->window = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "CUBE3D", false);
 
 	make_canvas();
-
-	//MOVE ME LATER
-	i = -data->half_width;
-	while (i < data->half_width) //	calculate the angle based on the fov
-	{
-		f = data->fov_ratio * i;
-		f *= sin((180 - f) * PI / 360);
-		draw_slice(cast_ray(data->player->vector, f), i); //	0======== DEBUG ========0
-		i++;
-	}
-
-	mlx_key_hook(data->window, &key_hook, NULL);
-	mlx_loop(data->window);
-	mlx_terminate(data->window);
 }
 
 //creates the map grid from the map-info contained in d.level

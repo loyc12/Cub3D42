@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   hookers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 11:19:22 by llord            ###   ########.fr       */
+/*   Created: 2023/06/14 10:46:03 by llord             #+#    #+#             */
+/*   Updated: 2023/06/14 10:48:13 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "cub3D.h"
 
-// ======== LIBRARIES ======== //
-
-# include "../MLX42/include/MLX42/MLX42.h"
-# include "../Libft42/libft.h"
-
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <time.h>
-# include <math.h>
-
-# include "defs.h"
-# include "enums.h"
-# include "funcs.h"
-# include "structs.h"
-
-#endif // CUB3D_H
+void	key_hook(mlx_key_data_t keydata, void *param)
+{
+	(void)param;
+	if (keydata.key == MLX_KEY_ESCAPE)
+		key_esc();
+	if (!(keydata.key == MLX_KEY_ESCAPE))
+	{
+		if (keydata.key == MLX_KEY_W)
+			mv_front();
+		if (keydata.key == MLX_KEY_S)
+			mv_back();
+		if (keydata.key == MLX_KEY_D)
+			turn_left();
+		if (keydata.key == MLX_KEY_A)
+			turn_right();
+	}
+}

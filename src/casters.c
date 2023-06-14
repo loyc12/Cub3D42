@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 10:35:54 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 10:52:20 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,27 +143,6 @@ bool	evaluate_y_hits(t_ray *r)
 		r->y_ray_dist += fabs(r->y_to_ray_ratio); //	increment distance in y
 	}
 	return (false);
-}
-
-t_slice	*create_slice(t_ray *r, double angle)
-{
-	t_slice	*slice;
-
-	if (r->hit_type == TTYPE_ERROR)
-		return (ft_free_null(ADRS r), NULL);
-
-	slice = ft_calloc(1, sizeof(t_slice));
-
-	printf("Correction factor would be : %.5f\n", sin((180 - angle) * PI / 360));
-	r->ray_dist *= cos(PI * angle / 180);
-
-	slice->size = (1 / r->ray_dist);
-	slice->hit_type = r->hit_type;
-	//					also need to find texture_pos and get right texture
-
-	ft_free_null(ADRS r);
-
-	return (slice);
 }
 
 t_slice	*cast_ray(t_vector *pos, double ray_angle)

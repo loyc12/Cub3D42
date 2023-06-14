@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   imagers.c                                          :+:      :+:    :+:   */
+/*   slicers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 14:51:11 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 11:03:36 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,30 @@ void	draw_slice(t_slice *slice, int screen_pos)
 	ft_free_null(ADRS slice);
 }
 
+//converts a ray struct into a slice struct, used in drawing slices
+t_slice	*create_slice(t_ray *r, double angle)
+{
+	t_slice	*slice;
+
+	slice = ft_calloc(1, sizeof(t_slice));
+
+	if (r->hit_type == TTYPE_ERROR)
+	{
+		slice->size = 0;
+		return (ft_free_null(ADRS r), slice);
+	}
+
+	r->ray_dist *= cos(PI * angle / 180); //	compensates for fish eye effect
+	slice->size = (1 / r->ray_dist);
+
+	slice->hit_type = r->hit_type;
+	//					also need to find texture_pos and get right texture
+
+	ft_free_null(ADRS r);
+
+	return (slice);
+}
+
 //initializes the background (canvas) to draw on
 void	make_canvas(void)
 {
@@ -72,20 +96,4 @@ void	make_canvas(void)
 	ft_memfset(d->canvas->pixels, canvas_colour, SCREEN_WIDTH * d->canvas->height * BPP, 4); //	0======== DEBUG ========0
 
 	mlx_image_to_window(d->window, d->canvas, 0, 0);
-
-}
-
-//initializes a single mlx image
-mlx_texture_t	*make_texture(char *path)
-{
-	mlx_texture_t	*texture;
-	xpm_t			*xpm;
-
-	texture = ft_calloc(1, sizeof(texture));
-	xpm = mlx_load_xpm42(path);
-
-	*texture = xpm->texture; //		copies the texture from xpm_t
-	mlx_delete_xpm42(xpm);
-
-	return (texture);
 }
