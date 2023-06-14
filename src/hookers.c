@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:46:03 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 13:51:36 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:21:17 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,16 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	if (!(keydata.key == MLX_KEY_ESCAPE) && !get_master()->should_refresh)
 	{
 		if (keydata.key == MLX_KEY_W)
-			mv_front();
+			move_towards(0);
 		if (keydata.key == MLX_KEY_S)
-			mv_back();
+			move_towards(180);
 		if (keydata.key == MLX_KEY_D)
 			turn_left();
 		if (keydata.key == MLX_KEY_A)
 			turn_right();
+		if (keydata.key == MLX_KEY_E)
+			move_towards(90);
+		if (keydata.key == MLX_KEY_Q)
+			move_towards(270);
 	}
 }

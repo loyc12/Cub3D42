@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 13:38:30 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:20:29 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 
 //from actions --- (5)
 void			key_esc(void);
-void			mv_front(void);
-void			mv_back(void);
+void			move_towards(double angle);
 void			turn_left(void);
 void			turn_right(void);
 
