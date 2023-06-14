@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 14:37:51 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 15:01:36 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 //translation (1 tile ~= 3m)
 # define WALK_SPEED		(double)0.20 //	walking speed (in tile/tic)
 # define TURN_SPEED		(double)2.0 //	turning speed (in deg/tic)
-# define RUN_FACTOR		(double)2.0 //	running speed (in tile/tic)
+# define RUN_FACTOR		(double)2.5 //	running speed (in tile/tic)
 
 //sizes
 # define MAX_CHAR_COUNT	(int)8192 //	maximum level file size (in chars)

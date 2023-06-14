@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 14:20:29 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:57:40 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void			get_texture(char *line, char **path);
 void			get_info(void);
 
 //from hookers
-void	        loop_hook(void *param);
+void			loop_hook(void *param);
 void			key_hook(mlx_key_data_t keydata, void *param);
 
 //from initializers --- (4)
@@ -84,7 +84,8 @@ int				main(int ac, char **av);
 //maths.c
 void			find_ratios(t_ray *r);
 double			normalize_angle(double angle);
-uint32_t	    get_rgba(t_colour *c);
+uint32_t		get_rgba(t_colour *c);
+double			set_precision(double value, long precision);
 
 //from readers
 void			read_file(int fd);
@@ -106,9 +107,8 @@ void			build_map(t_master *data);
 void			connect_map(void);
 
 //from mover
-int             check_colision(t_entity *e, double dx, double dy);
+int				check_colision(t_entity *e, double dx, double dy);
 void			move_entity(t_entity *e, double angle); //			blocks at wall
-
 
 //does_overlap_tile(entity, tile) //		checks for collision with walls
 //does_overlap_entity(entity, entity)		only if implementing enemies/objects(?)

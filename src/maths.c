@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:36:32 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 12:54:37 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 15:00:34 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,9 @@ uint32_t	get_rgba(t_colour *c)
 	rgba = (c->r << 24 | c->g << 16 | c->b << 8 | 255);
 
 	return (rgba);
+}
+
+double	set_precision(double value, long precision)
+{
+	return (floor(value * precision) / precision);
 }
