@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 15:37:38 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 10:38:41 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ typedef enum e_ttype
 
 //rotation (1 rad ~= 57.3 deg)
 # define PI			(double)3.14159265359
-//# define T_SPEED	(float)2.0 //	turning speed (in rad/sec)
+//# define RAD_TO_DEG	(double)PI / 180
+//# define DEG_TO_RAD	(double)180 / PI
+
+//# define T_SPEED	(float)1.0 //	turning speed (in deg/sec)
 
 //translation (1 tile ~= 3m)
 # define WALK_SPEED		(double)0.4 //	walking speed (in tile/sec)
@@ -105,7 +108,7 @@ typedef enum e_ttype
 
 # define SCREEN_WIDTH	(int)1536
 # define SCREEN_HEIGHT	(int)1152
-# define PIXEL_SIZE		(int)4 //		size of virtual pixels (in real pixels)
+# define PIXEL_SIZE		(int)2 //		size of virtual pixels (in real pixels)
 
 # define PLAYER_RADIUS	(double)0.1
 # define PLAYER_FOV		(double)90
@@ -240,6 +243,7 @@ typedef struct s_master
 	mlx_image_t	*canvas;
 	int			half_height; //			half the height of the screen in PIXEL_SIZE
 	int			half_width; //			half the width of the screen in PIXEL_SIZE
+
 	double		fov_ratio;
 //	t_asset		**assets; //			array with all the assets
 
