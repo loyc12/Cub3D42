@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 11:19:17 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 12:18:51 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct s_master
 	int			half_width; //			half the width of the screen in PIXEL_SIZE
 
 	double		fov_ratio;
+	bool		should_refresh;
 //	t_asset		**assets; //			array with all the assets
 
 	//environments

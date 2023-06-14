@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 11:26:33 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 12:42:02 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@ void	init_window(void)
 
 	data->half_height = (SCREEN_HEIGHT / (PIXEL_SIZE * 2));
 	data->half_width = (SCREEN_WIDTH / (PIXEL_SIZE * 2));
+	data->window = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "CUBE3D", false);
 	data->fov_ratio = ((PIXEL_SIZE * PLAYER_FOV) / SCREEN_WIDTH);
 	data->fov_ratio /= sin((180 - (PLAYER_FOV / 2)) * M_PI / 360); //	compensates for fish eye effect compensation (lol)
-	data->window = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "CUBE3D", false);
+
+	data->should_refresh = true;
+
 
 	make_canvas();
 }

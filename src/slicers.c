@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 11:26:58 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 12:39:41 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,17 @@ void	draw_slice(t_slice *slice, int screen_pos)
 	int			y;
 
 	d = get_master();
-	wall_colour = (0 << 24 | 192 << 16 | 0 << 8 | 255); //		0======== DEBUG ========0
+	wall_colour = (128 << 24 | 0 << 16 | 0 << 8 | 255); //		0======== DEBUG ========0
 
 	y = -d->half_height;
 	while (y < d->half_height)
 	{
 		if ((slice->size * -d->half_height) <= y && y < (slice->size * d->half_height))
 			draw_square(screen_pos, y, wall_colour); //	0======== DEBUG ========0
+		else if (y < 0)
+			draw_square(screen_pos, y, get_rgba(d->c_ceiling)); //	0======== DEBUG ========0
+		else
+			draw_square(screen_pos, y, get_rgba(d->c_floor)); //	0======== DEBUG ========0
 		y++;
 	}
 	ft_free_null(ADRS slice);
@@ -69,6 +73,7 @@ t_slice	*create_slice(t_ray *r, double angle)
 	}
 
 	r->ray_dist *= cos(M_PI * angle / 180); //	compensates for fish eye effect
+
 	slice->size = (1 / r->ray_dist);
 
 	slice->hit_type = r->hit_type;

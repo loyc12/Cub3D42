@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 11:28:09 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 12:37:31 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void			get_texture(char *line, char **path);
 void			get_info(void);
 
 //from hookers
+void	        loop_hook(void *param);
 void			key_hook(mlx_key_data_t keydata, void *param);
 
 //from initializers --- (4)
@@ -84,6 +85,7 @@ int				main(int ac, char **av);
 //maths.c
 void			find_ratios(t_ray *r);
 double			normalize_angle(double angle);
+uint32_t	    get_rgba(t_colour *c);
 
 //from readers
 void			read_file(int fd);

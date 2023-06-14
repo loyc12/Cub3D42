@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:36:32 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 11:27:50 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 12:40:56 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,13 @@ double	normalize_angle(double angle)
 		angle -= 360;
 
 	return (angle);
+}
+
+uint32_t	get_rgba(t_colour *c)
+{
+	uint32_t	rgba;
+
+	rgba = (c->r << 24 | c->g << 16 | c->b << 8 | 255);
+
+	return (rgba);
 }
