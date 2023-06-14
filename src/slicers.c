@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 14:17:42 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:40:26 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	draw_square(int x, int y, int c)
 void	draw_slice(t_slice *slice, int screen_pos)
 {
 	t_master	*d;
-	uint32_t	wall_colour[4]; //										0======== DEBUG ========0
 	int			y;
+	uint32_t	wall_colour[4]; //										0======== DEBUG ========0
 
 	d = get_master();
 	wall_colour[0] = (128 << 24 | 0 << 16 | 0 << 8 | 255); //			0======== DEBUG ========0
@@ -80,7 +80,7 @@ t_slice	*create_slice(t_ray *r, double angle)
 	slice->size = (1 / r->ray_dist);
 
 	slice->hit_type = r->hit_type;
-	//					also need to find texture_pos and get right texture
+	//						also need to find texture_pos and get right texture
 
 	slice->hit_dir = r->hit_dir;
 
@@ -93,12 +93,12 @@ t_slice	*create_slice(t_ray *r, double angle)
 void	make_canvas(void)
 {
 	t_master	*d;
-	int			canvas_colour[4];
+	int			canvas_colour[4]; //	0======== DEBUG ========0
 
-	canvas_colour[0] = 0;
-	canvas_colour[1] = 0;
-	canvas_colour[2] = 0;
-	canvas_colour[3] = 255;
+	canvas_colour[0] = 0; //	0======== DEBUG ========0
+	canvas_colour[1] = 0; //	0======== DEBUG ========0
+	canvas_colour[2] = 0; //	0======== DEBUG ========0
+	canvas_colour[3] = 255; //	0======== DEBUG ========0
 
 	d = get_master();
 	d->canvas = mlx_new_image(d->window, SCREEN_WIDTH, SCREEN_HEIGHT);

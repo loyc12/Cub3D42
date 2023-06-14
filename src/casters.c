@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 14:01:57 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:40:54 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,17 +164,17 @@ t_slice	*cast_ray(t_vector *pos, double ray_angle)
 		if (evaluate_x_hits(r))
 		{
 			if (0 <= r->ray_to_x_ratio)
-				r->hit_dir = 0;
+				r->hit_dir = 1;
 			else
-				r->hit_dir = 2;
+				r->hit_dir = 3;
 			break ;
 		}
 		if (evaluate_y_hits(r))
 		{
 			if (0 <= r->ray_to_y_ratio)
-				r->hit_dir = 1;
+				r->hit_dir = 2;
 			else
-				r->hit_dir = 3;
+				r->hit_dir = 0;
 			break ;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:46:03 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 14:21:17 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:33:37 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		if (keydata.key == MLX_KEY_W)
 			move_towards(0);
 		if (keydata.key == MLX_KEY_S)
+		{
 			move_towards(180);
+			get_master()->run = false;
+		}
 		if (keydata.key == MLX_KEY_D)
 			turn_left();
 		if (keydata.key == MLX_KEY_A)
@@ -55,5 +58,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 			move_towards(90);
 		if (keydata.key == MLX_KEY_Q)
 			move_towards(270);
+		if (keydata.key == MLX_KEY_LEFT_SHIFT)
+			get_master()->run = true;
 	}
 }

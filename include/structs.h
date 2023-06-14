@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 14:04:32 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:27:51 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,6 @@ typedef struct s_master
 	int			half_width; //			half the width of the screen in PIXEL_SIZE
 
 	double		fov_ratio;
-	bool		should_refresh;
 //	t_asset		**assets; //			array with all the assets
 
 	//environments
@@ -158,6 +157,8 @@ typedef struct s_master
 	//meta
 	int			player_spawn_count; //	player flag for map parsing
 	int			master_state; //		what the sim doin
+	bool		should_refresh;
+	bool		run;
 
 }				t_master;
 

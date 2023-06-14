@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:36:32 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 13:49:41 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:29:32 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,21 @@ void	move_entity(t_entity *e, double angle)
 	dx = WALK_SPEED * cos(M_PI * (e->vector->d + angle) / 180);
 	dy = WALK_SPEED * sin(M_PI * (e->vector->d + angle) / 180);
 
+	if (get_master()->run)
+	{
+		dx *= RUN_FACTOR;
+		dy *= RUN_FACTOR;
+	}
+
 	if (check_colision(e, dx, dy) == 0)
 	{
 		e->vector->x += dx;
 		e->vector->y += dy;
 	}
+	else if (check_colision(e, dx, 0) == 0)
+		e->vector->x += dx;
+	else if (check_colision(e, 0, dy) == 0)
+		e->vector->y += dy;
 	else
 		printf("Path blocked!\n"); //	0======== DEBUG ========0
 
