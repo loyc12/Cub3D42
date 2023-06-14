@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 12:18:51 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:04:32 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct s_ray
 
 	double		angle; //	final absolute angle
 	int			hit_type; //final wall type
+	int			hit_dir;
 
 }				t_ray;
 
@@ -120,6 +121,7 @@ typedef struct s_slice
 {
 	double			size; //		~ 1 / hit distance
 	int				hit_type; //	hit tile type
+	int				hit_dir;
 	mlx_texture_t	*texture; //	texture to use
 	double			texture_pos; //	horizontal position in the texture
 

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 13:15:24 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:01:57 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,9 +162,21 @@ t_slice	*cast_ray(t_vector *pos, double ray_angle)
 	while (true)
 	{
 		if (evaluate_x_hits(r))
+		{
+			if (0 <= r->ray_to_x_ratio)
+				r->hit_dir = 0;
+			else
+				r->hit_dir = 2;
 			break ;
+		}
 		if (evaluate_y_hits(r))
+		{
+			if (0 <= r->ray_to_y_ratio)
+				r->hit_dir = 1;
+			else
+				r->hit_dir = 3;
 			break ;
+		}
 	}
 //	printf("Wall height : %.3f\n\n", 1 / r->ray_dist); //	0======== DEBUG ========0
 

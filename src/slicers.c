@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 12:39:41 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:05:59 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,24 @@ void	draw_square(int x, int y, int c)
 void	draw_slice(t_slice *slice, int screen_pos)
 {
 	t_master	*d;
-	uint32_t	wall_colour;
+	uint32_t	wall_colour[4];
 	int			y;
 
 	d = get_master();
-	wall_colour = (128 << 24 | 0 << 16 | 0 << 8 | 255); //		0======== DEBUG ========0
+	wall_colour[0] = (128 << 24 | 0 << 16 | 0 << 8 | 255); //		0======== DEBUG ========0
+	wall_colour[1] = (0 << 24 | 128 << 16 | 0 << 8 | 255); //		0======== DEBUG ========0
+	wall_colour[2] = (0 << 24 | 0 << 16 | 128 << 8 | 255); //		0======== DEBUG ========0
+	wall_colour[3] = (128 << 24 | 128 << 16 | 128 << 8 | 255); //		0======== DEBUG ========0
 
 	y = -d->half_height;
 	while (y < d->half_height)
 	{
 		if ((slice->size * -d->half_height) <= y && y < (slice->size * d->half_height))
-			draw_square(screen_pos, y, wall_colour); //	0======== DEBUG ========0
+			draw_square(screen_pos, y, wall_colour[slice->hit_dir]); //	0======== DEBUG ========0
 		else if (y < 0)
-			draw_square(screen_pos, y, get_rgba(d->c_ceiling)); //	0======== DEBUG ========0
+			draw_square(screen_pos, y, 255); // get_rgba(d->c_ceiling)); //	0======== DEBUG ========0
 		else
-			draw_square(screen_pos, y, get_rgba(d->c_floor)); //	0======== DEBUG ========0
+			draw_square(screen_pos, y, 255); // get_rgba(d->c_floor)); //	0======== DEBUG ========0
 		y++;
 	}
 	ft_free_null(ADRS slice);
@@ -78,6 +81,8 @@ t_slice	*create_slice(t_ray *r, double angle)
 
 	slice->hit_type = r->hit_type;
 	//					also need to find texture_pos and get right texture
+
+	slice->hit_dir = r->hit_dir;
 
 	ft_free_null(ADRS r);
 
