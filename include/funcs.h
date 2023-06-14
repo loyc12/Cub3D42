@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 12:49:43 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 13:38:30 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void			print_neighbours(t_tile *tile);
 void			announce_tile(t_tile *tile, char c);
 void			print_paths(void);
 void			print_colours(void);
-void			print_player(void);
+void			print_entity(t_entity *e);
 
 //from flooders
 void			flood_check(t_tile *tile);
@@ -107,6 +107,7 @@ void			build_map(t_master *data);
 void			connect_map(void);
 
 //from mover
+int             check_colision(t_entity *e, double dx, double dy);
 void			move_entity(t_entity *e, double angle); //			blocks at wall
 
 

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 12:17:16 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 13:51:40 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@
 //# define RAD_TO_DEG	(double)PI / 180
 //# define DEG_TO_RAD	(double)180 / PI
 
-
 //translation (1 tile ~= 3m)
 # define WALK_SPEED		(double)0.4 //	walking speed (in tile/sec)
 # define RUN_SPEED		(double)1.0 //	running speed (in tile/sec)
@@ -61,7 +60,7 @@
 # define SCREEN_HEIGHT	(int)1152
 # define PIXEL_SIZE		(int)1 //		size of virtual pixels (in real pixels)
 
-# define PLAYER_RADIUS	(double)0.1
+# define PLAYER_RADIUS	(double)0.2
 # define PLAYER_FOV		(double)90
 # define P_FACTOR		(double)1
 
