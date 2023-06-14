@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 11:19:29 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 11:30:48 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@
 // ======== CONSTANTS ======== //
 
 //rotation (1 rad ~= 57.3 deg)
-# define PI			(double)3.14159265359
 //# define RAD_TO_DEG	(double)PI / 180
 //# define DEG_TO_RAD	(double)180 / PI
 
-//# define T_SPEED	(float)1.0 //	turning speed (in deg/sec)
+# define TURN_SPEED		(double)1.0 //	turning speed (in deg/sec)
 
 //translation (1 tile ~= 3m)
 # define WALK_SPEED		(double)0.4 //	walking speed (in tile/sec)

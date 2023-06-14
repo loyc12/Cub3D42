@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 10:52:20 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 11:28:17 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ t_slice	*cast_ray(t_vector *pos, double ray_angle)
 
 	r = ft_calloc(1, sizeof(t_ray));
 
-	r->angle = ray_angle + pos->d; //	makse the ray angle absolute
+	r->angle = normalize_angle(ray_angle + pos->d); //	makse the ray angle absolute
 	r->player_pos = pos;
 
 	printf("Casting ray at angle : %.3f (%.3f)\n", r->angle, ray_angle); //		0======== DEBUG ========0

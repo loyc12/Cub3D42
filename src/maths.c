@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:36:32 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 10:58:35 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 11:27:50 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	find_ratios(t_ray *r)
 {
 	if (r->angle != -90 && r->angle != 90 && r->angle != 270 && r->angle != 450)
 	{
-		r->ray_to_x_ratio = cos(PI * r->angle / 180);
+		r->ray_to_x_ratio = cos(M_PI * r->angle / 180);
 		r->x_to_ray_ratio = (1 / r->ray_to_x_ratio);
 	}
 	else
@@ -28,7 +28,7 @@ void	find_ratios(t_ray *r)
 	}
 	if (r->angle != -180 && r->angle != 0 && r->angle != 180 && r->angle != 360)
 	{
-		r->ray_to_y_ratio = sin(PI * r->angle / 180);
+		r->ray_to_y_ratio = sin(M_PI * r->angle / 180);
 		r->y_to_ray_ratio = (1 / r->ray_to_y_ratio);
 	}
 	else
@@ -42,4 +42,14 @@ void	find_ratios(t_ray *r)
 //	printf("xtr : %.3f\n", r->x_to_ray_ratio); //	0======== DEBUG ========0
 //	printf("\nrty : %.3f\n", r->ray_to_y_ratio); //	0======== DEBUG ========0
 //	printf("ytr : %.3f\n", r->y_to_ray_ratio); //	0======== DEBUG ========0
+}
+
+double	normalize_angle(double angle)
+{
+	while (angle <= 0)
+		angle += 360;
+	while (360 < angle)
+		angle -= 360;
+
+	return (angle);
 }

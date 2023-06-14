@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 11:03:36 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 11:26:58 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_slice	*create_slice(t_ray *r, double angle)
 		return (ft_free_null(ADRS r), slice);
 	}
 
-	r->ray_dist *= cos(PI * angle / 180); //	compensates for fish eye effect
+	r->ray_dist *= cos(M_PI * angle / 180); //	compensates for fish eye effect
 	slice->size = (1 / r->ray_dist);
 
 	slice->hit_type = r->hit_type;

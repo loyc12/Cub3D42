@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:46:03 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 10:48:25 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 11:32:55 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,21 @@ void	mv_back(void)
 
 void	turn_left(void)
 {
-	printf("D touched\n");
-	get_master()->player->vector->d -= 1;
-	//don't forget to normalize after
+	t_vector	*pv;
+
+	pv = get_master()->player->vector;
+
+	pv->d = normalize_angle(pv->d - TURN_SPEED);
+
+	printf("New player angle : %.3f\n", pv->d); //	0======== DEBUG ========0
 }
 
 void	turn_right(void)
 {
-	printf("A touched\n");
-	get_master()->player->vector->d += 1;
-	//don't forget to normalize after
+	t_vector	*pv;
+
+	pv = get_master()->player->vector;
+	pv->d = normalize_angle(pv->d + TURN_SPEED);
+
+	printf("New player angle : %.3f\n", pv->d); //	0======== DEBUG ========0
 }

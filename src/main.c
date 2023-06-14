@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 10:49:51 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 11:26:42 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	play_game(t_master *data)
 	while (i < data->half_width) //	calculate the angle based on the fov
 	{
 		f = data->fov_ratio * i;
-		f *= sin((180 - f) * PI / 360);
+		f *= sin((180 - f) * M_PI / 360);
 		draw_slice(cast_ray(data->player->vector, f), i); //	0======== DEBUG ========0
 		i++;
 	}

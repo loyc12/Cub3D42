@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 11:17:48 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 11:28:09 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int				main(int ac, char **av);
 
 //maths.c
 void			find_ratios(t_ray *r);
+double			normalize_angle(double angle);
 
 //from readers
 void			read_file(int fd);

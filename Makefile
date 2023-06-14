@@ -174,7 +174,8 @@ re: fclean all
 
 # Runs the program
 rerun: re run
-run: quick
+run: all quickrun
+quickrun: quick
 	@echo "$(YELLOW)Launching command : ./$(NAME) $(ARGS) $(DEFCOL)"
 	@echo "$(RED)"
 	$(HIDE) ./$(NAME) $(ARGS) || true
