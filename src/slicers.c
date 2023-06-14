@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   imagers.c                                          :+:      :+:    :+:   */
+/*   slicers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/13 14:01:47 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 12:39:41 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,52 @@ void	draw_square(int x, int y, int c)
 }
 
 //draws a macro pixel vertical line on the screen (0 is at the right of the center)
-void	draw_slice(int x, double size, int c)
+void	draw_slice(t_slice *slice, int screen_pos)
 {
-	int	y;
-	int	half_height;
+	t_master	*d;
+	uint32_t	wall_colour;
+	int			y;
 
-	half_height = (SCREEN_HEIGHT / (2 * PIXEL_SIZE));
+	d = get_master();
+	wall_colour = (128 << 24 | 0 << 16 | 0 << 8 | 255); //		0======== DEBUG ========0
 
-	y = -half_height;
-	while (y < half_height)
+	y = -d->half_height;
+	while (y < d->half_height)
 	{
-		if ((size * -half_height) <= y && y < (size * half_height))
-			draw_square(x, y, c); //		0======== DEBUG ========0
+		if ((slice->size * -d->half_height) <= y && y < (slice->size * d->half_height))
+			draw_square(screen_pos, y, wall_colour); //	0======== DEBUG ========0
+		else if (y < 0)
+			draw_square(screen_pos, y, get_rgba(d->c_ceiling)); //	0======== DEBUG ========0
+		else
+			draw_square(screen_pos, y, get_rgba(d->c_floor)); //	0======== DEBUG ========0
 		y++;
 	}
+	ft_free_null(ADRS slice);
+}
 
+//converts a ray struct into a slice struct, used in drawing slices
+t_slice	*create_slice(t_ray *r, double angle)
+{
+	t_slice	*slice;
+
+	slice = ft_calloc(1, sizeof(t_slice));
+
+	if (r->hit_type == TTYPE_ERROR)
+	{
+		slice->size = 0;
+		return (ft_free_null(ADRS r), slice);
+	}
+
+	r->ray_dist *= cos(M_PI * angle / 180); //	compensates for fish eye effect
+
+	slice->size = (1 / r->ray_dist);
+
+	slice->hit_type = r->hit_type;
+	//					also need to find texture_pos and get right texture
+
+	ft_free_null(ADRS r);
+
+	return (slice);
 }
 
 //initializes the background (canvas) to draw on
@@ -70,20 +101,4 @@ void	make_canvas(void)
 	ft_memfset(d->canvas->pixels, canvas_colour, SCREEN_WIDTH * d->canvas->height * BPP, 4); //	0======== DEBUG ========0
 
 	mlx_image_to_window(d->window, d->canvas, 0, 0);
-
-}
-
-//initializes a single mlx image
-mlx_texture_t	*make_texture(char *path)
-{
-	mlx_texture_t	*texture;
-	xpm_t			*xpm;
-
-	texture = ft_calloc(1, sizeof(texture));
-	xpm = mlx_load_xpm42(path);
-
-	*texture = xpm->texture; //		copies the texture from xpm_t
-	mlx_delete_xpm42(xpm);
-
-	return (texture);
 }

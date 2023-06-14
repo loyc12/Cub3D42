@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/12 11:24:19 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 12:12:38 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,19 @@ t_master	*get_master(void)
 	return (data);
 }
 
+void	play_game(t_master *data)
+{
+	mlx_key_hook(data->window, &key_hook, NULL);
+	mlx_loop_hook(data->window, &loop_hook, NULL);
+	mlx_loop(data->window);
+	mlx_terminate(data->window);
+}
+
 int	main(int ac, char **av)
 {
 	init_game(ac, av);
 
-//	...
-	t_ray *r = cast_ray(get_master()->player->vector, 0); //	0======== DEBUG ========0
-	free(r);
+	play_game(get_master());
 
 	printf("\n");
 	return (free_master());

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:51:15 by llord             #+#    #+#             */
-/*   Updated: 2023/06/07 11:10:31 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 13:38:18 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,7 @@ void	print_colours(void)
 		printf("Ceiling : missing\n");
 }
 
-void	print_player(void)
+void	print_entity(t_entity *e)
 {
-	t_entity	*p;
-
-	p = get_master()->player;
-
-	printf("\nPlayer with radius %.2f at (%.2f : %.2f) looking towards %.2f\n", p->radius, p->vector->x, p->vector->y, p->vector->d);
+	printf("\nEntity with radius %.2f at (%.2f : %.2f) looking towards %.2f\n", e->radius, e->vector->x, e->vector->y, e->vector->d);
 }
