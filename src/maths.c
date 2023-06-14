@@ -6,13 +6,12 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:36:32 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 12:40:56 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 12:54:37 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-//deplace dans maths.c
 void	find_ratios(t_ray *r)
 {
 	if (r->angle != -90 && r->angle != 90 && r->angle != 270 && r->angle != 450)

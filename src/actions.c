@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:46:03 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 12:19:36 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 12:58:39 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,25 @@ void	key_esc(void)
 
 void	mv_front(void)
 {
-	printf("W touched\n");
+	t_entity	*player;
+
+	player = get_master()->player;
+	move_entity(player, 0);
+
+	printf("New player position = %.3f : %.3f\n", player->vector->x, player->vector->y);
 	get_master()->should_refresh = true;
 	return ;
 }
 
 void	mv_back(void)
 {
-	printf("S touched\n");
+	t_entity	*player;
+
+	player = get_master()->player;
+	move_entity(player, 180);
+
+	printf("New player position = %.3f : %.3f\n", player->vector->x, player->vector->y);
 	get_master()->should_refresh = true;
-	return ;
 }
 
 void	turn_left(void)

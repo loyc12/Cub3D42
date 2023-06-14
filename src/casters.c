@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 11:28:17 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 13:12:41 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	find_first_ray_dists(t_ray *r)
 		if ((-90 <= r->angle && r->angle <= 90) || (270 <= r->angle && r->angle <= 450))
 		{
 //			printf("\nPositive x\n"); //	0======== DEBUG ========0
-			r->x_ray_dist = fabs(((r->player_pos->x) - floor(r->player_pos->x)) * r->x_to_ray_ratio); //	will crash at right angle
+			r->x_ray_dist = fabs((1 - ((r->player_pos->x) - floor(r->player_pos->x))) * r->x_to_ray_ratio);
 		}
 		else
 		{
 //			printf("\nNegative x\n"); //	0======== DEBUG ========0
-			r->x_ray_dist = fabs((1 - ((r->player_pos->x) - floor(r->player_pos->x))) * r->x_to_ray_ratio); //	will crash at right angle
+			r->x_ray_dist = fabs(((r->player_pos->x) - floor(r->player_pos->x)) * r->x_to_ray_ratio);
 		}
 	}
 	else
@@ -71,12 +71,12 @@ void	find_first_ray_dists(t_ray *r)
 		if ((0 <= r->angle && r->angle <= 180) || (360 <= r->angle && r->angle <= 540))
 		{
 //			printf("Positive y\n"); //	0======== DEBUG ========0
-			r->y_ray_dist = fabs(((r->player_pos->y) - floor(r->player_pos->y)) * r->y_to_ray_ratio);
+			r->y_ray_dist = fabs((1 - ((r->player_pos->y) - floor(r->player_pos->y))) * r->y_to_ray_ratio);
 		}
 		else
 		{
 //			printf("Negative y\n"); //	0======== DEBUG ========0
-			r->y_ray_dist = fabs((1 - ((r->player_pos->y) - floor(r->player_pos->y))) * r->y_to_ray_ratio); //	will crash at right angle
+			r->y_ray_dist = fabs(((r->player_pos->y) - floor(r->player_pos->y)) * r->y_to_ray_ratio);
 		}
 	}
 	else
@@ -154,7 +154,7 @@ t_slice	*cast_ray(t_vector *pos, double ray_angle)
 	r->angle = normalize_angle(ray_angle + pos->d); //	makse the ray angle absolute
 	r->player_pos = pos;
 
-	printf("Casting ray at angle : %.3f (%.3f)\n", r->angle, ray_angle); //		0======== DEBUG ========0
+//	printf("Casting ray at angle : %.3f (%.3f)\n", r->angle, ray_angle); //		0======== DEBUG ========0
 
 	find_ratios(r);
 	find_first_ray_dists(r);

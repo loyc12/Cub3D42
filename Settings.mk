@@ -27,6 +27,7 @@ FILES	=	actions \
 			initializers \
 			main \
 			maths \
+			movers \
 			readers \
 			slicers \
 			textures \

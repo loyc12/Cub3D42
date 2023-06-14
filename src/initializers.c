@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 12:42:02 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 13:01:56 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	init_player(void)
 		player->vector->d = 180;
 	if (data->player_dir == 'N')
 		player->vector->d = 270;
-
-	player->vector->d -= 45; //	0======== DEBUG ========0
 
 	data->player = player;
 

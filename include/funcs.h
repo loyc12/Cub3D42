@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 12:37:31 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/14 12:49:43 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int				find_hit_type(t_ray *r);
 void			find_first_ray_dists(t_ray *r);
 bool			evaluate_x_hits(t_ray *r);
 bool			evaluate_y_hits(t_ray *r);
-t_slice			*cast_ray(t_vector *pos, double ray_angle);
+t_slice			*cast_ray(t_vector *pos, double ray_angle);//
 
 //from checkers --- (5)
 bool			is_char_valid(char c);
@@ -106,8 +106,11 @@ t_tile			*find_tile(int x, int y);
 void			build_map(t_master *data);
 void			connect_map(void);
 
+//from mover
+void			move_entity(t_entity *e, double angle); //			blocks at wall
+
+
 //does_overlap_tile(entity, tile) //		checks for collision with walls
 //does_overlap_entity(entity, entity)		only if implementing enemies/objects(?)
-//move_entity(entity, direction) //			blocks at wall
 
 #endif //	FUNCS_H
