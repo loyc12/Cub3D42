@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   0_checkers.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:45:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:38:35 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:27:59 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,6 @@ bool	is_map_start(int i)
 	return (true);
 }
 
-//verifies each map character and the total map lenght
-void	check_map(void)
-{
-	t_master	*data;
-	int			i;
-
-	data = get_master();
-	i = -1;
-	while (data->level[i + 1] == '\n')
-		i++;
-	i = -1;
-	while (data->level[++i])
-	{
-		if (data->level[i] != '\n' && !is_char_valid(data->level[i]))
-			close_with_error(ERR_MAP_CHAR);
-	}
-	if (data->player_spawn_count != 1)
-		close_with_error(ERR_MAP_PLAYER);
-}
-
 //Verifies that the texture paths are valid
 void	check_assets(void)
 {
@@ -94,19 +74,27 @@ void	check_assets(void)
 	}
 }
 
+//Verifies colour validity (0 <= c.v <= 255)
+bool	is_colour_valid(int v)
+{
+	if (v < 0 || 255 < v)
+		return (false);
+	else
+		return (true);
+}
+
 //Verifies that the floor & ceiling colours are within bounds
 void	check_colours(void)
 {
-	t_master	*d;
+	t_colour	*cc;
+	t_colour	*cf;
 
-	d = get_master();
-	if (!(d->c_ceiling) || !(d->c_floor))
+	cc = get_master()->c_ceiling;
+	cf = get_master()->c_floor;
+	if (!cc || !cf)
 		close_with_error(ERR_FILE_SPECS);
-	if (d->c_ceiling->r > 255 || d->c_ceiling->g > 255 || d->c_ceiling->b > 255 \
-		||
-		d->c_floor->r > 255 || d->c_floor->g > 255 || d->c_floor->b > 255) \
+	if (!is_colour_valid(cc->r) || !is_colour_valid(cc->g) || !is_colour_valid(cc->b))
 		close_with_error(ERR_FILE_COLOR);
-	if (d->c_ceiling->r < 0 || d->c_ceiling->g < 0 || d->c_ceiling->b < 0 || \
-		d->c_floor->r < 0 || d->c_floor->g < 0 || d->c_floor->b < 0)
+	if (!is_colour_valid(cf->r) || !is_colour_valid(cf->g) || !is_colour_valid(cf->b))
 		close_with_error(ERR_FILE_COLOR);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   funcs.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:31:50 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:29:14 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 //from 0_checkers --- (5)
 bool			is_char_valid(char c);
 bool			is_map_start(int i);
-void			check_map(void);
 void			check_assets(void);
+bool			is_colour_valid(int v);
 void			check_colours(void);
 
 //from 0_coorders --- (4)
@@ -30,9 +30,10 @@ t_vector		*coords_to_vector(t_coords	*_c);
 void			flood_check(t_tile *tile);
 void			flood_check_map(void);
 
-//from 0_initializers --- (4)
+//from 0_initializers --- (5)
 void			init_player(void);
 void			init_window(void);
+void			check_map(void);
 void			init_map(void);
 void			init_game(int ac, char **av);
 

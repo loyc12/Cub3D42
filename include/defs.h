@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 10:12:54 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 10:32:39 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 
 // ======== DEFINITIONS ======== // RENAME THEM TO MORE CONSCISE AND READABLE NAMES
 
-# define ERR_INIT	"Process Error : Initialization failure" //				internal error
-# define ERR_ACTION	"Process Error : Invalid value given" //				internal error
-
+# define ERR_INIT		"Process Error : Initialization failure" //			internal error
 # define ERR_ARG_COUNT	"Input Error : Invalid argument count"
 
 # define ERR_FILE_LEVEL	"File Error : Invalid level file path" //			inexistant file or invalid perms
@@ -40,11 +38,7 @@
 
 // ======== CONSTANTS ======== //
 
-//rotation (1 rad ~= 57.3 deg)
-//# define RAD_TO_DEG	(double)PI / 180
-//# define DEG_TO_RAD	(double)180 / PI
-
-//translation (1 tile ~= 3m)
+//speeds (1 tile ~= 3m)
 # define WALK_SPEED		(double)0.20 //	walking speed (in tile/tic)
 # define TURN_SPEED		(double)3.0 //	turning speed (in deg/tic)
 # define RUN_FACTOR		(double)2.5 //	running speed (in tile/tic)
@@ -56,15 +50,14 @@
 # define ASSET_SIZE		(int)64 //		asset size (in pixels)
 # define ASSET_COUNT	(int)4 //		asset count
 
+# define PLAYER_RADIUS	(double)0.2
+
+//display
 # define SCREEN_WIDTH	(int)1536
 # define SCREEN_HEIGHT	(int)1152
 # define PIXEL_SIZE		(int)4 //		size of virtual pixels (in real pixels)
 
-# define PLAYER_RADIUS	(double)0.2
 # define PLAYER_FOV		(double)70
 # define P_FACTOR		(double)1
-
-//other
-//# define NO_CLIP	0 //			whether or not to ignore colision checks
 
 #endif // DEFS_H

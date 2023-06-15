@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   0_initializers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:41:13 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:28:10 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,26 @@ void	init_window(void)
 	data->fov_ratio /= sin((180 - (PLAYER_FOV / 2)) * M_PI / 360);
 	data->should_refresh = true;
 	make_canvas();
+}
+
+//verifies each map character and the total map lenght
+void	check_map(void)
+{
+	t_master	*data;
+	int			i;
+
+	data = get_master();
+	i = -1;
+	while (data->level[i + 1] == '\n')
+		i++;
+	i = -1;
+	while (data->level[++i])
+	{
+		if (data->level[i] != '\n' && !is_char_valid(data->level[i]))
+			close_with_error(ERR_MAP_CHAR);
+	}
+	if (data->player_spawn_count != 1)
+		close_with_error(ERR_MAP_PLAYER);
 }
 
 //creates the map grid from the map-info contained in d.level

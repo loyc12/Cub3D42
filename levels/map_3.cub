@@ -1,7 +1,7 @@
-NO  ./assets/face_1.png
-SO  ./assets/face_1.png
-WE  ./assets/side_1.png
-EA  ./assets/side_1.png
+NO  ./assets/container_n.png
+EA  ./assets/container_e.png
+SO  ./assets/container_s.png
+WE  ./assets/container_w.png
 
 C 64-64-64
 F 128,128,128
