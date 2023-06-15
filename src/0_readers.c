@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:05:27 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 09:41:43 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	read_file(int fd)
 	c = ft_calloc(1, sizeof(char *));
 	d = get_master();
 	d->level = ft_calloc(MAX_CHAR_COUNT, sizeof(char *));
-
 	i = -1;
 	while (++i < MAX_CHAR_COUNT)
 	{
@@ -46,7 +45,6 @@ void	read_level(char *path)
 	i = 0;
 	while (path[i])
 		i++;
-
 	fd = open(path, O_RDONLY);
 	if (ft_strncmp(&path[i - 4], ".cub", 5))
 		close_with_error(ERR_FILE_CUBE);
@@ -54,11 +52,9 @@ void	read_level(char *path)
 		close_with_error(ERR_FILE_LEVEL);
 	read_file(fd);
 	close(fd);
-
-	printf(">%s<\n\n", get_master()->level); //	0============ DEBUG ============0
-
 	get_info();
 	check_assets();
 	check_colours();
-
 }
+//	printf(">%s<\n\n", get_master()->level);
+			//	0============ DEBUG ============0

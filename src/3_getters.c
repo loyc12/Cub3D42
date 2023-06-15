@@ -6,21 +6,21 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:45:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:26:12 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:07:04 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 //gets a colour component from a line
-int	get_next_num(char *line, int *i) //					TODO : discriminate symbols (only digits, ',' and ' ')
+int	get_next_num(char *line, int *i)
 {
 	int	num;
 	int	j;
 
 	j = 0;
 	num = 0;
-	while (line[*i] && ft_isspace(line[*i])) //			skip spaces
+	while (line[*i] && ft_isspace(line[*i]))
 		(*i)++;
 	while (line[*i] && ft_isdigit(line[*i]))
 	{
@@ -32,52 +32,47 @@ int	get_next_num(char *line, int *i) //					TODO : discriminate symbols (only di
 	if (j == 0)
 		num = -1;
 	if (line[*i] && line[*i] != '\n')
-	(*i)++; //		skip the character right after the num
+		(*i)++;
 	return (num);
 }
 
 //extracts and returns the colour found in a given line
 void	get_colour(char *line, t_colour **c)
 {
-	int			i;
+	int	i;
 
-	if (*c) //		frees and voids previous colour
+	if (*c)
 		ft_free_null((void **)c);
-
 	*c = ft_calloc(1, sizeof(t_colour));
-	i = 2; // skips initial info
-
+	i = 2;
 	(*c)->r = get_next_num(line, &i);
 	(*c)->g = get_next_num(line, &i);
 	(*c)->b = get_next_num(line, &i);
-
 	while (line[i] && line[i] != '\n')
 	{
 		if (!ft_isspace(line[i]))
-			(*c)->r = -1; //		renders colour invalid if more than 3 nums on line
+			(*c)->r = -1;
 		i++;
 	}
-
 	i = 0;
 	while (line[i] && line[i] != '\n')
-		line[i++] = '\n'; //	voids everything
+		line[i++] = '\n';
 }
 
 //extracts and returns the path found in a given line
 void	get_texture(char *line, char **path)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
-	if (*path) //		frees and voids previous path
+	if (*path)
 		ft_free_null((void **)path);
-
-	i = 3; //					skips initial info
+	i = 3;
 	while (line[i] && ft_isspace(line[i]))
-		i++; //					skips initial spaces
+		i++;
 	j = 0;
 	while (line[i + j] && !ft_isspace(line[i + j]) && line[i + j] != '\n')
-		j++; //					finds the lenght of the path string
+		j++;
 	if (j > 0)
 	{
 		*path = ft_calloc(j + 1, sizeof(char));
@@ -85,7 +80,7 @@ void	get_texture(char *line, char **path)
 	}
 	i = 0;
 	while (line[i] && line[i] != '\n')
-		line[i++] = '\n'; //	voids everything
+		line[i++] = '\n';
 }
 
 //parses the non-map info from d.level and voids it (replaces it by \n)
@@ -97,7 +92,6 @@ void	get_info(void)
 	d = get_master();
 	d->t_paths = ft_calloc(ASSET_COUNT + 1, sizeof(char *));
 	i = -1;
-
 	while (d->level[++i])
 	{
 		if (!ft_strncmp(&(d->level[i]), "NO ", 3))
@@ -112,7 +106,6 @@ void	get_info(void)
 			get_colour(&(d->level[i]), &(d->c_ceiling));
 		else if (!ft_strncmp(&(d->level[i]), "F ", 2))
 			get_colour(&(d->level[i]), &(d->c_floor));
-
 		if (is_map_start(i))
 			break ;
 		else

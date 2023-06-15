@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:07:08 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 09:38:50 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_coords	*coords_copy(t_coords *_c)
 }
 
 //creates a vector at the center of a tile (from its coords)
-t_vector	*coords_to_vector(t_coords	*_c)
+t_vector	*coords_to_vector(t_coords *_c)
 {
 	t_vector	*v;
 
@@ -39,7 +39,6 @@ void	flood_check(t_tile *tile)
 {
 	if (!tile)
 		close_with_error(ERR_MAP_BOUND);
-
 	if (tile->fff == 0)
 	{
 		tile->fff++;
@@ -59,7 +58,6 @@ void	flood_check_map(void)
 	t_tile	*tile;
 
 	tile = get_master()->spawn;
-
 	tile->fff = 0;
 	flood_check(tile->north);
 	flood_check(tile->east);

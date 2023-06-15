@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:36:32 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:12:54 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 09:42:41 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	find_ratios(t_ray *r)
 		r->ray_to_y_ratio = 0;
 		r->y_to_ray_ratio = INFINITY;
 	}
-
-//	printf("\nrtx : %.3f\n", r->ray_to_x_ratio); //	0======== DEBUG ========0
-//	printf("xtr : %.3f\n", r->x_to_ray_ratio); //	0======== DEBUG ========0
-//	printf("\nrty : %.3f\n", r->ray_to_y_ratio); //	0======== DEBUG ========0
-//	printf("ytr : %.3f\n", r->y_to_ray_ratio); //	0======== DEBUG ========0
 }
+//	0======== DEBUG ========0
+//	printf("\nrtx : %.3f\n", r->ray_to_x_ratio);
+//	printf("xtr : %.3f\n", r->x_to_ray_ratio);
+//	printf("\nrty : %.3f\n", r->ray_to_y_ratio);
+//	printf("ytr : %.3f\n", r->y_to_ray_ratio); 
 
 double	normalize_angle(double angle)
 {
@@ -49,7 +49,6 @@ double	normalize_angle(double angle)
 		angle += 360;
 	while (360 < angle)
 		angle -= 360;
-
 	return (angle);
 }
 
@@ -58,7 +57,6 @@ uint32_t	get_rgba(t_colour *c)
 	uint32_t	rgba;
 
 	rgba = (c->r << 24 | c->g << 16 | c->b << 8 | 255);
-
 	return (rgba);
 }
 

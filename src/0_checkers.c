@@ -6,7 +6,7 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:45:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:04:19 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 09:38:35 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,21 @@ bool	is_char_valid(char c)
 bool	is_map_start(int i)
 {
 	char	*level;
-	int		j; //			counts the number of valid chars
+	int		j;
 
 	level = get_master()->level;
 	j = 0;
 	while (level[i + j] && level[i + j] != '\n')
 	{
-		if (!ft_isspace(level[i + j])) //		ignores spaces
+		if (!ft_isspace(level[i + j]))
 		{
-			if (is_char_valid(level[i + j])) //	check if the line has only valid chars
+			if (is_char_valid(level[i + j]))
 				j++;
 			else
-				return (false); //				else its not the start of the map
+				return (false);
 		}
 		else
-			i++; //			doesn't count spaces as valid chars
+			i++;
 	}
 	if (j == 0)
 		return (false);
@@ -58,9 +58,8 @@ void	check_map(void)
 
 	data = get_master();
 	i = -1;
-	while (data->level[i + 1] == '\n') //	skips initial empty lines
+	while (data->level[i + 1] == '\n')
 		i++;
-
 	i = -1;
 	while (data->level[++i])
 	{
@@ -80,7 +79,7 @@ void	check_assets(void)
 
 	d = get_master();
 	i = 3;
-	while (i >= 0) // checks asset paths [1] to [4]
+	while (i >= 0)
 	{
 		if (d->t_paths[i])
 		{
@@ -103,11 +102,11 @@ void	check_colours(void)
 	d = get_master();
 	if (!(d->c_ceiling) || !(d->c_floor))
 		close_with_error(ERR_FILE_SPECS);
-	if (d->c_ceiling->r > 255 || d->c_ceiling->g > 255 || d->c_ceiling->b > 255 || \
-		d->c_floor->r > 255 || d->c_floor->g > 255 || d->c_floor->b > 255)
+	if (d->c_ceiling->r > 255 || d->c_ceiling->g > 255 || d->c_ceiling->b > 255 \
+		||
+		d->c_floor->r > 255 || d->c_floor->g > 255 || d->c_floor->b > 255) \
 		close_with_error(ERR_FILE_COLOR);
 	if (d->c_ceiling->r < 0 || d->c_ceiling->g < 0 || d->c_ceiling->b < 0 || \
 		d->c_floor->r < 0 || d->c_floor->g < 0 || d->c_floor->b < 0)
 		close_with_error(ERR_FILE_COLOR);
-
 }

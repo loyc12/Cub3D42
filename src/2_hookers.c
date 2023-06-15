@@ -6,13 +6,14 @@
 /*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:46:03 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:19:00 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:04:34 by alvachon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 //normal hook used during the game loop
+//	calculate the angle based on the fov
 void	loop_hook(void *param)
 {
 	t_master	*data;
@@ -24,11 +25,11 @@ void	loop_hook(void *param)
 	i = -data->half_width;
 	if (data->should_refresh)
 	{
-		while (i < data->half_width) //	calculate the angle based on the fov
+		while (i < data->half_width)
 		{
 			f = data->fov_ratio * i;
 			f *= sin((180 - f) * M_PI / 360);
-			draw_slice(cast_ray(data->player->vector, f), i); //	0======== DEBUG ========0
+			draw_slice(cast_ray(data->player->vector, f), i);
 			i++;
 		}
 		data->should_refresh = false;
