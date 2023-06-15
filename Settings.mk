@@ -15,23 +15,22 @@ TSTDIR		=	tests/
 SUBDIRS		=	\
 
 # Source file names (prefix their subdir if needed)
-FILES	=	actions \
-			casters \
-			checkers \
-			coorders \
+FILES	=	2_actions \
+			1_raycasters \
+			0_checkers \
+			0_coorders \
 			debugers \
-			flooders \
-			freeers \
-			getters \
-			hookers \
-			initializers \
+			4_freeers \
+			3_getters \
+			2_hookers \
+			0_initializers \
 			main \
-			maths \
-			movers \
-			readers \
-			slicers \
-			textures \
-			tilers \
+			1_maths \
+			2_movers \
+			0_readers \
+			3_slicers \
+			3_textures \
+			3_tilers \
 
 # Libraries (.a files) to include for compilation
 LIBS	=	./Libft42/libft.a \
