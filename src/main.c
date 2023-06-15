@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 12:12:38 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 13:09:13 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ t_master	*get_master(void)
 
 void	play_game(t_master *data)
 {
-	mlx_key_hook(data->window, &key_hook, NULL);
-	mlx_loop_hook(data->window, &loop_hook, NULL);
+	mlx_key_hook(data->window, &key_hook, data);
+	mlx_loop_hook(data->window, &loop_hook, data);
 	mlx_loop(data->window);
 	mlx_terminate(data->window);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   0_coorders.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:38:50 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:05:57 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-//duplicates the content of a coords struct into a new one, and returns it
+//Duplicate the content of a coords struct into a new one, and return it
 t_coords	*coords_copy(t_coords *_c)
 {
 	t_coords	*c;
@@ -23,7 +23,7 @@ t_coords	*coords_copy(t_coords *_c)
 	return (c);
 }
 
-//creates a vector at the center of a tile (from its coords)
+//Create a vector at the center of a tile (from its coords)
 t_vector	*coords_to_vector(t_coords *_c)
 {
 	t_vector	*v;
@@ -34,7 +34,7 @@ t_vector	*coords_to_vector(t_coords *_c)
 	return (v);
 }
 
-//recursively checks whether a room is next to void
+//Recursively checks whether a room is next to void
 void	flood_check(t_tile *tile)
 {
 	if (!tile)
@@ -52,7 +52,7 @@ void	flood_check(t_tile *tile)
 	}
 }
 
-//verifies that the map is closed around the player
+//Verify that the map is closed around the player
 void	flood_check_map(void)
 {
 	t_tile	*tile;

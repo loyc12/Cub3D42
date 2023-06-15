@@ -6,13 +6,13 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:45:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 12:08:24 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 14:04:30 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-//checks the validity of a map character
+//Check the validity of a map character
 bool	is_char_valid(char c)
 {
 	if (c == ' ' || c == '0' || c == '1')
@@ -25,7 +25,7 @@ bool	is_char_valid(char c)
 	return (false);
 }
 
-//checks if the line at level[start] is the begining of the map
+//Check if the line at level[start] is the start of the map
 bool	is_map_start(int i)
 {
 	char	*level;
@@ -50,7 +50,7 @@ bool	is_map_start(int i)
 	return (true);
 }
 
-//Verifies that the texture paths are valid
+//Check validity of texture path
 void	check_assets(void)
 {
 	t_master	*d;
@@ -69,15 +69,16 @@ void	check_assets(void)
 				close_with_error(ERR_FILE_ASSET);
 			close(fd);
 			d->textures[i] = make_texture(d->t_paths[i]);
+			if (!d->textures[i])
+				close_with_error(ERR_FILE_ASSET);
 		}
 		else
 			close_with_error(ERR_FILE_SPECS);
 		i--;
 	}
 }
-//	printf("Initialized texture : %s\n", d->t_paths[i]); //	0============ DEBUG ============0
 
-//Verifies colour validity (0 <= c.v <= 255)
+//Check colour validity (0 <= c.v <= 255)
 bool	is_colour_valid(int v)
 {
 	if (v < 0 || 255 < v)
@@ -86,7 +87,7 @@ bool	is_colour_valid(int v)
 		return (true);
 }
 
-//Verifies that the floor & ceiling colours are within bounds
+//Check floor & ceiling colours are inbounds
 void	check_colours(void)
 {
 	t_colour	*cc;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   0_readers.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:41:43 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:01:03 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	read_level(char *path)
 	int	fd;
 	int	i;
 
+	fd = open(path, O_RDONLY);
 	i = 0;
 	while (path[i])
 		i++;
-	fd = open(path, O_RDONLY);
 	if (ft_strncmp(&path[i - 4], ".cub", 5))
 		close_with_error(ERR_FILE_CUBE);
 	if (fd <= 0)
@@ -56,5 +56,3 @@ void	read_level(char *path)
 	check_assets();
 	check_colours();
 }
-//	printf(">%s<\n\n", get_master()->level);
-			//	0============ DEBUG ============0

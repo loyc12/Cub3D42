@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 12:31:49 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 13:39:43 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct mlx_texture
 }	mlx_texture_t;
 */
 
-//initializes a single mlx image
+//initializes a mlx texture from a png
 mlx_texture_t	*make_texture(char *path)
 {
 	mlx_texture_t	*texture;

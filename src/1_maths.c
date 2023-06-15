@@ -6,12 +6,13 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:36:32 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 11:21:23 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 14:06:34 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+//Finds the size ratio of the angle when projected on the x | y axis
 void	find_ratios(t_ray *r)
 {
 	if (r->angle != -90 && r->angle != 90 && r->angle != 270 && r->angle != 450)
@@ -37,12 +38,8 @@ void	find_ratios(t_ray *r)
 		r->y_to_ray_ratio = INFINITY;
 	}
 }
-//	0======== DEBUG ========0
-//	printf("\nrtx : %.3f\n", r->ray_to_x_ratio);
-//	printf("xtr : %.3f\n", r->x_to_ray_ratio);
-//	printf("\nrty : %.3f\n", r->ray_to_y_ratio);
-//	printf("ytr : %.3f\n", r->y_to_ray_ratio);
 
+//Caps the angles above 0 and bellow 360
 double	normalize_angle(double angle)
 {
 	while (angle <= 0)
@@ -52,14 +49,17 @@ double	normalize_angle(double angle)
 	return (angle);
 }
 
+//Converts a colour struct into a uin32 for mlx usage
 uint32_t	get_rgba(t_colour *c, double scale)
 {
 	uint32_t	rgba;
 
-	rgba = ((int)(c->r * scale) << 24 | (int)(c->g * scale) << 16 | (int)(c->b * scale) << 8 | 255);
+	rgba = ((int)(c->r * scale) << 24 | (int)(c->g * scale) << 16 | \
+	 (int)(c->b * scale) << 8 | 255);
 	return (rgba);
 }
 
+//rounds of a double at a given fractional value
 double	set_precision(double value, long precision)
 {
 	return (floor(value * precision) / precision);

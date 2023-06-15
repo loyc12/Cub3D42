@@ -1,4 +1,10 @@
+NO  ./assets/hedge_n.png
+EA  ./assets/hedge_e.png
+SO  ./assets/hedge_s.png
+WE  ./assets/hedge_w.png
 
+C 64-128-255
+F 192,128,64
 
 
  111

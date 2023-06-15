@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   3_getters.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:45:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 10:07:04 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:02:53 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-//gets a colour component from a line
+//Get a colour component from a line
 int	get_next_num(char *line, int *i)
 {
 	int	num;
@@ -36,7 +36,7 @@ int	get_next_num(char *line, int *i)
 	return (num);
 }
 
-//extracts and returns the colour found in a given line
+//Extract and return the colour found in a given line
 void	get_colour(char *line, t_colour **c)
 {
 	int	i;
@@ -59,7 +59,7 @@ void	get_colour(char *line, t_colour **c)
 		line[i++] = '\n';
 }
 
-//extracts and returns the path found in a given line
+//Extract and return the path found in a given line
 void	get_texture(char *line, char **path)
 {
 	int	i;
@@ -83,7 +83,7 @@ void	get_texture(char *line, char **path)
 		line[i++] = '\n';
 }
 
-//parses the non-map info from d.level and voids it (replaces it by \n)
+//Parse the non-map info from d.level and voids it (replaces it by \n)
 void	get_info(void)
 {
 	t_master	*d;

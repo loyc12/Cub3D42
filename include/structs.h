@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 11:57:52 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 13:07:35 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,15 @@ typedef struct s_master
 
 	double			fov_ratio;
 
+	//movements
+	bool			move_front;
+	bool			move_right;
+	bool			move_back;
+	bool			move_left;
+	bool			turn_right;
+	bool			turn_left;
+	bool			run;
+
 	//environments
 	t_tile			**tiles; //				the game board itself
 
@@ -149,7 +158,6 @@ typedef struct s_master
 	int				player_spawn_count; //	player flag for map parsing
 	int				master_state; //		what the sim doin
 	bool			should_refresh;
-	bool			run;
 
 }					t_master;
 

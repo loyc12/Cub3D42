@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 11:17:39 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 13:53:39 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,5 @@ typedef enum e_ttype
 	TTYPE_ROOM	= 0,
 	TTYPE_WALL	= 1
 }			t_ttype;
-
-/*
-//entity type (how should we interact with this entity)
-typedef enum e_etype
-{
-	ETYPE_DEBUG		= 0,
-	ETYPE_PLAYER	= 1,
-	ETYPE_ENEMY		= 2
-}			t_etype;
-*/
 
 #endif //	ENUMS_H

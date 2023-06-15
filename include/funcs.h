@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 12:40:13 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 13:54:38 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,12 @@ void			turn_left(void);
 void			turn_right(void);
 
 //from 2_hookers  --- (2)
+void			apply_movements(t_master *data);
 void			loop_hook(void *param);
 void			key_hook(mlx_key_data_t keydata, void *param);
 
 //from 2_movers  --- (3)
-int	            get_tile_type(double x, double y);
+int				get_tile_type(double x, double y);
 int				check_colision(t_entity *e, double dx, double dy);
 void			move_entity(t_entity *e, double angle); //			blocks at wall
 
@@ -111,12 +112,5 @@ int				main(int ac, char **av);
 mlx_texture_t	*make_texture(char *path);
 void			find_texture_pos(t_ray *r);
 t_colour		get_texture_colour(t_slice *s, double h);
-
-
-
-
-
-//does_overlap_tile(entity, tile) //		checks for collision with walls
-//does_overlap_entity(entity, entity)		only if implementing enemies/objects(?)
 
 #endif //	FUNCS_H
