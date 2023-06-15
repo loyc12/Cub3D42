@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 13:53:39 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 14:55:08 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef enum e_mstate
 	MSTATE_RUNNING	= 1,
 	MSTATE_RESTART	= 2,
 	MSTATE_ENDING	= 3
-
 }			t_mstate;
 
 //texture ID (the index of the texture in the asset array)

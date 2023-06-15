@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 13:39:43 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 14:58:26 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ t_colour	get_texture_colour(t_slice *s, double h)
 	t = get_master()->textures[s->hit_dir];
 	x = (int)floor(s->texture_pos * t->width);
 	y = (int)floor(h * t->height);
-
 	c.r = t->pixels[0 + ((x + (y * t->width)) * t->bytes_per_pixel)];
 	c.g = t->pixels[1 + ((x + (y * t->width)) * t->bytes_per_pixel)];
 	c.b = t->pixels[2 + ((x + (y * t->width)) * t->bytes_per_pixel)];
-
 	return (c);
 }

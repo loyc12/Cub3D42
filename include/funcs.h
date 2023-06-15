@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 13:54:38 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 14:58:35 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void			key_hook(mlx_key_data_t keydata, void *param);
 //from 2_movers  --- (3)
 int				get_tile_type(double x, double y);
 int				check_colision(t_entity *e, double dx, double dy);
-void			move_entity(t_entity *e, double angle); //			blocks at wall
+void			move_entity(t_entity *e, double angle);
 
 //from 3_slicers --- (4)
 void			draw_square(int x, int y, int c);
@@ -93,15 +93,6 @@ void			free_tiles(t_master *data);
 void			free_entity(t_entity *entity);
 int				free_master(void);
 void			close_with_error(char *err);
-
-//from debugers
-void			print_tile(t_tile *tile);
-void			print_tiles(void);
-void			print_neighbours(t_tile *tile);
-void			announce_tile(t_tile *tile, char c);
-void			print_paths(void);
-void			print_colours(void);
-void			print_entity(t_entity *e);
 
 //from main
 t_master		*get_master(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3_tilers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 10:13:17 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:09:49 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,22 @@ t_tile	*create_tile(char c, t_coords *_coords)
 		tile->type = TTYPE_ERROR;
 	return (tile);
 }
-//	announce_tile(tile, c); // 			0======== DEBUG ========0
+
+void	increase_y(t_coords *coords)
+{
+	(coords->y)++;
+	(coords->x) = -1;
+}
 
 //creates the unconnected tiles for the map grid
-//makes the tile array longer than needed
-//skips initial empty lines
-//if newline: increments y and reset x
-//frees the tile coordinate template
-
 void	build_map(t_master *d)
 {
-	t_coords	*coords;
+	t_coords	coords;
 	int			i;
 	int			j;
 
-	coords = ft_calloc(1, sizeof(t_coords));
+	coords.x = 0;
+	coords.y = 0;
 	i = -1;
 	while (d->level[i + 1] == '\n')
 		i++;
@@ -57,19 +58,15 @@ void	build_map(t_master *d)
 	{
 		if (d->level[i] != '\n')
 		{
-			if (coords->x >= MAX_MAP_SIZE || coords->y >= MAX_MAP_SIZE)
+			if (coords.x >= MAX_MAP_SIZE || coords.y >= MAX_MAP_SIZE)
 				close_with_error(ERR_MAP_SIZE);
 			if (!ft_isspace(d->level[i]))
-				d->tiles[++j] = create_tile(d->level[i], coords);
+				d->tiles[++j] = create_tile(d->level[i], &coords);
 		}
 		else
-		{
-			(coords->y)++;
-			(coords->x) = -1;
-		}
-		(coords->x)++;
+			increase_y(&coords);
+		(coords.x)++;
 	}
-	ft_free_null(ADRS coords);
 }
 
 //finds a tile in d->tiles based on given x and y coords

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:46:03 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 13:15:12 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 14:56:05 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	key_esc(void)
 	mlx_close_window(get_master()->window);
 	return ;
 }
-//	printf("ESC touched\n");
 
 void	move_towards(double angle)
 {
@@ -27,7 +26,6 @@ void	move_towards(double angle)
 	move_entity(player, angle);
 	get_master()->should_refresh = true;
 }
-//	printf("New player position = %.3f : %.3f\n", player->vector->x, player->vector->y);
 
 void	turn_left(void)
 {
@@ -40,7 +38,6 @@ void	turn_left(void)
 		pv->d = normalize_angle(pv->d - TURN_SPEED);
 	get_master()->should_refresh = true;
 }
-//printf("New player angle : %.3f\n", pv->d); //	0======== DEBUG ========0
 
 void	turn_right(void)
 {
@@ -53,4 +50,3 @@ void	turn_right(void)
 		pv->d = normalize_angle(pv->d + TURN_SPEED);
 	get_master()->should_refresh = true;
 }
-//	printf("New player angle : %.3f\n", pv->d); //	0======== DEBUG ========0

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 12:06:29 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 14:57:53 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	free_tiles(t_master *data)
 		i = -1;
 		while (data->tiles[++i])
 		{
-			//free the stuff inside the tiles here
 			ft_free_null(ADRS data->tiles[i]->coords);
 			ft_free_null(ADRS data->tiles[i]);
 		}
@@ -63,18 +62,14 @@ int	free_master(void)
 
 	data = get_master();
 	state = data->master_state;
-
-	//free the stuff inside d here
-
 	free_tiles(data);
 	free_textures(data);
 	free_entity(data->player);
-
 	ft_free_null(ADRS data->level);
 	ft_free_null(ADRS data->c_ceiling);
 	ft_free_null(ADRS data->c_floor);
 	ft_free_array(ADRS2 data->t_paths);
-	ft_free_null(ADRS data); //		MUST BE LAST FREED
+	ft_free_null(ADRS data);
 	return (state);
 }
 

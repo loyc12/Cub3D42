@@ -20,7 +20,6 @@ FILES	=	2_actions \
 			1_raycasters \
 			0_checkers \
 			0_coorders \
-			debugers \
 			4_freeers \
 			3_getters \
 			2_hookers \
