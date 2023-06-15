@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   1_maths.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:36:32 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:42:41 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 11:21:23 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	find_ratios(t_ray *r)
 //	printf("\nrtx : %.3f\n", r->ray_to_x_ratio);
 //	printf("xtr : %.3f\n", r->x_to_ray_ratio);
 //	printf("\nrty : %.3f\n", r->ray_to_y_ratio);
-//	printf("ytr : %.3f\n", r->y_to_ray_ratio); 
+//	printf("ytr : %.3f\n", r->y_to_ray_ratio);
 
 double	normalize_angle(double angle)
 {
@@ -52,11 +52,11 @@ double	normalize_angle(double angle)
 	return (angle);
 }
 
-uint32_t	get_rgba(t_colour *c)
+uint32_t	get_rgba(t_colour *c, double scale)
 {
 	uint32_t	rgba;
 
-	rgba = (c->r << 24 | c->g << 16 | c->b << 8 | 255);
+	rgba = ((int)(c->r * scale) << 24 | (int)(c->g * scale) << 16 | (int)(c->b * scale) << 8 | 255);
 	return (rgba);
 }
 

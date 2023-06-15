@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   1_raycasters.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:52:52 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:52:08 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	find_first_ray_dists(t_ray *r)
 //	increment distance in x
 bool	evaluate_x_hits(t_ray *r)
 {
+	r->is_checking_x = true;
 	while (r->x_ray_dist <= r->y_ray_dist)
 	{
 		r->x_coord = r->player_pos->x + (r->x_ray_dist * r->ray_to_x_ratio);
@@ -116,6 +117,7 @@ bool	evaluate_x_hits(t_ray *r)
 //	increment distance in y
 bool	evaluate_y_hits(t_ray *r)
 {
+	r->is_checking_x = false;
 	while (r->y_ray_dist <= r->x_ray_dist)
 	{
 		r->x_coord = r->player_pos->x + (r->y_ray_dist * r->ray_to_x_ratio);
@@ -154,22 +156,11 @@ t_slice	*cast_ray(t_vector *pos, double ray_angle)
 	while (true)
 	{
 		if (evaluate_x_hits(r))
-		{
-			if (0 <= r->ray_to_x_ratio)
-				r->hit_dir = 1;
-			else
-				r->hit_dir = 3;
 			break ;
-		}
 		if (evaluate_y_hits(r))
-		{
-			if (0 <= r->ray_to_y_ratio)
-				r->hit_dir = 2;
-			else
-				r->hit_dir = 0;
 			break ;
-		}
 	}
+	find_texture_pos(r);
 	return (create_slice(r, ray_angle));
 }
 

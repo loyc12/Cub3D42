@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   4_freeers.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 09:28:35 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:59:35 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	free_master(void)
 	ft_free_array(ADRS2 data->t_paths);
 //	if (data->window)
 //		mlx_terminate(data->window);
+//void mlx_delete_texture(mlx_texture_t* texture);
 	ft_free_null(ADRS data); //		MUST BE LAST FREED
 	return (state);
 }

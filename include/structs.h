@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/14 14:27:51 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 11:57:52 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,6 @@ typedef struct s_vector
 	double	d; //	degree
 
 }			t_vector;
-
-//data for a given asset
-typedef struct s_asset
-{
-	//static
-	int			id; //		tid / index in array
-
-	//dynamic
-	mlx_image_t	*image; //	current texture
-
-}			t_asset;
 
 //base component of the map
 typedef struct s_tile
@@ -87,7 +76,7 @@ typedef struct s_colour
 
 }			t_colour;
 
-//colour for floor and ceiling // MAYBE ALREADY EXISTS IN MLX LIB
+//...
 typedef struct s_ray
 {
 	t_vector	*player_pos;
@@ -104,6 +93,7 @@ typedef struct s_ray
 
 	bool		ignore_x;
 	bool		ignore_y;
+	bool		is_checking_x;
 
 	//x|y coords of the current hit check
 	double		x_coord; //	final coord
@@ -119,6 +109,7 @@ typedef struct s_ray
 //...
 typedef struct s_slice
 {
+	double			dist;
 	double			size; //		~ 1 / hit distance
 	int				hit_type; //	hit tile type
 	int				hit_dir;
@@ -131,35 +122,35 @@ typedef struct s_slice
 typedef struct s_master
 {
 	//level infos (paths and colours)
-	char		*level; //				where to store the raw .cub info
-	int			map_start;
-	t_colour	*c_ceiling; //			ceiling colour
-	t_colour	*c_floor; //			floor colour
-	char		**t_paths;
+	char			*level; //				where to store the raw .cub info
+	int				map_start;
+	t_colour		*c_ceiling; //			ceiling colour
+	t_colour		*c_floor; //			floor colour
+	char			**t_paths;
 
 	//graphics
-	mlx_t		*window; //				the mlx for the window
-	mlx_image_t	*canvas;
-	int			half_height; //			half the height of the screen in PIXEL_SIZE
-	int			half_width; //			half the width of the screen in PIXEL_SIZE
+	mlx_t			*window; //				the mlx for the window
+	mlx_image_t		*canvas;
+	mlx_texture_t	**textures; //			array with all the textures
+	int				half_height; //			half the height of the screen in PIXEL_SIZE
+	int				half_width; //			half the width of the screen in PIXEL_SIZE
 
-	double		fov_ratio;
-//	t_asset		**assets; //			array with all the assets
+	double			fov_ratio;
 
 	//environments
-	t_tile		**tiles; //				the game board itself
+	t_tile			**tiles; //				the game board itself
 
 	//entities
-	t_tile		*spawn; //				pointer to spawn tile
-	char		player_dir;
-	t_entity	*player; //				player entity
+	t_tile			*spawn; //				pointer to spawn tile
+	char			player_dir;
+	t_entity		*player; //				player entity
 
 	//meta
-	int			player_spawn_count; //	player flag for map parsing
-	int			master_state; //		what the sim doin
-	bool		should_refresh;
-	bool		run;
+	int				player_spawn_count; //	player flag for map parsing
+	int				master_state; //		what the sim doin
+	bool			should_refresh;
+	bool			run;
 
-}				t_master;
+}					t_master;
 
 #endif // STRUCTS_H

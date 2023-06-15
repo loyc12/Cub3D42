@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 10:32:39 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 11:50:59 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@
 //display
 # define SCREEN_WIDTH	(int)1536
 # define SCREEN_HEIGHT	(int)1152
-# define PIXEL_SIZE		(int)4 //		size of virtual pixels (in real pixels)
+# define PIXEL_SIZE		(int)4 //		(1 to 32)	size of virtual pixels (in real pixels)
 
-# define PLAYER_FOV		(double)70
-# define P_FACTOR		(double)1
+# define PLAYER_FOV		(double)70 //	(10 to 100)	field of view
+# define S_FACTOR		(double)0.5 //	(0 to 1)	how much shading the walls, floor and ceiling get
 
 #endif // DEFS_H

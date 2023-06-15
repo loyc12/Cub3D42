@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 10:29:14 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 11:22:11 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void			read_level(char *path);
 //from 1_maths.c  --- (4)
 void			find_ratios(t_ray *r);
 double			normalize_angle(double angle);
-uint32_t		get_rgba(t_colour *c);
+uint32_t		get_rgba(t_colour *c, double scale);
 double			set_precision(double value, long precision);
 
 //from 1_raycasters --- (5)
@@ -109,6 +109,7 @@ int				main(int ac, char **av);
 
 //from textures
 mlx_texture_t	*make_texture(char *path);
+void			find_texture_pos(t_ray *r);
 
 
 
