@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 08:55:54 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 10:59:35 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 12:06:29 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@ void	free_tiles(t_master *data)
 			ft_free_null(ADRS data->tiles[i]);
 		}
 		ft_free_null(ADRS data->tiles);
+	}
+}
+
+//tries to free every tile
+void	free_textures(t_master *data)
+{
+	int		i;
+
+	if (data->textures)
+	{
+		i = -1;
+		while (data->textures[++i])
+		{
+			mlx_delete_texture(data->textures[i]);
+		}
+		ft_free_null(ADRS data->textures);
 	}
 }
 
@@ -51,15 +67,13 @@ int	free_master(void)
 	//free the stuff inside d here
 
 	free_tiles(data);
+	free_textures(data);
 	free_entity(data->player);
 
 	ft_free_null(ADRS data->level);
 	ft_free_null(ADRS data->c_ceiling);
 	ft_free_null(ADRS data->c_floor);
 	ft_free_array(ADRS2 data->t_paths);
-//	if (data->window)
-//		mlx_terminate(data->window);
-//void mlx_delete_texture(mlx_texture_t* texture);
 	ft_free_null(ADRS data); //		MUST BE LAST FREED
 	return (state);
 }

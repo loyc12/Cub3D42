@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 11:22:11 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 12:40:13 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void			move_entity(t_entity *e, double angle); //			blocks at wall
 
 //from 3_slicers --- (4)
 void			draw_square(int x, int y, int c);
-void			draw_slice(t_slice *slice, int screen_pos);
+void			draw_slice(t_master *d, t_slice *slice, int screen_pos);
 t_slice			*create_slice(t_ray *r, double angle);
 void			make_canvas(void);
 
@@ -110,6 +110,7 @@ int				main(int ac, char **av);
 //from textures
 mlx_texture_t	*make_texture(char *path);
 void			find_texture_pos(t_ray *r);
+t_colour		get_texture_colour(t_slice *s, double h);
 
 
 

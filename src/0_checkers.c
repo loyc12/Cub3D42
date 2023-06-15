@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:45:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 10:27:59 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 12:08:24 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	check_assets(void)
 	int			i;
 
 	d = get_master();
+	d->textures = ft_calloc(ASSET_COUNT + 1, sizeof(mlx_texture_t));
 	i = 3;
 	while (i >= 0)
 	{
@@ -67,12 +68,14 @@ void	check_assets(void)
 			if (fd < 0)
 				close_with_error(ERR_FILE_ASSET);
 			close(fd);
+			d->textures[i] = make_texture(d->t_paths[i]);
 		}
 		else
 			close_with_error(ERR_FILE_SPECS);
 		i--;
 	}
 }
+//	printf("Initialized texture : %s\n", d->t_paths[i]); //	0============ DEBUG ============0
 
 //Verifies colour validity (0 <= c.v <= 255)
 bool	is_colour_valid(int v)

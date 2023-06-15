@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 11:57:20 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/15 12:45:35 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,37 @@ void	draw_square(int x, int y, int c)
 //		0======== DEBUG ========0
 
 //draws a macro pixel vertical line on the scr (0 is at the right of the center)
-void	draw_slice(t_slice *slice, int screen_pos)
+void	draw_slice(t_master *d, t_slice *slice, int screen_pos)
 {
-	t_master	*d;
+	t_colour	c;
 	int			y;
+	int			wall_y;
 	double		floor_shade;
 	double		wall_shade;
+
+	//wall_shade = (S_FACTOR / (slice->dist + 1)) + (1 - S_FACTOR);
+	wall_shade = (S_FACTOR / (2 * (slice->dist + 1))) + (1 - (S_FACTOR / 2));
+/*
 	uint32_t	wall_colour[4];
-
-
-	//0======== DEBUG ========0
-	d = get_master();
-
-	wall_shade = (S_FACTOR / (slice->dist + 1)) + (1 - S_FACTOR);
-	//ARRAY 4TEXT DANS STRUCT;
-
 	wall_colour[0] = ((int)(255 * wall_shade) << 24 | 0 << 16 | 0 << 8 | 255);
 	wall_colour[1] = ((int)(255 * wall_shade) << 24 | (int)(255 * wall_shade) << 16 | 0 << 8 | 255);
 	wall_colour[2] = (0 << 24 | (int)(255 * wall_shade) << 16 | 0 << 8 | 255);
 	wall_colour[3] = (0 << 24 | 0 << 16 | (int)(255 * wall_shade) << 8 | 255);
+*/
+
+
+	d = get_master();
 	y = -(d->half_height);
 	while (y < d->half_height)
 	{
 		floor_shade = fabs((double)y / (double)d->half_height * S_FACTOR) + (1 - S_FACTOR);
-
-		if ((slice->size * -d->half_height) <= y && y < (slice->size
-				* d->half_height))
-			draw_square(screen_pos, y, wall_colour[slice->hit_dir]); //		implement get_colour(texture, x, y)
+		wall_y = slice->size * d->half_height;
+		if (-wall_y <= y && y < wall_y)
+		{
+			c = get_texture_colour(slice, (double)(y + wall_y) / (2 * wall_y));
+			draw_square(screen_pos, y, get_rgba(&c, wall_shade));
+			//draw_square(screen_pos, y, wall_colour[slice->hit_dir]);
+		}
 		else if (y < 0)
 			draw_square(screen_pos, y, get_rgba(d->c_ceiling, ((2 - S_FACTOR) - floor_shade))); // makes the sky look better by inverting the shading
 		else

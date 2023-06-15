@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   2_hookers.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:46:03 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 10:04:34 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:40:24 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	loop_hook(void *param)
 		{
 			f = data->fov_ratio * i;
 			f *= sin((180 - f) * M_PI / 360);
-			draw_slice(cast_ray(data->player->vector, f), i);
+			draw_slice(data, cast_ray(data->player->vector, f), i);
 			i++;
 		}
 		data->should_refresh = false;
