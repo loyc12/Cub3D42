@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/16 12:20:11 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/16 13:27:04 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@
 // DISPLAY
 # define SCREEN_WIDTH (int)1536
 # define SCREEN_HEIGHT (int)1152
-# define PIXEL_SIZE (int)2 //		(1 to 32)
+# define PIXEL_SIZE (int)4 //		(1 to 32)
 //# define COLOUR_DEF (int)1 //		(1 to 32) slows rendering by ~10%
 // VIEW
 # define PLAYER_FOV (double)70 //	(10 to 100)	field of view
-# define S_FACTOR (double)0.67 //	(0 to 1)	shading range
+# define S_FACTOR (double)0.66 //	(0 to 1)	shading range
 
 #endif // DEFS_H

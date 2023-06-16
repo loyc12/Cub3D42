@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:45:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 14:02:53 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/16 13:26:44 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	get_next_num(char *line, int *i)
 		(*i)++;
 		j++;
 	}
-	if (j == 0)
+	if (j == 0) //		doesn't work with missing blue value (ex: 0,0, )
 		num = -1;
 	if (line[*i] && line[*i] != '\n')
 		(*i)++;
