@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   2_movers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvachon <alvachon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:36:32 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 10:05:26 by alvachon         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:30:58 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ int	check_colision(t_entity *e, double dx, double dy)
 		return (1);
 	return (0);
 }
-//	printf("Looking for tile : %.3f : %.3f\n", floor(x), floor(y));
-//	print_tile(tile); //	0======== DEBUG ========0
-//	print_entity(e); //	0======== DEBUG ========0
 
 void	move_entity(t_entity *e, double angle)
 {

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 15:04:37 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/16 10:36:56 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_slice	*create_slice(t_ray *r, double angle)
 		slice->size = 0;
 		return (ft_free_null(ADRS r), slice);
 	}
+	slice->hit_tile = r->hit_tile;
 	slice->dist = r->ray_dist * cos(M_PI * angle / 180);
 	slice->size = set_precision(1 / slice->dist, 1073741824);
 	slice->hit_type = r->hit_type;

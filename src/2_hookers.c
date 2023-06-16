@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:46:03 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 13:13:50 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/16 11:35:16 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,42 @@ void	loop_hook(void *param)
 	}
 }
 
+void	remove_wall(t_master *d)
+{
+	t_slice	*slice;
+
+	slice = cast_ray(d->player->vector, 0);
+	if (slice->hit_tile)
+		slice->hit_tile->type = TTYPE_ROOM;
+	d->should_refresh = true;
+}
+
+void	place_wall(t_master *d)
+{
+	t_slice	*slice;
+
+	slice = cast_ray(d->player->vector, 0);
+	if (slice->hit_tile)
+	{
+		if (slice->hit_dir == 0 && slice->hit_tile->south)
+			slice->hit_tile->south->type = TTYPE_WALL;
+		if (slice->hit_dir == 1 && slice->hit_tile->west)
+			slice->hit_tile->west->type = TTYPE_WALL;
+		if (slice->hit_dir == 2 && slice->hit_tile->north)
+			slice->hit_tile->north->type = TTYPE_WALL;
+		if (slice->hit_dir == 3 && slice->hit_tile->east)
+			slice->hit_tile->east->type = TTYPE_WALL;
+	}
+	d->should_refresh = true;
+}
+
+void	respawn_player(t_master *d)
+{
+	free(d->player->vector);
+	d->player->vector = coords_to_vector(d->spawn->coords);
+	d->should_refresh = true;
+}
+
 //key hook used during the game loop
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
@@ -75,5 +111,11 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 			d->turn_left = !d->turn_left;
 		if (keydata.key == MLX_KEY_LEFT_SHIFT && keydata.action != MLX_REPEAT)
 			d->run = !d->run;
+		if (keydata.key == MLX_KEY_SPACE && keydata.action != MLX_RELEASE)
+			remove_wall(d);
+		if (keydata.key == MLX_KEY_ENTER && keydata.action != MLX_RELEASE)
+			place_wall(d);
+		if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)
+			respawn_player(d);
 	}
 }

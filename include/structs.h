@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 14:54:46 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/16 10:38:22 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_ray
 	double		y_coord;
 	double		wall_pos;
 	double		angle;
+	t_tile		*hit_tile; // TODO : use tile info instead of struct's copies
 	int			hit_type;
 	int			hit_dir;
 	bool		ignore_x;
@@ -87,6 +88,7 @@ typedef struct s_slice
 {
 	double			dist;
 	double			size;
+	t_tile			*hit_tile; // TODO : use tile info instead of struct's copies
 	int				hit_type;
 	int				hit_dir;
 	mlx_texture_t	*texture;

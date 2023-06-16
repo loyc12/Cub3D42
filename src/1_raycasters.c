@@ -6,17 +6,15 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 15:02:11 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/16 11:31:36 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 //finds the tile from given x and y (and x and y directions) and rets its type
-//these prevent rounding errors
 int	find_hit_type(t_ray *r)
 {
-	t_tile	*hit_tile;
 	int		hit_x;
 	int		hit_y;
 
@@ -28,9 +26,9 @@ int	find_hit_type(t_ray *r)
 		hit_y = floor(r->y_coord - 0.00001);
 	else
 		hit_y = floor(r->y_coord + 0.00001);
-	hit_tile = find_tile(hit_x, hit_y);
-	if (hit_tile)
-		return (hit_tile->type);
+	r->hit_tile = find_tile(hit_x, hit_y);
+	if (r->hit_tile)
+		return (r->hit_tile->type);
 	else
 		return (TTYPE_ERROR);
 }

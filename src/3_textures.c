@@ -6,21 +6,11 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 14:58:26 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/16 11:30:42 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-/*
-typedef struct mlx_texture
-{
-	uint32_t	width;
-	uint32_t	height;
-	uint8_t		bytes_per_pixel;
-	uint8_t*	pixels;
-}	mlx_texture_t;
-*/
 
 //initializes a mlx texture from a png
 mlx_texture_t	*make_texture(char *path)
