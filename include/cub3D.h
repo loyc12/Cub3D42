@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 14:55:20 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/16 12:17:41 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,12 @@
 # include "structs.h"
 
 #endif // CUB3D_H
+
+/*
+
+	0======== BUGS ========0
+
+can sometime see through corners
+accepts colours without blue (ex: C 0,0)
+
+*/

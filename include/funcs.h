@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 14:58:35 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/16 12:01:27 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int				check_colision(t_entity *e, double dx, double dy);
 void			move_entity(t_entity *e, double angle);
 
 //from 3_slicers --- (4)
-void			draw_square(int x, int y, int c);
+void			draw_square(uint32_t x, uint32_t y, t_colour *c, double f);
 void			draw_slice(t_master *d, t_slice *slice, int screen_pos);
 t_slice			*create_slice(t_ray *r, double angle);
 void			make_canvas(void);

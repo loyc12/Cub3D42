@@ -6,17 +6,17 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/16 10:36:56 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/16 12:03:40 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 //draws a macro pixel on the screen (0:0 is at the bottom right of the center)
-void	draw_square(int x, int y, int c)
+void	draw_square(uint32_t x, uint32_t y, t_colour *c, double f)
 {
-	int	dx;
-	int	dy;
+	uint32_t	dx;
+	uint32_t	dy;
 
 	x = (PIXEL_SIZE * x) + (SCREEN_WIDTH / 2);
 	y = (PIXEL_SIZE * y) + (SCREEN_HEIGHT / 2);
@@ -26,8 +26,7 @@ void	draw_square(int x, int y, int c)
 		dx = 0;
 		while (dx < PIXEL_SIZE)
 		{
-			mlx_put_pixel(get_master()->canvas, (uint32_t)(x + dx), \
-				(uint32_t)(y + dy), (uint32_t)c);
+			mlx_put_pixel(get_master()->canvas, (x + dx), (y + dy), get_rgba(c, f));
 			dx++;
 		}
 		dy++;
@@ -53,13 +52,12 @@ void	draw_slice(t_master *d, t_slice *slice, int screen_pos)
 		if (-wall_y <= y && y < wall_y)
 		{
 			c = get_texture_colour(slice, (double)(y + wall_y) / (2 * wall_y));
-			draw_square(screen_pos, y, get_rgba(&c, wall_shade));
+			draw_square(screen_pos, y, &c, wall_shade);
 		}
 		else if (y < 0)
-			draw_square(screen_pos, y, get_rgba(d->c_ceiling, \
-				((2 - S_FACTOR) - floor_shade)));
+			draw_square(screen_pos, y, d->c_ceiling, ((2 - S_FACTOR) - floor_shade));
 		else
-			draw_square(screen_pos, y, get_rgba(d->c_floor, floor_shade));
+			draw_square(screen_pos, y, d->c_floor, floor_shade);
 	}
 	ft_free_null(ADRS slice);
 }

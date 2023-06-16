@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:36:32 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 14:59:00 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/16 12:19:48 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,20 @@ double	normalize_angle(double angle)
 	return (angle);
 }
 
+//Multiplies the colour value by a scale and rounds it to pixel size (for fun)
+int	get_colour_value(int c, double s)
+{
+	return ((((int)(c * s)))); // / COLOUR_DEF) * COLOUR_DEF); //	slows rendering by ~ 10%
+}
+
 //Converts a colour struct into a uin32 for mlx usage
 uint32_t	get_rgba(t_colour *c, double scale)
 {
 	uint32_t	rgba;
 
-	rgba = ((int)(c->r * scale) << 24 | (int)(c->g * scale) << 16 | \
-	(int)(c->b * scale) << 8 | 255);
+	rgba = (get_colour_value(c->r, scale) << 24 | \
+		get_colour_value(c->g, scale) << 16 | \
+		get_colour_value(c->b, scale) << 8 | 255);
 	return (rgba);
 }
 
