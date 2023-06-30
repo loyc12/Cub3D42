@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/16 12:03:40 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/30 11:54:20 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void	draw_slice(t_master *d, t_slice *slice, int screen_pos)
 		floor_shade = fabs((double)y / (double)d->half_height * \
 			S_FACTOR) + (1 - S_FACTOR);
 		wall_y = slice->size * d->half_height;
-		if (-wall_y <= y && y < wall_y)
+		if (-wall_y <= y && y < wall_y) //	aka if we are inside the "wall drawing space"
 		{
 			c = get_texture_colour(slice, (double)(y + wall_y) / (2 * wall_y));
 			draw_square(screen_pos, y, &c, wall_shade);
 		}
-		else if (y < 0)
+		else if (y < 0) //					draws the ceiling (inverted shading for sky effect)
 			draw_square(screen_pos, y, d->c_ceiling, ((2 - S_FACTOR) - floor_shade));
-		else
+		else //								draws the floor
 			draw_square(screen_pos, y, d->c_floor, floor_shade);
 	}
 	ft_free_null(ADRS slice);
@@ -74,7 +74,7 @@ t_slice	*create_slice(t_ray *r, double angle)
 	}
 	slice->hit_tile = r->hit_tile;
 	slice->dist = r->ray_dist * cos(M_PI * angle / 180);
-	slice->size = set_precision(1 / slice->dist, 1073741824);
+	slice->size = set_precision(1 / slice->dist, 1073741824); //	avoids jittery wall top/bottom
 	slice->hit_type = r->hit_type;
 	slice->hit_dir = r->hit_dir;
 	slice->texture_pos = r->wall_pos;
@@ -86,15 +86,15 @@ t_slice	*create_slice(t_ray *r, double angle)
 void	make_canvas(void)
 {
 	t_master	*d;
-	int			canvas_colour[4];
+	int			canvas_colour[4]; //	makes screen black on startup
 
 	canvas_colour[0] = 0;
 	canvas_colour[1] = 0;
 	canvas_colour[2] = 0;
 	canvas_colour[3] = 255;
 	d = get_master();
+
 	d->canvas = mlx_new_image(d->window, SCREEN_WIDTH, SCREEN_HEIGHT);
-	ft_memfset(d->canvas->pixels, canvas_colour, SCREEN_WIDTH
-		* d->canvas->height * BPP, 4);
+	ft_memfset(d->canvas->pixels, canvas_colour, SCREEN_WIDTH * d->canvas->height * BPP, 4);
 	mlx_image_to_window(d->window, d->canvas, 0, 0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3_tilers.c                                         :+:      :+:    :+:   */
+/*   tilers.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/15 15:09:49 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/30 12:12:41 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,20 @@ t_tile	*create_tile(char c, t_coords *_coords)
 	return (tile);
 }
 
-void	increase_y(t_coords *coords)
+//finds a tile in d->tiles based on given x and y coords
+t_tile	*find_tile(int x, int y)
 {
-	(coords->y)++;
-	(coords->x) = -1;
+	t_tile	**tiles;
+	int		i;
+
+	tiles = get_master()->tiles;
+	i = -1;
+	while (tiles[++i])
+	{
+		if (tiles[i]->coords->x == x && tiles[i]->coords->y == y)
+			return (tiles[i]);
+	}
+	return (NULL);
 }
 
 //creates the unconnected tiles for the map grid
@@ -64,25 +74,12 @@ void	build_map(t_master *d)
 				d->tiles[++j] = create_tile(d->level[i], &coords);
 		}
 		else
-			increase_y(&coords);
+		{
+			(coords.y)++;
+			(coords.x) = -1;
+		}
 		(coords.x)++;
 	}
-}
-
-//finds a tile in d->tiles based on given x and y coords
-t_tile	*find_tile(int x, int y)
-{
-	t_tile	**tiles;
-	int		i;
-
-	tiles = get_master()->tiles;
-	i = -1;
-	while (tiles[++i])
-	{
-		if (tiles[i]->coords->x == x && tiles[i]->coords->y == y)
-			return (tiles[i]);
-	}
-	return (NULL);
 }
 
 //connects tiles with their neighbours (creates the map grid)

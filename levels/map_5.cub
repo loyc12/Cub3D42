@@ -3,8 +3,8 @@ EA  ./assets/red_bricks.png
 SO  ./assets/gray_bricks.png
 WE  ./assets/wood.png
 
-C 64-128-255
-F 192,128,64
+C 192-196,196
+F 128,128?128
 
         1111111111111111111111111
         10000100001100000000000011

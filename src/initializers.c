@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   0_initializers.c                                   :+:      :+:    :+:   */
+/*   initializers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/16 10:06:13 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/30 12:05:13 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ void	init_player(void)
 	data->player = player;
 }
 
-//Also does the math for reducing the fisheye effect,
-//with the field of view ratio.
-//Added a trigger system to update the raycaster.
+//opens a blank window to draw on
 void	init_window(void)
 {
 	t_master	*data;
@@ -45,7 +43,7 @@ void	init_window(void)
 	data->half_width = (SCREEN_WIDTH / (PIXEL_SIZE * 2));
 	data->window = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "CUBE3D", false);
 	data->fov_ratio = ((PIXEL_SIZE * PLAYER_FOV) / SCREEN_WIDTH);
-	data->fov_ratio /= sin((180 - (PLAYER_FOV / 2)) * M_PI / 360);
+	data->fov_ratio /= sin((180 - (PLAYER_FOV / 2)) * M_PI / 360); // aproximately fixes the fish eye effect
 	data->should_refresh = true;
 	make_canvas();
 }
