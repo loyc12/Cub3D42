@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   2_actions.c                                        :+:      :+:    :+:   */
+/*   doers.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:46:03 by llord             #+#    #+#             */
-/*   Updated: 2023/06/30 11:57:53 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/30 12:29:08 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ void	key_esc(void)
 
 void	remove_wall(t_master *d)
 {
-	t_slice	*slice;
+	t_tile	*tile;
 
-	slice = cast_ray(d->player->vector, 0);
-	if (slice->hit_tile)
-		slice->hit_tile->type = TTYPE_ROOM;
+	tile = find_tile(d->player->vector->x, d->player->vector->y);
+	if (!tile || tile->type == TTYPE_ROOM)
+		tile = cast_ray(d->player->vector, 0)->hit_tile;
+	if (tile)
+		tile->type = TTYPE_ROOM;
 	d->should_refresh = true;
 }
 

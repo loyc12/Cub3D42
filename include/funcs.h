@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/30 12:14:25 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/30 12:22:50 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void			place_wall(t_master *d);
 void			respawn_player(t_master *d);
 
 //from drawers --- (4)
-void			draw_square(uint32_t x, uint32_t y, t_colour *c, double f);
+void			draw_square(int x, int y, t_colour *c, double f);
 void			draw_slice(t_master *d, t_slice *slice, int screen_pos);
 t_slice			*create_slice(t_ray *r, double angle);
 void			make_canvas(void);
@@ -84,6 +84,7 @@ void			find_ratios(t_ray *r);
 double			normalize_angle(double angle);
 int				get_colour_value(int c, double s);
 uint32_t		get_rgba(t_colour *c, double scale);
+uint32_t		get_reverse_rgba(t_colour *c, double scale);
 double			set_precision(double value, long precision);
 
 //from movers  --- (5)

@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/16 13:17:32 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/30 12:31:08 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,11 @@ accepts colours without blue (ex: C 0,0)
 
 	0======== IDEAS ========0
 
-be able to place walls on non-tiles
-use mouse to turn camera
+attach current tile to entities/player
+prevent placing tiles on entities
+be able to place walls on non-tiles (map borders)
+respawn in proper direction
+use mouse to turn cameras
 add a minimap
 add music & sounds
 

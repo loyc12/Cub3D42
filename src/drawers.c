@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3_slicers.c                                        :+:      :+:    :+:   */
+/*   drawers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/30 11:54:20 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/30 12:24:14 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 //draws a macro pixel on the screen (0:0 is at the bottom right of the center)
-void	draw_square(uint32_t x, uint32_t y, t_colour *c, double f)
+void	draw_square(int x, int y, t_colour *c, double f)
 {
 	uint32_t	dx;
 	uint32_t	dy;
+	bool		invert;
 
+	invert = false;
+	if ((x == -1 || x == 0) && (y == -1 || y == 0)) //	draws the middle screen cursor
+		invert = true;
 	x = (PIXEL_SIZE * x) + (SCREEN_WIDTH / 2);
 	y = (PIXEL_SIZE * y) + (SCREEN_HEIGHT / 2);
 	dy = 0;
@@ -26,7 +30,10 @@ void	draw_square(uint32_t x, uint32_t y, t_colour *c, double f)
 		dx = 0;
 		while (dx < PIXEL_SIZE)
 		{
-			mlx_put_pixel(get_master()->canvas, (x + dx), (y + dy), get_rgba(c, f));
+			if (!invert)
+				mlx_put_pixel(get_master()->canvas, (x + dx), (y + dy), get_rgba(c, f));
+			else
+				mlx_put_pixel(get_master()->canvas, (x + dx), (y + dy), get_reverse_rgba(c, f));
 			dx++;
 		}
 		dy++;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   1_maths.c                                          :+:      :+:    :+:   */
+/*   mathers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:36:32 by llord             #+#    #+#             */
-/*   Updated: 2023/06/16 12:19:48 by llord            ###   ########.fr       */
+/*   Updated: 2023/06/30 12:19:40 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,17 @@ uint32_t	get_rgba(t_colour *c, double scale)
 	rgba = (get_colour_value(c->r, scale) << 24 | \
 		get_colour_value(c->g, scale) << 16 | \
 		get_colour_value(c->b, scale) << 8 | 255);
+	return (rgba);
+}
+
+//Converts a colour struct into a uin32 for mlx usage, inverting each value around 255
+uint32_t	get_reverse_rgba(t_colour *c, double scale)
+{
+	uint32_t	rgba;
+
+	rgba = ((255 - get_colour_value(c->r, scale)) << 24 | \
+		(255 - get_colour_value(c->g, scale)) << 16 | \
+		(255 - get_colour_value(c->b, scale)) << 8 | 255);
 	return (rgba);
 }
 
