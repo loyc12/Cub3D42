@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/06/30 12:24:14 by llord            ###   ########.fr       */
+/*   Updated: 2023/07/04 15:41:17 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,37 @@ void	draw_slice(t_master *d, t_slice *slice, int screen_pos)
 	double		floor_shade;
 	double		wall_shade;
 
-	wall_shade = (S_FACTOR / (2 * (slice->dist + 1))) + (1 - (S_FACTOR / 2));
+	if (slice->dist < 1) //ensures a visibility distance of at least 1
+		wall_shade = 1;
+	else if (slice->dist - 1 <= SHADE_DISTANCE) //	makes walls darker the further they are
+		wall_shade = 1 - ((slice->dist - 1) / SHADE_DISTANCE);
+	else
+		wall_shade = 0;
+
 	y = -((d->half_height) + 1);
 	while (++y < d->half_height)
 	{
-		floor_shade = fabs((double)y / (double)d->half_height * \
-			S_FACTOR) + (1 - S_FACTOR);
+		floor_shade = fabs((double)y / (double)d->half_height * SHADE_FACTOR) + (1 - SHADE_FACTOR); //	??
 		wall_y = slice->size * d->half_height;
 		if (-wall_y <= y && y < wall_y) //	aka if we are inside the "wall drawing space"
 		{
 			c = get_texture_colour(slice, (double)(y + wall_y) / (2 * wall_y));
 			draw_square(screen_pos, y, &c, wall_shade);
 		}
-		else if (y < 0) //					draws the ceiling (inverted shading for sky effect)
-			draw_square(screen_pos, y, d->c_ceiling, ((2 - S_FACTOR) - floor_shade));
-		else //								draws the floor
-			draw_square(screen_pos, y, d->c_floor, floor_shade);
+		else if (y < 0) //		draws the ceiling
+		{
+			if (INV_SHADE_C)
+				draw_square(screen_pos, y, d->c_ceiling, ((2 - SHADE_FACTOR) - floor_shade));
+			else
+				draw_square(screen_pos, y, d->c_ceiling, floor_shade);
+		}
+		else //					draws the floor
+		{
+			if (INV_SHADE_F)
+				draw_square(screen_pos, y, d->c_floor, ((2 - SHADE_FACTOR) - floor_shade));
+			else
+				draw_square(screen_pos, y, d->c_floor, floor_shade);
+		}
 	}
 	ft_free_null(ADRS slice);
 }

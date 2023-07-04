@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/06/30 12:31:08 by llord            ###   ########.fr       */
+/*   Updated: 2023/07/04 15:28:31 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ respawn in proper direction
 use mouse to turn cameras
 add a minimap
 add music & sounds
+give voids its own texture
 
 */
