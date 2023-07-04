@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 12:56:01 by llord             #+#    #+#             */
-/*   Updated: 2023/07/04 15:44:15 by llord            ###   ########.fr       */
+/*   Updated: 2023/07/04 16:09:47 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@
 # define PLAYER_FOV (double)70 //		(10 to 100)	field of view
 # define SHADE_DISTANCE (double)32 //	(0 to 100)	wall shading distance (inverse strenght)
 # define SHADE_FACTOR (double)0.66 //	(0 to 1)	floor/ceiling shading strenght
-# define INV_SHADE_C (int)1 //			(0 or 1)	(inverted sky shading creates a better sky effect)
+# define INV_SHADE_C (int)1 //			(0 or 1)	(inverted ceiling shading creates a better sky effect)
 # define INV_SHADE_F (int)0 //			(0 or 1)
 
 #endif // DEFS_H
