@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3_textures.c                                       :+:      :+:    :+:   */
+/*   texturers.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:50:45 by llord             #+#    #+#             */
-/*   Updated: 2023/06/16 11:30:42 by llord            ###   ########.fr       */
+/*   Updated: 2023/07/11 17:22:40 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,20 @@ t_colour	get_texture_colour(t_slice *s, double h)
 	int				x;
 	int				y;
 
-	t = get_master()->textures[s->hit_dir];
-	x = (int)floor(s->texture_pos * t->width);
-	y = (int)floor(h * t->height);
-	c.r = t->pixels[0 + ((x + (y * t->width)) * t->bytes_per_pixel)];
-	c.g = t->pixels[1 + ((x + (y * t->width)) * t->bytes_per_pixel)];
-	c.b = t->pixels[2 + ((x + (y * t->width)) * t->bytes_per_pixel)];
+	if (s->hit_type == TTYPE_ERROR)
+	{
+		c.r = 0;
+		c.g = 0;
+		c.b = 0;
+	}
+	else
+	{
+		t = get_master()->textures[s->hit_dir];
+		x = (int)floor(s->texture_pos * t->width);
+		y = (int)floor(h * t->height);
+		c.r = t->pixels[0 + ((x + (y * t->width)) * t->bytes_per_pixel)];
+		c.g = t->pixels[1 + ((x + (y * t->width)) * t->bytes_per_pixel)];
+		c.b = t->pixels[2 + ((x + (y * t->width)) * t->bytes_per_pixel)];
+	}
 	return (c);
 }

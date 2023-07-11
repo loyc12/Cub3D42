@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:46:03 by llord             #+#    #+#             */
-/*   Updated: 2023/06/30 12:29:08 by llord            ###   ########.fr       */
+/*   Updated: 2023/07/11 17:24:25 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	place_wall(t_master *d)
 	t_slice	*slice;
 
 	slice = cast_ray(d->player->vector, 0);
-	if (slice->hit_tile)
+	if (slice->hit_tile) //						change me so that TTYPE_ERROR is handled (give slice x and y)
 	{
 		if (slice->hit_dir == 0 && slice->hit_tile->south)
 			slice->hit_tile->south->type = TTYPE_WALL;

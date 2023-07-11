@@ -6,7 +6,7 @@
 /*   By: llord <llord@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 11:57:50 by llord             #+#    #+#             */
-/*   Updated: 2023/07/04 15:41:17 by llord            ###   ########.fr       */
+/*   Updated: 2023/07/11 17:56:26 by llord            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	draw_slice(t_master *d, t_slice *slice, int screen_pos)
 	{
 		floor_shade = fabs((double)y / (double)d->half_height * SHADE_FACTOR) + (1 - SHADE_FACTOR); //	??
 		wall_y = slice->size * d->half_height;
-		if (-wall_y <= y && y < wall_y) //	aka if we are inside the "wall drawing space"
+		if (-wall_y <= y && y < wall_y && slice->hit_type != TTYPE_ERROR) //	aka if we are inside the "wall drawing space"
 		{
 			c = get_texture_colour(slice, (double)(y + wall_y) / (2 * wall_y));
 			draw_square(screen_pos, y, &c, wall_shade);
@@ -89,18 +89,17 @@ t_slice	*create_slice(t_ray *r, double angle)
 	t_slice	*slice;
 
 	slice = ft_calloc(1, sizeof(t_slice));
-	if (r->hit_type == TTYPE_ERROR)
-	{
-		slice->size = 0;
-		return (ft_free_null(ADRS r), slice);
-	}
+
 	slice->hit_tile = r->hit_tile;
+	slice->hit_type = r->hit_type; //								is -1 if hitting void tile
+	slice->hit_dir = r->hit_dir;
 	slice->dist = r->ray_dist * cos(M_PI * angle / 180);
 	slice->size = set_precision(1 / slice->dist, 1073741824); //	avoids jittery wall top/bottom
-	slice->hit_type = r->hit_type;
-	slice->hit_dir = r->hit_dir;
 	slice->texture_pos = r->wall_pos;
 	ft_free_null(ADRS r);
+
+	if (slice->hit_type == TTYPE_ERROR) //		makes void tiles transparent
+		slice->size = 0;
 	return (slice);
 }
 
