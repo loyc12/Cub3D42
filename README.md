@@ -1,0 +1,6 @@
+![starting the program](preview/1.png)
+![looking around 1](preview/2.png)
+![looking around 2](preview/3.png)
+![changing the scene in-game](preview/4.png)
+![changing the settings indefs.h](preview/5.png)
+![changing the level](preview/6.png)
